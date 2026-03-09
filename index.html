@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Español Trainer C1</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f1ee;
+  --surface: #fdfcfa;
+  --surface2: #ede8e2;
+  --surface3: #e4ddd6;
+  --accent: #7eb5a6;
+  --accent2: #5a9d8c;
+  --accent-dim: rgba(126,181,166,0.18);
+  --rose: #e8a0a8;
+  --rose-dim: rgba(232,160,168,0.2);
+  --sky: #8ab8d8;
+  --sky-dim: rgba(138,184,216,0.2);
+  --peach: #e8b490;
+  --peach-dim: rgba(232,180,144,0.2);
+  --lavender: #a8a0cc;
+  --lavender-dim: rgba(168,160,204,0.2);
+  --lemon: #c8c870;
+  --lemon-dim: rgba(200,200,112,0.15);
+  --text: #38332e;
+  --text-dim: #968e84;
+  --text-mid: #655d54;
+  --correct: #5a9e78;
+  --correct-bg: rgba(90,158,120,0.12);
+  --wrong: #c47878;
+  --wrong-bg: rgba(196,120,120,0.12);
+  --border: #ddd6ce;
+  --border2: #d4ccc4;
+  --radius: 14px;
+  --shadow: 0 2px 14px rgba(80,60,40,0.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+  padding: 0;
+  background-image:
+    radial-gradient(ellipse at 5% 0%, rgba(138,184,216,0.22) 0%, transparent 40%),
+    radial-gradient(ellipse at 95% 5%, rgba(168,160,204,0.18) 0%, transparent 35%),
+    radial-gradient(ellipse at 90% 95%, rgba(232,160,168,0.2) 0%, transparent 40%),
+    radial-gradient(ellipse at 10% 90%, rgba(126,181,166,0.18) 0%, transparent 35%);
+}
+
+/* LAYOUT */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  box-shadow: 2px 0 16px rgba(80,60,40,0.05);
+}
+
+.logo { text-align: center; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+
+/* REX ICON */
+.rex-icon {
+  width: 68px; height: 68px;
+  margin: 0 auto 0.6rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.rex-icon svg { width: 100%; height: 100%; }
+
+.logo h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.45rem;
+  color: var(--accent2);
+  line-height: 1.1;
+  font-weight: 600;
+}
+.logo p { color: var(--text-dim); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.3rem; }
+
+.filter-section h2 {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.75rem;
+}
+
+.filter-group { margin-bottom: 1.2rem; }
+.filter-group label { display: block; font-size: 0.75rem; color: var(--text-mid); margin-bottom: 0.35rem; font-weight: 600; }
+
+select, .multicheck {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%239a9088'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+select:focus { outline: none; border-color: var(--accent); }
+
+.tense-checks { display: flex; flex-direction: column; gap: 0.3rem; }
+.tense-check { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.82rem; color: var(--text-mid); padding: 0.3rem 0.5rem; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+.tense-check:hover { background: var(--surface2); color: var(--text); }
+.tense-check input { appearance: none; width: 15px; height: 15px; border: 1.5px solid var(--border2); border-radius: 4px; cursor: pointer; position: relative; flex-shrink: 0; transition: background 0.15s, border-color 0.15s; }
+.tense-check input:checked { background: var(--accent); border-color: var(--accent); }
+.tense-check input:checked::after { content: '✓'; position: absolute; top: -1px; left: 1px; font-size: 10px; color: white; font-weight: 800; }
+.tense-check.active { color: var(--text); }
+/* Per-tense checkbox colors */
+.tense-check[data-tense="presente"] input:checked         { background: #7ab5a6; border-color: #7ab5a6; }
+.tense-check[data-tense="preterito"] input:checked        { background: #7aa8c8; border-color: #7aa8c8; }
+.tense-check[data-tense="imperfecto"] input:checked       { background: #9890bc; border-color: #9890bc; }
+.tense-check[data-tense="futuro"] input:checked           { background: #c89068; border-color: #c89068; }
+.tense-check[data-tense="condicional"] input:checked      { background: #c87888; border-color: #c87888; }
+.tense-check[data-tense="subjpresente"] input:checked     { background: #a0a048; border-color: #a0a048; }
+.tense-check[data-tense="subjimperfecto"] input:checked   { background: #5a9888; border-color: #5a9888; }
+.tense-check[data-tense="imperativo"] input:checked       { background: #d49080; border-color: #d49080; }
+.tense-check[data-tense="perfecto"] input:checked         { background: #7898c8; border-color: #7898c8; }
+
+/* STATS in sidebar */
+.stats-panel { border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: auto; }
+.stats-panel h2 { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.75rem; }
+.stat-row { display: flex; justify-content: space-between; align-items: center; padding: 0.3rem 0; }
+.stat-name { font-size: 0.8rem; color: var(--text-mid); }
+.stat-val { font-family: 'Fraunces', serif; font-size: 1.1rem; color: var(--accent2); }
+.stat-pct { font-size: 0.85rem; color: var(--text-dim); margin-top: 0.3rem; text-align: right; }
+.streak { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-mid); margin-top: 0.5rem; }
+.streak-val { color: #d4804a; font-weight: 700; }
+
+/* MAIN */
+.main {
+  padding: 2.5rem 2.5rem 4rem;
+  max-width: 700px;
+}
+
+/* QUESTION CARD */
+.q-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem 2rem 1.5rem;
+  margin-bottom: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.q-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--sky), var(--accent), var(--lavender), var(--rose), var(--peach));
+  opacity: 0.7;
+  transition: background 0.4s ease;
+}
+.q-card.tense-presente::before    { background: linear-gradient(90deg, var(--accent), #80c8b8, var(--accent)); }
+.q-card.tense-preterito::before   { background: linear-gradient(90deg, var(--sky), #6ab0d8, var(--sky)); }
+.q-card.tense-imperfecto::before  { background: linear-gradient(90deg, var(--lavender), #b8b0dc, var(--lavender)); }
+.q-card.tense-futuro::before      { background: linear-gradient(90deg, var(--peach), #e8c890, var(--peach)); }
+.q-card.tense-condicional::before { background: linear-gradient(90deg, var(--rose), #f0b0b8, var(--rose)); }
+.q-card.tense-subjpresente::before    { background: linear-gradient(90deg, var(--lemon), #d8d890, var(--lemon)); }
+.q-card.tense-subjimperfecto::before  { background: linear-gradient(90deg, var(--accent), var(--sky), var(--accent)); }
+.q-card.tense-imperativo::before  { background: linear-gradient(90deg, var(--rose), var(--peach), var(--rose)); }
+.q-card.tense-perfecto::before    { background: linear-gradient(90deg, var(--sky), var(--lavender), var(--sky)); }
+
+.q-meta { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+.badge {
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.65rem;
+  border-radius: 20px;
+  border: 1.5px solid var(--border2);
+  color: var(--text-mid);
+  background: var(--surface2);
+  font-weight: 600;
+}
+.badge.irregular { border-color: rgba(126,181,166,0.6); color: var(--accent2); background: var(--accent-dim); }
+.badge.reflexive { border-color: rgba(168,160,204,0.6); color: var(--lavender); background: var(--lavender-dim); }
+.badge.tense-presente    { border-color: rgba(126,181,166,0.5); color: #4a8e7e; background: var(--accent-dim); }
+.badge.tense-preterito   { border-color: rgba(138,184,216,0.5); color: #4a88b8; background: var(--sky-dim); }
+.badge.tense-imperfecto  { border-color: rgba(168,160,204,0.5); color: #8878bc; background: var(--lavender-dim); }
+.badge.tense-futuro      { border-color: rgba(232,180,144,0.5); color: #c87840; background: var(--peach-dim); }
+.badge.tense-condicional { border-color: rgba(232,160,168,0.5); color: #b85060; background: var(--rose-dim); }
+.badge.tense-subjpresente    { border-color: rgba(200,200,112,0.5); color: #888830; background: var(--lemon-dim); }
+.badge.tense-subjimperfecto  { border-color: rgba(126,181,166,0.5); color: #3a7e6e; background: var(--accent-dim); }
+.badge.tense-imperativo  { border-color: rgba(232,160,168,0.5); color: #b85060; background: var(--rose-dim); }
+.badge.tense-perfecto    { border-color: rgba(138,184,216,0.5); color: #4a88b8; background: var(--sky-dim); }
+
+.q-prompt-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem; font-weight: 600; }
+
+.q-verb {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  color: var(--accent2);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+  font-style: italic;
+  font-weight: 300;
+}
+.q-verb-translation { font-size: 0.85rem; color: var(--text-dim); font-style: italic; margin-bottom: 1.5rem; }
+
+.q-pronoun {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.q-pronoun::before { content: '›'; color: var(--rose); font-size: 1.5rem; line-height: 1; }
+
+.input-row { display: flex; gap: 0.75rem; }
+
+input[type="text"] {
+  flex: 1;
+  background: var(--surface2);
+  border: 1.5px solid var(--border2);
+  color: var(--text);
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+input[type="text"]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(126,181,166,0.15); }
+input[type="text"].is-correct { border-color: var(--correct); background: var(--correct-bg); color: #3a7a58; }
+input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wrong-bg); }
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.85rem 1.75rem;
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  box-shadow: 0 3px 10px rgba(94,157,140,0.3);
+}
+.btn-primary:hover { background: var(--accent2); box-shadow: 0 4px 14px rgba(94,157,140,0.4); }
+.btn-primary:active { transform: scale(0.97); }
+
+.feedback-row {
+  min-height: 2rem;
+  margin-top: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.feedback-row.correct { color: var(--correct); }
+.feedback-row.wrong { color: var(--wrong); }
+.feedback-row .correct-form { color: var(--text); font-style: italic; font-weight: 400; }
+
+/* ACTION ROW */
+.action-row { display: flex; gap: 0.75rem; margin-bottom: 1.25rem; }
+.btn-secondary {
+  flex: 1;
+  background: var(--surface);
+  border: 1.5px solid var(--border2);
+  color: var(--text-mid);
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+  box-shadow: var(--shadow);
+}
+.btn-secondary:hover { color: var(--text); border-color: var(--accent); background: var(--accent-dim); }
+
+/* CONJUGATION TABLE */
+.conj-table {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  display: none;
+  box-shadow: var(--shadow);
+}
+.conj-table.open { display: block; }
+.conj-table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.conj-table-title { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); font-weight: 700; }
+.conj-table-close { background: var(--surface2); border: 1px solid var(--border); color: var(--text-mid); cursor: pointer; font-size: 0.85rem; padding: 0.2rem 0.55rem; border-radius: 6px; }
+.conj-table-close:hover { color: var(--text); }
+.tense-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.tense-tab {
+  font-size: 0.72rem;
+  padding: 0.28rem 0.65rem;
+  border: 1.5px solid var(--border2);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text-mid);
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+.tense-tab:hover { color: var(--text); border-color: var(--text-mid); }
+.tense-tab.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent2); }
+.conj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem; }
+.conj-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.42rem 0.7rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+}
+.conj-row.hl { background: var(--accent-dim); }
+.conj-pron { color: var(--text-dim); font-size: 0.8rem; }
+.conj-form { color: var(--text); font-weight: 600; }
+.conj-form.hl { color: var(--accent2); }
+
+/* PROGRESS BAR */
+.progress-wrap { margin-bottom: 2rem; }
+.progress-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.5rem; letter-spacing: 0.05em; font-weight: 600; }
+.progress-bar { height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--lavender)); border-radius: 4px; transition: width 0.5s ease; }
+
+/* VERB COUNT BADGE */
+.verb-count {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  font-size: 0.76rem;
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  box-shadow: var(--shadow);
+  font-weight: 600;
+}
+.verb-count span { color: var(--accent2); font-weight: 700; }
+
+/* VERB HISTORY */
+.history { margin-top: 1.5rem; }
+.history-title { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.75rem; font-weight: 700; }
+.history-list { display: flex; flex-direction: column; gap: 0.3rem; max-height: 200px; overflow-y: auto; }
+.history-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  background: var(--surface);
+  font-size: 0.8rem;
+  border: 1px solid var(--border);
+}
+.history-item .hi-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.history-item .hi-dot.ok { background: var(--correct); }
+.history-item .hi-dot.fail { background: var(--wrong); }
+.history-item .hi-verb { color: var(--text); font-weight: 700; }
+.history-item .hi-form { color: var(--text-dim); flex: 1; }
+.history-item .hi-answer { font-style: italic; font-weight: 600; }
+.history-item .hi-answer.ok { color: var(--correct); }
+.history-item .hi-answer.fail { color: var(--wrong); }
+
+/* EMPTY STATE */
+.empty-state { text-align: center; padding: 3rem; color: var(--text-dim); }
+.empty-state h3 { font-family: 'Fraunces', serif; color: var(--text-mid); margin-bottom: 0.5rem; }
+
+@media (max-width: 700px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; height: auto; }
+  .main { padding: 1.5rem 1.25rem; }
+}
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="rex-icon">
+        <img src="data:image/png;base64,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hlLiNwCTgDf4qIHBzXOqqX+L2ynphSsPJDHNL4b3kdSAR5/ouzV4GgdAAsvQ1OO3wHWjiui4AcS6mbw5LVTUzc4L5atmPyJK6N4C8Nv+nWnJ4aqojqbnXSCSqkj+6A0ENY3O5AyTnzJWyMIlOiqqluXcyoJBERXD2EREAKpVFPDUQuhnhjljcMOY9oIPyVVFjGQa+1Dwc4f3qR00tijpZndX0jjF+Q2/JYpP9nDSLpOaG63eJv8AKZGu/PC3YirT0VE+XBHlwi/Bq2xcCNBWx7ZJqOouUjTkGqmJH0GAtj2u2W+10raW3UVPSQN6MhjDQPortFJVp66vyRwZUUuwCIimMhERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAf/Z" alt="Rex" style="width:100%;height:100%;object-fit:contain;filter:hue-rotate(270deg) saturate(0.6) brightness(1.15);"/>
+      </div>
+      <h1>Español<br>Trainer</h1>
+      <p>C1 · Konjugation</p>
+    </div>
+
+    <div class="filter-section">
+      <h2>Filter</h2>
+
+      <div class="filter-group">
+        <label>Verb-Typ</label>
+        <select id="verbTypeFilter">
+          <option value="all">Alle Verben</option>
+          <option value="regular">Nur Regelmäßige</option>
+          <option value="irregular">Nur Unregelmäßige</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Zeitformen (mehrere möglich)</label>
+        <div class="tense-checks" id="tenseChecks"></div>
+      </div>
+    </div>
+
+    <div class="stats-panel">
+      <h2>Statistik</h2>
+      <div class="stat-row"><span class="stat-name">Gesamt</span><span class="stat-val" id="sTotal">0</span></div>
+      <div class="stat-row"><span class="stat-name">Richtig</span><span class="stat-val" id="sCorrect" style="color:var(--correct)">0</span></div>
+      <div class="stat-row"><span class="stat-name">Falsch</span><span class="stat-val" id="sWrong" style="color:var(--wrong)">0</span></div>
+      <div class="stat-pct" id="sPct">—</div>
+      <div class="streak">🔥 Streak: <span class="streak-val" id="sStreak">0</span></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="verb-count" id="verbCount">Lade Verben …</div>
+
+    <div class="progress-wrap">
+      <div class="progress-label"><span id="progLabel">Sitzung</span><span id="progPct">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+    </div>
+
+    <!-- QUESTION -->
+    <div class="q-card" id="qCard">
+      <div class="q-meta" id="qMeta"></div>
+      <div class="q-prompt-label">Konjugiere das Verb</div>
+      <div class="q-verb" id="qVerb">—</div>
+      <div class="q-verb-translation" id="qTrans"></div>
+      <div class="q-pronoun" id="qPronoun">yo</div>
+      <div class="input-row">
+        <input type="text" id="answerInput" placeholder="Deine Antwort …" autocomplete="off" autocorrect="off" spellcheck="false" />
+        <button class="btn-primary" id="checkBtn">Prüfen</button>
+      </div>
+      <div class="feedback-row" id="feedback"></div>
+    </div>
+
+    <!-- ACTION ROW -->
+    <div class="action-row">
+      <button class="btn-secondary" id="tableBtn">📋 Alle Formen</button>
+      <button class="btn-secondary" id="skipBtn">⏭ Überspringen</button>
+      <button class="btn-secondary" id="nextBtn">→ Weiter</button>
+    </div>
+
+    <!-- CONJUGATION TABLE -->
+    <div class="conj-table" id="conjTable">
+      <div class="conj-table-header">
+        <span class="conj-table-title" id="conjTitle">Konjugation</span>
+        <button class="conj-table-close" id="tableClose">✕</button>
+      </div>
+      <div class="tense-tabs" id="tenseTabs"></div>
+      <div class="conj-grid" id="conjGrid"></div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="history" id="historySection" style="display:none">
+      <div class="history-title">Letzte Antworten</div>
+      <div class="history-list" id="historyList"></div>
+    </div>
+  </main>
+</div>
+
+
+<script>
+const VERBS = {
+  // ===== REGULAR -AR =====
+  hablar:     { type:'regular', translation:'sprechen',      ar_group:'ar' },
+  caminar:    { type:'regular', translation:'gehen/laufen',  ar_group:'ar' },
+  trabajar:   { type:'regular', translation:'arbeiten',      ar_group:'ar' },
+  escuchar:   { type:'regular', translation:'zuhören',       ar_group:'ar' },
+  mirar:      { type:'regular', translation:'schauen',       ar_group:'ar' },
+  ayudar:     { type:'regular', translation:'helfen',        ar_group:'ar' },
+  bailar:     { type:'regular', translation:'tanzen',        ar_group:'ar' },
+  cantar:     { type:'regular', translation:'singen',        ar_group:'ar' },
+  cocinar:    { type:'regular', translation:'kochen',        ar_group:'ar' },
+  comprar:    { type:'regular', translation:'kaufen',        ar_group:'ar' },
+  descansar:  { type:'regular', translation:'ruhen',         ar_group:'ar' },
+  enseñar:    { type:'regular', translation:'lehren',        ar_group:'ar' },
+  esperar:    { type:'regular', translation:'warten/hoffen', ar_group:'ar' },
+  estudiar:   { type:'regular', translation:'lernen/studieren', ar_group:'ar' },
+  ganar:      { type:'regular', translation:'gewinnen/verdienen', ar_group:'ar' },
+  gastar:     { type:'regular', translation:'ausgeben/verbrauchen', ar_group:'ar' },
+  lavar:      { type:'regular', translation:'waschen',       ar_group:'ar' },
+  limpiar:    { type:'regular', translation:'reinigen',      ar_group:'ar' },
+  llamar:     { type:'regular', translation:'rufen/anrufen', ar_group:'ar' },
+  llevar:     { type:'regular', translation:'tragen/bringen',ar_group:'ar' },
+  necesitar:  { type:'regular', translation:'brauchen',      ar_group:'ar' },
+  olvidar:    { type:'regular', translation:'vergessen',     ar_group:'ar' },
+  pagar:      { type:'regular', translation:'bezahlen',      ar_group:'ar' },
+  pasar:      { type:'regular', translation:'passieren/verbringen', ar_group:'ar' },
+  preparar:   { type:'regular', translation:'vorbereiten',   ar_group:'ar' },
+  terminar:   { type:'regular', translation:'beenden',       ar_group:'ar' },
+  tomar:      { type:'regular', translation:'nehmen/trinken',ar_group:'ar' },
+  usar:       { type:'regular', translation:'benutzen',      ar_group:'ar' },
+  visitar:    { type:'regular', translation:'besuchen',      ar_group:'ar' },
+  amar:       { type:'regular', translation:'lieben',        ar_group:'ar' },
+  bajar:      { type:'regular', translation:'hinuntersteigen/herunterladen', ar_group:'ar' },
+  cambiar:    { type:'regular', translation:'ändern/wechseln', ar_group:'ar' },
+  contestar:  { type:'regular', translation:'antworten',     ar_group:'ar' },
+  crear:      { type:'regular', translation:'erschaffen',    ar_group:'ar' },
+  dejar:      { type:'regular', translation:'lassen/hinterlassen', ar_group:'ar' },
+  desear:     { type:'regular', translation:'wünschen/begehren', ar_group:'ar' },
+  entrar:     { type:'regular', translation:'eintreten',     ar_group:'ar' },
+  explicar:   { type:'regular', translation:'erklären',      ar_group:'ar' },
+  faltar:     { type:'regular', translation:'fehlen',        ar_group:'ar' },
+  guardar:    { type:'regular', translation:'aufbewahren',   ar_group:'ar' },
+  habitar:    { type:'regular', translation:'bewohnen',      ar_group:'ar' },
+  imaginar:   { type:'regular', translation:'sich vorstellen', ar_group:'ar' },
+  intentar:   { type:'regular', translation:'versuchen',     ar_group:'ar' },
+  invitar:    { type:'regular', translation:'einladen',      ar_group:'ar' },
+  llegar:     { type:'regular', translation:'ankommen',      ar_group:'ar' },
+  mejorar:    { type:'regular', translation:'verbessern',    ar_group:'ar' },
+  mostrar:    { type:'regular', translation:'zeigen',        ar_group:'ar' },  // stem-change o>ue but let's include
+  notar:      { type:'regular', translation:'bemerken',      ar_group:'ar' },
+  practicar:  { type:'regular', translation:'üben',          ar_group:'ar' },
+  preguntar:  { type:'regular', translation:'fragen',        ar_group:'ar' },
+  presentar:  { type:'regular', translation:'vorstellen/präsentieren', ar_group:'ar' },
+  probar:     { type:'regular', translation:'ausprobieren/beweisen', ar_group:'ar' },
+  quedar:     { type:'regular', translation:'bleiben/übrigbleiben', ar_group:'ar' },
+  recordar:   { type:'regular', translation:'sich erinnern', ar_group:'ar' },
+  reservar:   { type:'regular', translation:'reservieren',   ar_group:'ar' },
+  resultar:   { type:'regular', translation:'sich ergeben',  ar_group:'ar' },
+  sacar:      { type:'regular', translation:'herausnehmen',  ar_group:'ar' },
+  señalar:    { type:'regular', translation:'zeigen/bezeichnen', ar_group:'ar' },
+  tocar:      { type:'regular', translation:'berühren/spielen (Instrument)', ar_group:'ar' },
+  tratar:     { type:'regular', translation:'behandeln/versuchen', ar_group:'ar' },
+  acabar:     { type:'regular', translation:'beenden/gerade haben', ar_group:'ar' },
+  aceptar:    { type:'regular', translation:'akzeptieren',   ar_group:'ar' },
+  acompañar:  { type:'regular', translation:'begleiten',     ar_group:'ar' },
+  acostumbrar:{ type:'regular', translation:'gewöhnen',      ar_group:'ar' },
+  admirar:    { type:'regular', translation:'bewundern',     ar_group:'ar' },
+  afectar:    { type:'regular', translation:'betreffen/beeinflussen', ar_group:'ar' },
+  agradecer:  { type:'irregular', translation:'danken',
+    presente:    ['agradezco','agradeces','agradece','agradecemos','agradecéis','agradecen'],
+    preterito:   ['agradecí','agradeciste','agradeció','agradecimos','agradecisteis','agradecieron'],
+    imperfecto:  ['agradecía','agradecías','agradecía','agradecíamos','agradecíais','agradecían'],
+    futuro:      ['agradeceré','agradecerás','agradecerá','agradeceremos','agradeceréis','agradecerán'],
+    condicional: ['agradecería','agradecerías','agradecería','agradeceríamos','agradeceríais','agradecerían'],
+    subjpresente:['agradezca','agradezcas','agradezca','agradezcamos','agradezcáis','agradezcan'],
+    subjimperfecto:['agradeciera','agradecieras','agradeciera','agradeciéramos','agradecierais','agradecieran'],
+    imperativo:  ['—','agradece','agradezca','agradezcamos','agradeced','agradezcan'],
+    perfecto:    ['he agradecido','has agradecido','ha agradecido','hemos agradecido','habéis agradecido','han agradecido'],
+  },
+  alarmar:    { type:'regular', translation:'alarmieren',    ar_group:'ar' },
+  alcanzar:   { type:'regular', translation:'erreichen',     ar_group:'ar' },
+  animar:     { type:'regular', translation:'ermutigen/anfeuern', ar_group:'ar' },
+  anunciar:   { type:'regular', translation:'ankündigen',    ar_group:'ar' },
+  añadir:     { type:'regular', translation:'hinzufügen',    ar_group:'ir' },
+  apoyar:     { type:'regular', translation:'unterstützen',  ar_group:'ar' },
+  arreglar:   { type:'regular', translation:'reparieren/arrangieren', ar_group:'ar' },
+  aumentar:   { type:'regular', translation:'erhöhen/zunehmen', ar_group:'ar' },
+  avisar:     { type:'regular', translation:'warnen/benachrichtigen', ar_group:'ar' },
+  borrar:     { type:'regular', translation:'löschen/radieren', ar_group:'ar' },
+  buscar:     { type:'regular', translation:'suchen',        ar_group:'ar' },
+  calcular:   { type:'regular', translation:'berechnen',     ar_group:'ar' },
+  celebrar:   { type:'regular', translation:'feiern',        ar_group:'ar' },
+  cobrar:     { type:'regular', translation:'kassieren/erheben', ar_group:'ar' },
+  comenzar:   { type:'irregular', translation:'beginnen',
+    presente:    ['comienzo','comienzas','comienza','comenzamos','comenzáis','comienzan'],
+    preterito:   ['comencé','comenzaste','comenzó','comenzamos','comenzasteis','comenzaron'],
+    imperfecto:  ['comenzaba','comenzabas','comenzaba','comenzábamos','comenzabais','comenzaban'],
+    futuro:      ['comenzaré','comenzarás','comenzará','comenzaremos','comenzaréis','comenzarán'],
+    condicional: ['comenzaría','comenzarías','comenzaría','comenzaríamos','comenzaríais','comenzarían'],
+    subjpresente:['comience','comiences','comience','comencemos','comencéis','comiencen'],
+    subjimperfecto:['comenzara','comenzaras','comenzara','comenzáramos','comenzarais','comenzaran'],
+    imperativo:  ['—','comienza','comience','comencemos','comenzad','comiencen'],
+    perfecto:    ['he comenzado','has comenzado','ha comenzado','hemos comenzado','habéis comenzado','han comenzado'],
+  },
+  comparar:   { type:'regular', translation:'vergleichen',   ar_group:'ar' },
+  completar:  { type:'regular', translation:'vervollständigen', ar_group:'ar' },
+  comprobar:  { type:'regular', translation:'überprüfen',    ar_group:'ar' },
+  comunicar:  { type:'regular', translation:'kommunizieren', ar_group:'ar' },
+  confiar:    { type:'regular', translation:'vertrauen',     ar_group:'ar' },
+  conformar:  { type:'regular', translation:'sich abfinden', ar_group:'ar' },
+  conservar:  { type:'regular', translation:'bewahren',      ar_group:'ar' },
+  considerar: { type:'regular', translation:'berücksichtigen', ar_group:'ar' },
+  continuar:  { type:'regular', translation:'fortsetzen',    ar_group:'ar' },
+  controlar:  { type:'regular', translation:'kontrollieren', ar_group:'ar' },
+  conversar:  { type:'regular', translation:'sich unterhalten', ar_group:'ar' },
+  copiar:     { type:'regular', translation:'kopieren',      ar_group:'ar' },
+  cortar:     { type:'regular', translation:'schneiden',     ar_group:'ar' },
+  criticar:   { type:'regular', translation:'kritisieren',   ar_group:'ar' },
+  cruzar:     { type:'regular', translation:'überqueren',    ar_group:'ar' },
+  cuidar:     { type:'regular', translation:'pflegen/aufpassen', ar_group:'ar' },
+  cumplir:    { type:'regular', translation:'erfüllen',      ar_group:'ir' },
+  charlar:    { type:'regular', translation:'plaudern',      ar_group:'ar' },
+  chequear:   { type:'regular', translation:'überprüfen',    ar_group:'ar' },
+  declarar:   { type:'regular', translation:'erklären/deklarieren', ar_group:'ar' },
+  demostrar:  { type:'regular', translation:'demonstrieren', ar_group:'ar' },
+  depender:   { type:'regular', translation:'abhängen',      ar_group:'er' },
+  desaparecer:{ type:'irregular', translation:'verschwinden',
+    presente:    ['desaparezco','desapareces','desaparece','desaparecemos','desaparecéis','desaparecen'],
+    preterito:   ['desaparecí','desapareciste','desapareció','desaparecimos','desaparecisteis','desaparecieron'],
+    imperfecto:  ['desaparecía','desaparecías','desaparecía','desaparecíamos','desaparecíais','desaparecían'],
+    futuro:      ['desapareceré','desaparecerás','desaparecerá','desapareceremos','desapareceréis','desaparecerán'],
+    condicional: ['desaparecería','desaparecerías','desaparecería','desapareceríamos','desapareceríais','desaparecerían'],
+    subjpresente:['desaparezca','desaparezcas','desaparezca','desaparezcamos','desaparezcáis','desaparezcan'],
+    subjimperfecto:['desapareciera','desaparecieras','desapareciera','desapareciéramos','desaparecierais','desaparecieran'],
+    imperativo:  ['—','desaparece','desaparezca','desaparezcamos','desapareced','desaparezcan'],
+    perfecto:    ['he desaparecido','has desaparecido','ha desaparecido','hemos desaparecido','habéis desaparecido','han desaparecido'],
+  },
+  desarrollar:{ type:'regular', translation:'entwickeln',   ar_group:'ar' },
+  destacar:   { type:'regular', translation:'hervorheben',   ar_group:'ar' },
+  disfrutar:  { type:'regular', translation:'genießen',      ar_group:'ar' },
+  duplicar:   { type:'regular', translation:'verdoppeln',    ar_group:'ar' },
+  durar:      { type:'regular', translation:'dauern',        ar_group:'ar' },
+  educar:     { type:'regular', translation:'erziehen',      ar_group:'ar' },
+  ejecutar:   { type:'regular', translation:'ausführen',     ar_group:'ar' },
+  eliminar:   { type:'regular', translation:'eliminieren',   ar_group:'ar' },
+  emplear:    { type:'regular', translation:'einsetzen/beschäftigen', ar_group:'ar' },
+  encontrar:  { type:'irregular', translation:'finden/treffen',
+    presente:    ['encuentro','encuentras','encuentra','encontramos','encontráis','encuentran'],
+    preterito:   ['encontré','encontraste','encontró','encontramos','encontrasteis','encontraron'],
+    imperfecto:  ['encontraba','encontrabas','encontraba','encontrábamos','encontrabais','encontraban'],
+    futuro:      ['encontraré','encontrarás','encontrará','encontraremos','encontraréis','encontrarán'],
+    condicional: ['encontraría','encontrarías','encontraría','encontraríamos','encontraríais','encontrarían'],
+    subjpresente:['encuentre','encuentres','encuentre','encontremos','encontréis','encuentren'],
+    subjimperfecto:['encontrara','encontraras','encontrara','encontráramos','encontrarais','encontraran'],
+    imperativo:  ['—','encuentra','encuentre','encontremos','encontrad','encuentren'],
+    perfecto:    ['he encontrado','has encontrado','ha encontrado','hemos encontrado','habéis encontrado','han encontrado'],
+  },
+  enfrentar:  { type:'regular', translation:'konfrontieren', ar_group:'ar' },
+  enlazar:    { type:'regular', translation:'verknüpfen',    ar_group:'ar' },
+  enredar:    { type:'regular', translation:'verwirren/verwickeln', ar_group:'ar' },
+  enseñar:    { type:'regular', translation:'lehren/zeigen', ar_group:'ar' },
+  entrar:     { type:'regular', translation:'eintreten',     ar_group:'ar' },
+  enviar:     { type:'regular', translation:'schicken',      ar_group:'ar' },
+  escalar:    { type:'regular', translation:'klettern',      ar_group:'ar' },
+  escapar:    { type:'regular', translation:'entkommen',     ar_group:'ar' },
+  establecer: { type:'irregular', translation:'etablieren/gründen',
+    presente:    ['establezco','estableces','establece','establecemos','establecéis','establecen'],
+    preterito:   ['establecí','estableciste','estableció','establecimos','establecisteis','establecieron'],
+    imperfecto:  ['establecía','establecías','establecía','establecíamos','establecíais','establecían'],
+    futuro:      ['estableceré','establecerás','establecerá','estableceremos','estableceréis','establecerán'],
+    condicional: ['establecería','establecerías','establecería','estableceríamos','estableceríais','establecerían'],
+    subjpresente:['establezca','establezcas','establezca','establezcamos','establezcáis','establezcan'],
+    subjimperfecto:['estableciera','establecieras','estableciera','estableciéramos','establecierais','establecieran'],
+    imperativo:  ['—','establece','establezca','establezcamos','estableced','establezcan'],
+    perfecto:    ['he establecido','has establecido','ha establecido','hemos establecido','habéis establecido','han establecido'],
+  },
+  evaluar:    { type:'regular', translation:'bewerten',      ar_group:'ar' },
+  explorar:   { type:'regular', translation:'erkunden',      ar_group:'ar' },
+  exportar:   { type:'regular', translation:'exportieren',   ar_group:'ar' },
+  expresar:   { type:'regular', translation:'ausdrücken',    ar_group:'ar' },
+  financiar:  { type:'regular', translation:'finanzieren',   ar_group:'ar' },
+  firmar:     { type:'regular', translation:'unterschreiben',ar_group:'ar' },
+  formar:     { type:'regular', translation:'formen/bilden', ar_group:'ar' },
+  fotografiar:{ type:'regular', translation:'fotografieren', ar_group:'ar' },
+  funcionar:  { type:'regular', translation:'funktionieren', ar_group:'ar' },
+  generar:    { type:'regular', translation:'erzeugen',      ar_group:'ar' },
+  gestionar:  { type:'regular', translation:'verwalten',     ar_group:'ar' },
+  gobernar:   { type:'regular', translation:'regieren',      ar_group:'ar' },
+  grabar:     { type:'regular', translation:'aufnehmen/gravieren', ar_group:'ar' },
+  ignorar:    { type:'regular', translation:'ignorieren',    ar_group:'ar' },
+  importar:   { type:'regular', translation:'importieren/wichtig sein', ar_group:'ar' },
+  informar:   { type:'regular', translation:'informieren',   ar_group:'ar' },
+  instalar:   { type:'regular', translation:'installieren',  ar_group:'ar' },
+  interesar:  { type:'regular', translation:'interessieren', ar_group:'ar' },
+  juntar:     { type:'regular', translation:'zusammenfügen', ar_group:'ar' },
+  lanzar:     { type:'regular', translation:'werfen/lancieren', ar_group:'ar' },
+  liberar:    { type:'regular', translation:'befreien',      ar_group:'ar' },
+  lograr:     { type:'regular', translation:'erreichen/gelingen', ar_group:'ar' },
+  luchar:     { type:'regular', translation:'kämpfen',       ar_group:'ar' },
+  manejar:    { type:'regular', translation:'handhaben/fahren', ar_group:'ar' },
+  manifestar: { type:'regular', translation:'manifestieren', ar_group:'ar' },
+  marcar:     { type:'regular', translation:'markieren',     ar_group:'ar' },
+  matar:      { type:'regular', translation:'töten',         ar_group:'ar' },
+  mezclar:    { type:'regular', translation:'mischen',       ar_group:'ar' },
+  modificar:  { type:'regular', translation:'modifizieren',  ar_group:'ar' },
+  negociar:   { type:'regular', translation:'verhandeln',    ar_group:'ar' },
+  observar:   { type:'regular', translation:'beobachten',    ar_group:'ar' },
+  obtener:    { type:'irregular', translation:'erhalten/bekommen',
+    presente:    ['obtengo','obtienes','obtiene','obtenemos','obtenéis','obtienen'],
+    preterito:   ['obtuve','obtuviste','obtuvo','obtuvimos','obtuvisteis','obtuvieron'],
+    imperfecto:  ['obtenía','obtenías','obtenía','obteníamos','obteníais','obtenían'],
+    futuro:      ['obtendré','obtendrás','obtendrá','obtendremos','obtendréis','obtendrán'],
+    condicional: ['obtendría','obtendrías','obtendría','obtendríamos','obtendríais','obtendrían'],
+    subjpresente:['obtenga','obtengas','obtenga','obtengamos','obtengáis','obtengan'],
+    subjimperfecto:['obtuviera','obtuvieras','obtuviera','obtuviéramos','obtuvierais','obtuvieran'],
+    imperativo:  ['—','obtén','obtenga','obtengamos','obtened','obtengan'],
+    perfecto:    ['he obtenido','has obtenido','ha obtenido','hemos obtenido','habéis obtenido','han obtenido'],
+  },
+  opinar:     { type:'regular', translation:'meinen',        ar_group:'ar' },
+  organizar:  { type:'regular', translation:'organisieren',  ar_group:'ar' },
+  participar: { type:'regular', translation:'teilnehmen',    ar_group:'ar' },
+  planear:    { type:'regular', translation:'planen',        ar_group:'ar' },
+  planificar: { type:'regular', translation:'planen',        ar_group:'ar' },
+  plantear:   { type:'regular', translation:'aufwerfen/vorlegen', ar_group:'ar' },
+  prever:     { type:'irregular', translation:'vorhersehen',
+    presente:    ['preveo','prevés','prevé','prevemos','prevéis','prevén'],
+    preterito:   ['preví','previste','previó','previmos','previsteis','previeron'],
+    imperfecto:  ['preveía','preveías','preveía','preveíamos','preveíais','preveían'],
+    futuro:      ['preveré','preverás','preverá','preveremos','preveréis','preverán'],
+    condicional: ['prevería','preverías','prevería','preveríamos','preveríais','preverían'],
+    subjpresente:['prevea','preveas','prevea','preveamos','preveáis','prevean'],
+    subjimperfecto:['previera','previeras','previera','previéramos','previerais','previeran'],
+    imperativo:  ['—','prevé','prevea','preveamos','preveed','prevean'],
+    perfecto:    ['he previsto','has previsto','ha previsto','hemos previsto','habéis previsto','han previsto'],
+  },
+  procurar:   { type:'regular', translation:'versuchen/sorgen für', ar_group:'ar' },
+  programar:  { type:'regular', translation:'programmieren', ar_group:'ar' },
+  proponer:   { type:'irregular', translation:'vorschlagen',
+    presente:    ['propongo','propones','propone','proponemos','proponéis','proponen'],
+    preterito:   ['propuse','propusiste','propuso','propusimos','propusisteis','propusieron'],
+    imperfecto:  ['proponía','proponías','proponía','proponíamos','proponíais','proponían'],
+    futuro:      ['propondré','propondrás','propondrá','propondremos','pondréis','propondrán'],
+    condicional: ['propondría','propondrías','propondría','propondríamos','propondríais','propondrían'],
+    subjpresente:['proponga','propongas','proponga','propongamos','propongáis','propongan'],
+    subjimperfecto:['propusiera','propusieras','propusiera','propusiéramos','propusierais','propusieran'],
+    imperativo:  ['—','propón','proponga','propongamos','proponed','propongan'],
+    perfecto:    ['he propuesto','has propuesto','ha propuesto','hemos propuesto','habéis propuesto','han propuesto'],
+  },
+  protestar:  { type:'regular', translation:'protestieren',  ar_group:'ar' },
+  publicar:   { type:'regular', translation:'veröffentlichen', ar_group:'ar' },
+  realizar:   { type:'regular', translation:'durchführen/verwirklichen', ar_group:'ar' },
+  reclamar:   { type:'regular', translation:'reklamieren/fordern', ar_group:'ar' },
+  reconocer:  { type:'irregular', translation:'erkennen/anerkennen',
+    presente:    ['reconozco','reconoces','reconoce','reconocemos','reconocéis','reconocen'],
+    preterito:   ['reconocí','reconociste','reconoció','reconocimos','reconocisteis','reconocieron'],
+    imperfecto:  ['reconocía','reconocías','reconocía','reconocíamos','reconocíais','reconocían'],
+    futuro:      ['reconoceré','reconocerás','reconocerá','reconoceremos','reconoceréis','reconocerán'],
+    condicional: ['reconocería','reconocerías','reconocería','reconoceríamos','reconoceríais','reconocerían'],
+    subjpresente:['reconozca','reconozcas','reconozca','reconozcamos','reconozcáis','reconozcan'],
+    subjimperfecto:['reconociera','reconocieras','reconociera','reconociéramos','reconocierais','reconocieran'],
+    imperativo:  ['—','reconoce','reconozca','reconozcamos','reconoced','reconozcan'],
+    perfecto:    ['he reconocido','has reconocido','ha reconocido','hemos reconocido','habéis reconocido','han reconocido'],
+  },
+  recomendar: { type:'irregular', translation:'empfehlen',
+    presente:    ['recomiendo','recomiendas','recomienda','recomendamos','recomendáis','recomiendan'],
+    preterito:   ['recomendé','recomendaste','recomendó','recomendamos','recomendasteis','recomendaron'],
+    imperfecto:  ['recomendaba','recomendabas','recomendaba','recomendábamos','recomendabais','recomendaban'],
+    futuro:      ['recomendaré','recomendarás','recomendará','recomendaremos','recomendaréis','recomendarán'],
+    condicional: ['recomendaría','recomendarías','recomendaría','recomendaríamos','recomendaríais','recomendarían'],
+    subjpresente:['recomiende','recomiendes','recomiende','recomendemos','recomendéis','recomienden'],
+    subjimperfecto:['recomendara','recomendaras','recomendara','recomendáramos','recomendarais','recomendaran'],
+    imperativo:  ['—','recomienda','recomiende','recomendemos','recomendad','recomienden'],
+    perfecto:    ['he recomendado','has recomendado','ha recomendado','hemos recomendado','habéis recomendado','han recomendado'],
+  },
+  recuperar:  { type:'regular', translation:'wiederherstellen/erholen', ar_group:'ar' },
+  reformar:   { type:'regular', translation:'reformieren',   ar_group:'ar' },
+  relacionar: { type:'regular', translation:'in Beziehung setzen', ar_group:'ar' },
+  representar:{ type:'regular', translation:'repräsentieren', ar_group:'ar' },
+  respetar:   { type:'regular', translation:'respektieren',  ar_group:'ar' },
+  revisar:    { type:'regular', translation:'revidieren/prüfen', ar_group:'ar' },
+  solucionar: { type:'regular', translation:'lösen',         ar_group:'ar' },
+  superar:    { type:'regular', translation:'überwinden',    ar_group:'ar' },
+  tardar:     { type:'regular', translation:'brauchen (Zeit)/sich verspäten', ar_group:'ar' },
+  titular:    { type:'regular', translation:'betiteln',      ar_group:'ar' },
+  transformar:{ type:'regular', translation:'umwandeln',     ar_group:'ar' },
+  ubicar:     { type:'regular', translation:'lokalisieren/einordnen', ar_group:'ar' },
+  utilizar:   { type:'regular', translation:'benutzen',      ar_group:'ar' },
+  valorar:    { type:'regular', translation:'bewerten/schätzen', ar_group:'ar' },
+  verificar:  { type:'regular', translation:'verifizieren',  ar_group:'ar' },
+
+  // ===== REGULAR -ER =====
+  comer:      { type:'regular', translation:'essen',         ar_group:'er' },
+  beber:      { type:'regular', translation:'trinken',       ar_group:'er' },
+  correr:     { type:'regular', translation:'laufen',        ar_group:'er' },
+  leer:       { type:'regular', translation:'lesen',         ar_group:'er' },
+  aprender:   { type:'regular', translation:'lernen',        ar_group:'er' },
+  comprender: { type:'regular', translation:'verstehen',     ar_group:'er' },
+  responder:  { type:'regular', translation:'antworten',     ar_group:'er' },
+  vender:     { type:'regular', translation:'verkaufen',     ar_group:'er' },
+  pretender:  { type:'regular', translation:'beabsichtigen/vorgeben', ar_group:'er' },
+  coser:      { type:'regular', translation:'nähen',         ar_group:'er' },
+  meter:      { type:'regular', translation:'hineinstecken', ar_group:'er' },
+  romper:     { type:'irregular', translation:'zerbrechen',
+    presente:    ['rompo','rompes','rompe','rompemos','rompéis','rompen'],
+    preterito:   ['rompí','rompiste','rompió','rompimos','rompisteis','rompieron'],
+    imperfecto:  ['rompía','rompías','rompía','rompíamos','rompíais','rompían'],
+    futuro:      ['romperé','romperás','romperá','romperemos','romperéis','romperán'],
+    condicional: ['rompería','romperías','rompería','romperíamos','romperíais','romperían'],
+    subjpresente:['rompa','rompas','rompa','rompamos','rompáis','rompan'],
+    subjimperfecto:['rompiera','rompieras','rompiera','rompiéramos','rompierais','rompieran'],
+    imperativo:  ['—','rompe','rompa','rompamos','romped','rompan'],
+    perfecto:    ['he roto','has roto','ha roto','hemos roto','habéis roto','han roto'],
+  },
+  temer:      { type:'regular', translation:'fürchten',      ar_group:'er' },
+  sorprender: { type:'regular', translation:'überraschen',   ar_group:'er' },
+  suspender:  { type:'regular', translation:'aussetzen/nicht bestehen', ar_group:'er' },
+  extender:   { type:'irregular', translation:'ausdehnen/ausbreiten',
+    presente:    ['extiendo','extiendes','extiende','extendemos','extendéis','extienden'],
+    preterito:   ['extendí','extendiste','extendió','extendimos','extendisteis','extendieron'],
+    imperfecto:  ['extendía','extendías','extendía','extendíamos','extendíais','extendían'],
+    futuro:      ['extenderé','extenderás','extenderá','extenderemos','extenderéis','extenderán'],
+    condicional: ['extendería','extenderías','extendería','extenderíamos','extenderíais','extenderían'],
+    subjpresente:['extienda','extiendas','extienda','extendamos','extendáis','extiendan'],
+    subjimperfecto:['extendiera','extendieras','extendiera','extendiéramos','extendierais','extendieran'],
+    imperativo:  ['—','extiende','extienda','extendamos','extended','extiendan'],
+    perfecto:    ['he extendido','has extendido','ha extendido','hemos extendido','habéis extendido','han extendido'],
+  },
+  entender:   { type:'irregular', translation:'verstehen',
+    presente:    ['entiendo','entiendes','entiende','entendemos','entendéis','entienden'],
+    preterito:   ['entendí','entendiste','entendió','entendimos','entendisteis','entendieron'],
+    imperfecto:  ['entendía','entendías','entendía','entendíamos','entendíais','entendían'],
+    futuro:      ['entenderé','entenderás','entenderá','entenderemos','entenderéis','entenderán'],
+    condicional: ['entendería','entenderías','entendería','entenderíamos','entenderíais','entenderían'],
+    subjpresente:['entienda','entiendas','entienda','entendamos','entendáis','entiendan'],
+    subjimperfecto:['entendiera','entendieras','entendiera','entendiéramos','entendierais','entendieran'],
+    imperativo:  ['—','entiende','entienda','entendamos','entended','entiendan'],
+    perfecto:    ['he entendido','has entendido','ha entendido','hemos entendido','habéis entendido','han entendido'],
+  },
+  defender:   { type:'irregular', translation:'verteidigen',
+    presente:    ['defiendo','defiendes','defiende','defendemos','defendéis','defienden'],
+    preterito:   ['defendí','defendiste','defendió','defendimos','defendisteis','defendieron'],
+    imperfecto:  ['defendía','defendías','defendía','defendíamos','defendíais','defendían'],
+    futuro:      ['defenderé','defenderás','defenderá','defenderemos','defenderéis','defenderán'],
+    condicional: ['defendería','defenderías','defendería','defenderíamos','defenderíais','defenderían'],
+    subjpresente:['defienda','defiendas','defienda','defendamos','defendáis','defiendan'],
+    subjimperfecto:['defendiera','defendieras','defendiera','defendiéramos','defendierais','defendieran'],
+    imperativo:  ['—','defiende','defienda','defendamos','defended','defiendan'],
+    perfecto:    ['he defendido','has defendido','ha defendido','hemos defendido','habéis defendido','han defendido'],
+  },
+  encender:   { type:'irregular', translation:'anzünden/einschalten',
+    presente:    ['enciendo','enciendes','enciende','encendemos','encendéis','encienden'],
+    preterito:   ['encendí','encendiste','encendió','encendimos','encendisteis','encendieron'],
+    imperfecto:  ['encendía','encendías','encendía','encendíamos','encendíais','encendían'],
+    futuro:      ['encenderé','encenderás','encenderá','encenderemos','encenderéis','encenderán'],
+    condicional: ['encendería','encenderías','encendería','encenderíamos','encenderíais','encenderían'],
+    subjpresente:['encienda','enciendas','encienda','encendamos','encendáis','enciendan'],
+    subjimperfecto:['encendiera','encendieras','encendiera','encendiéramos','encendierais','encendieran'],
+    imperativo:  ['—','enciende','encienda','encendamos','encended','enciendan'],
+    perfecto:    ['he encendido','has encendido','ha encendido','hemos encendido','habéis encendido','han encendido'],
+  },
+  perder:     { type:'irregular', translation:'verlieren',
+    presente:    ['pierdo','pierdes','pierde','perdemos','perdéis','pierden'],
+    preterito:   ['perdí','perdiste','perdió','perdimos','perdisteis','perdieron'],
+    imperfecto:  ['perdía','perdías','perdía','perdíamos','perdíais','perdían'],
+    futuro:      ['perderé','perderás','perderá','perderemos','perderéis','perderán'],
+    condicional: ['perdería','perderías','perdería','perderíamos','perderíais','perderían'],
+    subjpresente:['pierda','pierdas','pierda','perdamos','perdáis','pierdan'],
+    subjimperfecto:['perdiera','perdieras','perdiera','perdiéramos','perdierais','perdieran'],
+    imperativo:  ['—','pierde','pierda','perdamos','perded','pierdan'],
+    perfecto:    ['he perdido','has perdido','ha perdido','hemos perdido','habéis perdido','han perdido'],
+  },
+  mover:      { type:'irregular', translation:'bewegen',
+    presente:    ['muevo','mueves','mueve','movemos','movéis','mueven'],
+    preterito:   ['moví','moviste','movió','movimos','movisteis','movieron'],
+    imperfecto:  ['movía','movías','movía','movíamos','movíais','movían'],
+    futuro:      ['moveré','moverás','moverá','moveremos','moveréis','moverán'],
+    condicional: ['movería','moverías','movería','moveríamos','moveríais','moverían'],
+    subjpresente:['mueva','muevas','mueva','movamos','mováis','muevan'],
+    subjimperfecto:['moviera','movieras','moviera','moviéramos','movierais','movieran'],
+    imperativo:  ['—','mueve','mueva','movamos','moved','muevan'],
+    perfecto:    ['he movido','has movido','ha movido','hemos movido','habéis movido','han movido'],
+  },
+  oler:       { type:'irregular', translation:'riechen',
+    presente:    ['huelo','hueles','huele','olemos','oléis','huelen'],
+    preterito:   ['olí','oliste','olió','olimos','olisteis','olieron'],
+    imperfecto:  ['olía','olías','olía','olíamos','olíais','olían'],
+    futuro:      ['oleré','olerás','olerá','oleremos','oleréis','olerán'],
+    condicional: ['olería','olerías','olería','oleríamos','oleríais','olerían'],
+    subjpresente:['huela','huelas','huela','olamos','oláis','huelan'],
+    subjimperfecto:['oliera','olieras','oliera','oliéramos','olierais','olieran'],
+    imperativo:  ['—','huele','huela','olamos','oled','huelan'],
+    perfecto:    ['he olido','has olido','ha olido','hemos olido','habéis olido','han olido'],
+  },
+  // ===== REGULAR -IR =====
+  vivir:      { type:'regular', translation:'leben',         ar_group:'ir' },
+  escribir:   { type:'irregular', translation:'schreiben',
+    presente:    ['escribo','escribes','escribe','escribimos','escribís','escriben'],
+    preterito:   ['escribí','escribiste','escribió','escribimos','escribisteis','escribieron'],
+    imperfecto:  ['escribía','escribías','escribía','escribíamos','escribíais','escribían'],
+    futuro:      ['escribiré','escribirás','escribirá','escribiremos','escribiréis','escribirán'],
+    condicional: ['escribiría','escribirías','escribiría','escribiríamos','escribiríais','escribirían'],
+    subjpresente:['escriba','escribas','escriba','escribamos','escribáis','escriban'],
+    subjimperfecto:['escribiera','escribieras','escribiera','escribiéramos','escribierais','escribieran'],
+    imperativo:  ['—','escribe','escriba','escribamos','escribid','escriban'],
+    perfecto:    ['he escrito','has escrito','ha escrito','hemos escrito','habéis escrito','han escrito'],
+  },
+  abrir:      { type:'irregular', translation:'öffnen',
+    presente:    ['abro','abres','abre','abrimos','abrís','abren'],
+    preterito:   ['abrí','abriste','abrió','abrimos','abristeis','abrieron'],
+    imperfecto:  ['abría','abrías','abría','abríamos','abríais','abrían'],
+    futuro:      ['abriré','abrirás','abrirá','abriremos','abriréis','abrirán'],
+    condicional: ['abriría','abrirías','abriría','abriríamos','abriríais','abrirían'],
+    subjpresente:['abra','abras','abra','abramos','abráis','abran'],
+    subjimperfecto:['abriera','abrieras','abriera','abriéramos','abrierais','abrieran'],
+    imperativo:  ['—','abre','abra','abramos','abrid','abran'],
+    perfecto:    ['he abierto','has abierto','ha abierto','hemos abierto','habéis abierto','han abierto'],
+  },
+  subir:      { type:'regular', translation:'hinaufsteigen/hochladen', ar_group:'ir' },
+  recibir:    { type:'regular', translation:'empfangen',     ar_group:'ir' },
+  sufrir:     { type:'regular', translation:'leiden',        ar_group:'ir' },
+  permitir:   { type:'regular', translation:'erlauben',      ar_group:'ir' },
+  admitir:    { type:'regular', translation:'zugeben/zulassen', ar_group:'ir' },
+  discutir:   { type:'regular', translation:'diskutieren/streiten', ar_group:'ir' },
+  insistir:   { type:'regular', translation:'bestehen auf',  ar_group:'ir' },
+  existir:    { type:'regular', translation:'existieren',    ar_group:'ir' },
+  resistir:   { type:'regular', translation:'widerstehen',   ar_group:'ir' },
+  asistir:    { type:'regular', translation:'teilnehmen/beiwohnen', ar_group:'ir' },
+  dividir:    { type:'regular', translation:'teilen',        ar_group:'ir' },
+  unir:       { type:'regular', translation:'vereinen',      ar_group:'ir' },
+  cubrir:     { type:'irregular', translation:'decken/abdecken',
+    presente:    ['cubro','cubres','cubre','cubrimos','cubrís','cubren'],
+    preterito:   ['cubrí','cubriste','cubrió','cubrimos','cubristeis','cubrieron'],
+    imperfecto:  ['cubría','cubrías','cubría','cubríamos','cubríais','cubrían'],
+    futuro:      ['cubriré','cubrirás','cubrirá','cubriremos','cubriréis','cubrirán'],
+    condicional: ['cubriría','cubrirías','cubriría','cubriríamos','cubriríais','cubrirían'],
+    subjpresente:['cubra','cubras','cubra','cubramos','cubráis','cubran'],
+    subjimperfecto:['cubriera','cubrieras','cubriera','cubriéramos','cubrierais','cubrieran'],
+    imperativo:  ['—','cubre','cubra','cubramos','cubrid','cubran'],
+    perfecto:    ['he cubierto','has cubierto','ha cubierto','hemos cubierto','habéis cubierto','han cubierto'],
+  },
+  descubrir:  { type:'irregular', translation:'entdecken',
+    presente:    ['descubro','descubres','descubre','descubrimos','descubrís','descubren'],
+    preterito:   ['descubrí','descubriste','descubrió','descubrimos','descubristeis','descubrieron'],
+    imperfecto:  ['descubría','descubrías','descubría','descubríamos','descubríais','descubrían'],
+    futuro:      ['descubriré','descubrirás','descubrirá','descubriremos','descubriréis','descubrirán'],
+    condicional: ['descubriría','descubrirías','descubriría','descubriríamos','descubriríais','descubrirían'],
+    subjpresente:['descubra','descubras','descubra','descubramos','descubráis','descubran'],
+    subjimperfecto:['descubriera','descubrieras','descubriera','descubriéramos','descubrierais','descubrieran'],
+    imperativo:  ['—','descubre','descubra','descubramos','descubrid','descubran'],
+    perfecto:    ['he descubierto','has descubierto','ha descubierto','hemos descubierto','habéis descubierto','han descubierto'],
+  },
+  imprimir:   { type:'regular', translation:'drucken',       ar_group:'ir' },
+  interrumpir:{ type:'regular', translation:'unterbrechen',  ar_group:'ir' },
+  producir:   { type:'irregular', translation:'produzieren',
+    presente:    ['produzco','produces','produce','producimos','producís','producen'],
+    preterito:   ['produje','produjiste','produjo','produjimos','produjisteis','produjeron'],
+    imperfecto:  ['producía','producías','producía','producíamos','producíais','producían'],
+    futuro:      ['produciré','producirás','producirá','produciremos','produciréis','producirán'],
+    condicional: ['produciría','producirías','produciría','produciríamos','produciríais','producirían'],
+    subjpresente:['produzca','produzcas','produzca','produzcamos','produzcáis','produzcan'],
+    subjimperfecto:['produjera','produjeras','produjera','produjéramos','produjerais','produjeran'],
+    imperativo:  ['—','produce','produzca','produzcamos','producid','produzcan'],
+    perfecto:    ['he producido','has producido','ha producido','hemos producido','habéis producido','han producido'],
+  },
+  conducir:   { type:'irregular', translation:'fahren/führen',
+    presente:    ['conduzco','conduces','conduce','conducimos','conducís','conducen'],
+    preterito:   ['conduje','condujiste','condujo','condujimos','condujisteis','condujeron'],
+    imperfecto:  ['conducía','conducías','conducía','conducíamos','conducíais','conducían'],
+    futuro:      ['conduciré','conducirás','conducirá','conduciremos','conduciréis','conducirán'],
+    condicional: ['conduciría','conducirías','conduciría','conduciríamos','conduciríais','conducirían'],
+    subjpresente:['conduzca','conduzcas','conduzca','conduzcamos','conduzcáis','conduzcan'],
+    subjimperfecto:['condujera','condujeras','condujera','condujéramos','condujerais','condujeran'],
+    imperativo:  ['—','conduce','conduzca','conduzcamos','conducid','conduzcan'],
+    perfecto:    ['he conducido','has conducido','ha conducido','hemos conducido','habéis conducido','han conducido'],
+  },
+  traducir:   { type:'irregular', translation:'übersetzen',
+    presente:    ['traduzco','traduces','traduce','traducimos','traducís','traducen'],
+    preterito:   ['traduje','tradujiste','tradujo','tradujimos','tradujisteis','tradujeron'],
+    imperfecto:  ['traducía','traducías','traducía','traducíamos','traducíais','traducían'],
+    futuro:      ['traduciré','traducirás','traducirá','traduciremos','traduciréis','traducirán'],
+    condicional: ['traduciría','traducirías','traduciría','traduciríamos','traduciríais','traducirían'],
+    subjpresente:['traduzca','traduzcas','traduzca','traduzcamos','traduzcáis','traduzcan'],
+    subjimperfecto:['tradujera','tradujeras','tradujera','tradujéramos','tradujerais','tradujeran'],
+    imperativo:  ['—','traduce','traduzca','traduzcamos','traducid','traduzcan'],
+    perfecto:    ['he traducido','has traducido','ha traducido','hemos traducido','habéis traducido','han traducido'],
+  },
+  // ===== MAJOR IRREGULARS (full) =====
+  ser: { type:'irregular', translation:'sein (Wesen/Eigenschaft)',
+    presente:    ['soy','eres','es','somos','sois','son'],
+    preterito:   ['fui','fuiste','fue','fuimos','fuisteis','fueron'],
+    imperfecto:  ['era','eras','era','éramos','erais','eran'],
+    futuro:      ['seré','serás','será','seremos','seréis','serán'],
+    condicional: ['sería','serías','sería','seríamos','seríais','serían'],
+    subjpresente:['sea','seas','sea','seamos','seáis','sean'],
+    subjimperfecto:['fuera','fueras','fuera','fuéramos','fuerais','fueran'],
+    imperativo:  ['—','sé','sea','seamos','sed','sean'],
+    perfecto:    ['he sido','has sido','ha sido','hemos sido','habéis sido','han sido'],
+  },
+  estar: { type:'irregular', translation:'sein (Zustand/Position)',
+    presente:    ['estoy','estás','está','estamos','estáis','están'],
+    preterito:   ['estuve','estuviste','estuvo','estuvimos','estuvisteis','estuvieron'],
+    imperfecto:  ['estaba','estabas','estaba','estábamos','estabais','estaban'],
+    futuro:      ['estaré','estarás','estará','estaremos','estaréis','estarán'],
+    condicional: ['estaría','estarías','estaría','estaríamos','estaríais','estarían'],
+    subjpresente:['esté','estés','esté','estemos','estéis','estén'],
+    subjimperfecto:['estuviera','estuvieras','estuviera','estuviéramos','estuvierais','estuvieran'],
+    imperativo:  ['—','está','esté','estemos','estad','estén'],
+    perfecto:    ['he estado','has estado','ha estado','hemos estado','habéis estado','han estado'],
+  },
+  haber: { type:'irregular', translation:'haben (Hilfsverb)',
+    presente:    ['he','has','ha','hemos','habéis','han'],
+    preterito:   ['hube','hubiste','hubo','hubimos','hubisteis','hubieron'],
+    imperfecto:  ['había','habías','había','habíamos','habíais','habían'],
+    futuro:      ['habré','habrás','habrá','habremos','habréis','habrán'],
+    condicional: ['habría','habrías','habría','habríamos','habríais','habrían'],
+    subjpresente:['haya','hayas','haya','hayamos','hayáis','hayan'],
+    subjimperfecto:['hubiera','hubieras','hubiera','hubiéramos','hubierais','hubieran'],
+    imperativo:  ['—','he','haya','hayamos','habed','hayan'],
+    perfecto:    ['he habido','has habido','ha habido','hemos habido','habéis habido','han habido'],
+  },
+  tener: { type:'irregular', translation:'haben/halten',
+    presente:    ['tengo','tienes','tiene','tenemos','tenéis','tienen'],
+    preterito:   ['tuve','tuviste','tuvo','tuvimos','tuvisteis','tuvieron'],
+    imperfecto:  ['tenía','tenías','tenía','teníamos','teníais','tenían'],
+    futuro:      ['tendré','tendrás','tendrá','tendremos','tendréis','tendrán'],
+    condicional: ['tendría','tendrías','tendría','tendríamos','tendríais','tendrían'],
+    subjpresente:['tenga','tengas','tenga','tengamos','tengáis','tengan'],
+    subjimperfecto:['tuviera','tuvieras','tuviera','tuviéramos','tuvierais','tuvieran'],
+    imperativo:  ['—','ten','tenga','tengamos','tened','tengan'],
+    perfecto:    ['he tenido','has tenido','ha tenido','hemos tenido','habéis tenido','han tenido'],
+  },
+  ir: { type:'irregular', translation:'gehen/fahren',
+    presente:    ['voy','vas','va','vamos','vais','van'],
+    preterito:   ['fui','fuiste','fue','fuimos','fuisteis','fueron'],
+    imperfecto:  ['iba','ibas','iba','íbamos','ibais','iban'],
+    futuro:      ['iré','irás','irá','iremos','iréis','irán'],
+    condicional: ['iría','irías','iría','iríamos','iríais','irían'],
+    subjpresente:['vaya','vayas','vaya','vayamos','vayáis','vayan'],
+    subjimperfecto:['fuera','fueras','fuera','fuéramos','fuerais','fueran'],
+    imperativo:  ['—','ve','vaya','vayamos','id','vayan'],
+    perfecto:    ['he ido','has ido','ha ido','hemos ido','habéis ido','han ido'],
+  },
+  hacer: { type:'irregular', translation:'machen/tun',
+    presente:    ['hago','haces','hace','hacemos','hacéis','hacen'],
+    preterito:   ['hice','hiciste','hizo','hicimos','hicisteis','hicieron'],
+    imperfecto:  ['hacía','hacías','hacía','hacíamos','hacíais','hacían'],
+    futuro:      ['haré','harás','hará','haremos','haréis','harán'],
+    condicional: ['haría','harías','haría','haríamos','haríais','harían'],
+    subjpresente:['haga','hagas','haga','hagamos','hagáis','hagan'],
+    subjimperfecto:['hiciera','hicieras','hiciera','hiciéramos','hicierais','hicieran'],
+    imperativo:  ['—','haz','haga','hagamos','haced','hagan'],
+    perfecto:    ['he hecho','has hecho','ha hecho','hemos hecho','habéis hecho','han hecho'],
+  },
+  poder: { type:'irregular', translation:'können',
+    presente:    ['puedo','puedes','puede','podemos','podéis','pueden'],
+    preterito:   ['pude','pudiste','pudo','pudimos','pudisteis','pudieron'],
+    imperfecto:  ['podía','podías','podía','podíamos','podíais','podían'],
+    futuro:      ['podré','podrás','podrá','podremos','podréis','podrán'],
+    condicional: ['podría','podrías','podría','podríamos','podríais','podrían'],
+    subjpresente:['pueda','puedas','pueda','podamos','podáis','puedan'],
+    subjimperfecto:['pudiera','pudieras','pudiera','pudiéramos','pudierais','pudieran'],
+    imperativo:  ['—','puede','pueda','podamos','poded','puedan'],
+    perfecto:    ['he podido','has podido','ha podido','hemos podido','habéis podido','han podido'],
+  },
+  querer: { type:'irregular', translation:'wollen/lieben',
+    presente:    ['quiero','quieres','quiere','queremos','queréis','quieren'],
+    preterito:   ['quise','quisiste','quiso','quisimos','quisisteis','quisieron'],
+    imperfecto:  ['quería','querías','quería','queríamos','queríais','querían'],
+    futuro:      ['querré','querrás','querrá','querremos','querréis','querrán'],
+    condicional: ['querría','querrías','querría','querríamos','querríais','querrían'],
+    subjpresente:['quiera','quieras','quiera','queramos','queráis','quieran'],
+    subjimperfecto:['quisiera','quisieras','quisiera','quisiéramos','quisierais','quisieran'],
+    imperativo:  ['—','quiere','quiera','queramos','quered','quieran'],
+    perfecto:    ['he querido','has querido','ha querido','hemos querido','habéis querido','han querido'],
+  },
+  saber: { type:'irregular', translation:'wissen/können',
+    presente:    ['sé','sabes','sabe','sabemos','sabéis','saben'],
+    preterito:   ['supe','supiste','supo','supimos','supisteis','supieron'],
+    imperfecto:  ['sabía','sabías','sabía','sabíamos','sabíais','sabían'],
+    futuro:      ['sabré','sabrás','sabrá','sabremos','sabréis','sabrán'],
+    condicional: ['sabría','sabrías','sabría','sabríamos','sabríais','sabrían'],
+    subjpresente:['sepa','sepas','sepa','sepamos','sepáis','sepan'],
+    subjimperfecto:['supiera','supieras','supiera','supiéramos','supierais','supieran'],
+    imperativo:  ['—','sabe','sepa','sepamos','sabed','sepan'],
+    perfecto:    ['he sabido','has sabido','ha sabido','hemos sabido','habéis sabido','han sabido'],
+  },
+  dar: { type:'irregular', translation:'geben',
+    presente:    ['doy','das','da','damos','dais','dan'],
+    preterito:   ['di','diste','dio','dimos','disteis','dieron'],
+    imperfecto:  ['daba','dabas','daba','dábamos','dabais','daban'],
+    futuro:      ['daré','darás','dará','daremos','daréis','darán'],
+    condicional: ['daría','darías','daría','daríamos','daríais','darían'],
+    subjpresente:['dé','des','dé','demos','deis','den'],
+    subjimperfecto:['diera','dieras','diera','diéramos','dierais','dieran'],
+    imperativo:  ['—','da','dé','demos','dad','den'],
+    perfecto:    ['he dado','has dado','ha dado','hemos dado','habéis dado','han dado'],
+  },
+  venir: { type:'irregular', translation:'kommen',
+    presente:    ['vengo','vienes','viene','venimos','venís','vienen'],
+    preterito:   ['vine','viniste','vino','vinimos','vinisteis','vinieron'],
+    imperfecto:  ['venía','venías','venía','veníamos','veníais','venían'],
+    futuro:      ['vendré','vendrás','vendrá','vendremos','vendréis','vendrán'],
+    condicional: ['vendría','vendrías','vendría','vendríamos','vendríais','vendrían'],
+    subjpresente:['venga','vengas','venga','vengamos','vengáis','vengan'],
+    subjimperfecto:['viniera','vinieras','viniera','viniéramos','vinierais','vinieran'],
+    imperativo:  ['—','ven','venga','vengamos','venid','vengan'],
+    perfecto:    ['he venido','has venido','ha venido','hemos venido','habéis venido','han venido'],
+  },
+  decir: { type:'irregular', translation:'sagen',
+    presente:    ['digo','dices','dice','decimos','decís','dicen'],
+    preterito:   ['dije','dijiste','dijo','dijimos','dijisteis','dijeron'],
+    imperfecto:  ['decía','decías','decía','decíamos','decíais','decían'],
+    futuro:      ['diré','dirás','dirá','diremos','diréis','dirán'],
+    condicional: ['diría','dirías','diría','diríamos','diríais','dirían'],
+    subjpresente:['diga','digas','diga','digamos','digáis','digan'],
+    subjimperfecto:['dijera','dijeras','dijera','dijéramos','dijerais','dijeran'],
+    imperativo:  ['—','di','diga','digamos','decid','digan'],
+    perfecto:    ['he dicho','has dicho','ha dicho','hemos dicho','habéis dicho','han dicho'],
+  },
+  ver: { type:'irregular', translation:'sehen',
+    presente:    ['veo','ves','ve','vemos','veis','ven'],
+    preterito:   ['vi','viste','vio','vimos','visteis','vieron'],
+    imperfecto:  ['veía','veías','veía','veíamos','veíais','veían'],
+    futuro:      ['veré','verás','verá','veremos','veréis','verán'],
+    condicional: ['vería','verías','vería','veríamos','veríais','verían'],
+    subjpresente:['vea','veas','vea','veamos','veáis','vean'],
+    subjimperfecto:['viera','vieras','viera','viéramos','vierais','vieran'],
+    imperativo:  ['—','ve','vea','veamos','ved','vean'],
+    perfecto:    ['he visto','has visto','ha visto','hemos visto','habéis visto','han visto'],
+  },
+  poner: { type:'irregular', translation:'legen/stellen/setzen',
+    presente:    ['pongo','pones','pone','ponemos','ponéis','ponen'],
+    preterito:   ['puse','pusiste','puso','pusimos','pusisteis','pusieron'],
+    imperfecto:  ['ponía','ponías','ponía','poníamos','poníais','ponían'],
+    futuro:      ['pondré','pondrás','pondrá','pondremos','pondréis','pondrán'],
+    condicional: ['pondría','pondrías','pondría','pondríamos','pondríais','pondrían'],
+    subjpresente:['ponga','pongas','ponga','pongamos','pongáis','pongan'],
+    subjimperfecto:['pusiera','pusieras','pusiera','pusiéramos','pusierais','pusieran'],
+    imperativo:  ['—','pon','ponga','pongamos','poned','pongan'],
+    perfecto:    ['he puesto','has puesto','ha puesto','hemos puesto','habéis puesto','han puesto'],
+  },
+  salir: { type:'irregular', translation:'hinausgehen/ausgehen',
+    presente:    ['salgo','sales','sale','salimos','salís','salen'],
+    preterito:   ['salí','saliste','salió','salimos','salisteis','salieron'],
+    imperfecto:  ['salía','salías','salía','salíamos','salíais','salían'],
+    futuro:      ['saldré','saldrás','saldrá','saldremos','saldréis','saldrán'],
+    condicional: ['saldría','saldrías','saldría','saldríamos','saldríais','saldrían'],
+    subjpresente:['salga','salgas','salga','salgamos','salgáis','salgan'],
+    subjimperfecto:['saliera','salieras','saliera','saliéramos','salierais','salieran'],
+    imperativo:  ['—','sal','salga','salgamos','salid','salgan'],
+    perfecto:    ['he salido','has salido','ha salido','hemos salido','habéis salido','han salido'],
+  },
+  traer: { type:'irregular', translation:'mitbringen/tragen',
+    presente:    ['traigo','traes','trae','traemos','traéis','traen'],
+    preterito:   ['traje','trajiste','trajo','trajimos','trajisteis','trajeron'],
+    imperfecto:  ['traía','traías','traía','traíamos','traíais','traían'],
+    futuro:      ['traeré','traerás','traerá','traeremos','traeréis','traerán'],
+    condicional: ['traería','traerías','traería','traeríamos','traeríais','traerían'],
+    subjpresente:['traiga','traigas','traiga','traigamos','traigáis','traigan'],
+    subjimperfecto:['trajera','trajeras','trajera','trajéramos','trajerais','trajeran'],
+    imperativo:  ['—','trae','traiga','traigamos','traed','traigan'],
+    perfecto:    ['he traído','has traído','ha traído','hemos traído','habéis traído','han traído'],
+  },
+  caer: { type:'irregular', translation:'fallen',
+    presente:    ['caigo','caes','cae','caemos','caéis','caen'],
+    preterito:   ['caí','caíste','cayó','caímos','caísteis','cayeron'],
+    imperfecto:  ['caía','caías','caía','caíamos','caíais','caían'],
+    futuro:      ['caeré','caerás','caerá','caeremos','caeréis','caerán'],
+    condicional: ['caería','caerías','caería','caeríamos','caeríais','caerían'],
+    subjpresente:['caiga','caigas','caiga','caigamos','caigáis','caigan'],
+    subjimperfecto:['cayera','cayeras','cayera','cayéramos','cayerais','cayeran'],
+    imperativo:  ['—','cae','caiga','caigamos','caed','caigan'],
+    perfecto:    ['he caído','has caído','ha caído','hemos caído','habéis caído','han caído'],
+  },
+  oír: { type:'irregular', translation:'hören',
+    presente:    ['oigo','oyes','oye','oímos','oís','oyen'],
+    preterito:   ['oí','oíste','oyó','oímos','oísteis','oyeron'],
+    imperfecto:  ['oía','oías','oía','oíamos','oíais','oían'],
+    futuro:      ['oiré','oirás','oirá','oiremos','oiréis','oirán'],
+    condicional: ['oiría','oirías','oiría','oiríamos','oiríais','oirían'],
+    subjpresente:['oiga','oigas','oiga','oigamos','oigáis','oigan'],
+    subjimperfecto:['oyera','oyeras','oyera','oyéramos','oyerais','oyeran'],
+    imperativo:  ['—','oye','oiga','oigamos','oíd','oigan'],
+    perfecto:    ['he oído','has oído','ha oído','hemos oído','habéis oído','han oído'],
+  },
+  valer: { type:'irregular', translation:'wert sein/kosten',
+    presente:    ['valgo','vales','vale','valemos','valéis','valen'],
+    preterito:   ['valí','valiste','valió','valimos','valisteis','valieron'],
+    imperfecto:  ['valía','valías','valía','valíamos','valíais','valían'],
+    futuro:      ['valdré','valdrás','valdrá','valdremos','valdréis','valdrán'],
+    condicional: ['valdría','valdrías','valdría','valdríamos','valdríais','valdrían'],
+    subjpresente:['valga','valgas','valga','valgamos','valgáis','valgan'],
+    subjimperfecto:['valiera','valieras','valiera','valiéramos','valierais','valieran'],
+    imperativo:  ['—','vale','valga','valgamos','valed','valgan'],
+    perfecto:    ['he valido','has valido','ha valido','hemos valido','habéis valido','han valido'],
+  },
+  caber: { type:'irregular', translation:'hineinpassen',
+    presente:    ['quepo','cabes','cabe','cabemos','cabéis','caben'],
+    preterito:   ['cupe','cupiste','cupo','cupimos','cupisteis','cupieron'],
+    imperfecto:  ['cabía','cabías','cabía','cabíamos','cabíais','cabían'],
+    futuro:      ['cabré','cabrás','cabrá','cabremos','cabréis','cabrán'],
+    condicional: ['cabría','cabrías','cabría','cabríamos','cabríais','cabrían'],
+    subjpresente:['quepa','quepas','quepa','quepamos','quepáis','quepan'],
+    subjimperfecto:['cupiera','cupieras','cupiera','cupiéramos','cupierais','cupieran'],
+    imperativo:  ['—','cabe','quepa','quepamos','cabed','quepan'],
+    perfecto:    ['he cabido','has cabido','ha cabido','hemos cabido','habéis cabido','han cabido'],
+  },
+  andar: { type:'irregular', translation:'gehen/laufen',
+    presente:    ['ando','andas','anda','andamos','andáis','andan'],
+    preterito:   ['anduve','anduviste','anduvo','anduvimos','anduvisteis','anduvieron'],
+    imperfecto:  ['andaba','andabas','andaba','andábamos','andabais','andaban'],
+    futuro:      ['andaré','andarás','andará','andaremos','andaréis','andarán'],
+    condicional: ['andaría','andarías','andaría','andaríamos','andaríais','andarían'],
+    subjpresente:['ande','andes','ande','andemos','andéis','anden'],
+    subjimperfecto:['anduviera','anduvieras','anduviera','anduviéramos','anduvierais','anduvieran'],
+    imperativo:  ['—','anda','ande','andemos','andad','anden'],
+    perfecto:    ['he andado','has andado','ha andado','hemos andado','habéis andado','han andado'],
+  },
+  conocer: { type:'irregular', translation:'kennen',
+    presente:    ['conozco','conoces','conoce','conocemos','conocéis','conocen'],
+    preterito:   ['conocí','conociste','conoció','conocimos','conocisteis','conocieron'],
+    imperfecto:  ['conocía','conocías','conocía','conocíamos','conocíais','conocían'],
+    futuro:      ['conoceré','conocerás','conocerá','conoceremos','conoceréis','conocerán'],
+    condicional: ['conocería','conocerías','conocería','conoceríamos','conoceríais','conocerían'],
+    subjpresente:['conozca','conozcas','conozca','conozcamos','conozcáis','conozcan'],
+    subjimperfecto:['conociera','conocieras','conociera','conociéramos','conocierais','conocieran'],
+    imperativo:  ['—','conoce','conozca','conozcamos','conoced','conozcan'],
+    perfecto:    ['he conocido','has conocido','ha conocido','hemos conocido','habéis conocido','han conocido'],
+  },
+  nacer: { type:'irregular', translation:'geboren werden',
+    presente:    ['nazco','naces','nace','nacemos','nacéis','nacen'],
+    preterito:   ['nací','naciste','nació','nacimos','nacisteis','nacieron'],
+    imperfecto:  ['nacía','nacías','nacía','nacíamos','nacíais','nacían'],
+    futuro:      ['naceré','nacerás','nacerá','naceremos','naceréis','nacerán'],
+    condicional: ['nacería','nacerías','nacería','naceríamos','naceríais','nacerían'],
+    subjpresente:['nazca','nazcas','nazca','nazcamos','nazcáis','nazcan'],
+    subjimperfecto:['naciera','nacieras','naciera','naciéramos','nacierais','nacieran'],
+    imperativo:  ['—','nace','nazca','nazcamos','naced','nazcan'],
+    perfecto:    ['he nacido','has nacido','ha nacido','hemos nacido','habéis nacido','han nacido'],
+  },
+  parecer: { type:'irregular', translation:'scheinen/aussehen',
+    presente:    ['parezco','pareces','parece','parecemos','parecéis','parecen'],
+    preterito:   ['parecí','pareciste','pareció','parecimos','parecisteis','parecieron'],
+    imperfecto:  ['parecía','parecías','parecía','parecíamos','parecíais','parecían'],
+    futuro:      ['pareceré','parecerás','parecerá','pareceremos','pareceréis','parecerán'],
+    condicional: ['parecería','parecerías','parecería','pareceríamos','pareceríais','parecerían'],
+    subjpresente:['parezca','parezcas','parezca','parezcamos','parezcáis','parezcan'],
+    subjimperfecto:['pareciera','parecieras','pareciera','pareciéramos','parecierais','parecieran'],
+    imperativo:  ['—','parece','parezca','parezcamos','pareced','parezcan'],
+    perfecto:    ['he parecido','has parecido','ha parecido','hemos parecido','habéis parecido','han parecido'],
+  },
+  pertenecer: { type:'irregular', translation:'gehören (zu)',
+    presente:    ['pertenezco','perteneces','pertenece','pertenecemos','pertenecéis','pertenecen'],
+    preterito:   ['pertenecí','perteneciste','perteneció','pertenecimos','pertenecisteis','pertenecieron'],
+    imperfecto:  ['pertenecía','pertenecías','pertenecía','pertenecíamos','pertenecíais','pertenecían'],
+    futuro:      ['perteneceré','pertenecerás','pertenecerá','perteneceremos','perteneceréis','pertenecerán'],
+    condicional: ['pertenecería','pertenecerías','pertenecería','perteneceríamos','perteneceríais','pertenecerían'],
+    subjpresente:['pertenezca','pertenezcas','pertenezca','pertenezcamos','pertenezcáis','pertenezcan'],
+    subjimperfecto:['perteneciera','pertenecieras','perteneciera','perteneciéramos','pertenecierais','pertenecieran'],
+    imperativo:  ['—','pertenece','pertenezca','pertenezcamos','perteneced','pertenezcan'],
+    perfecto:    ['he pertenecido','has pertenecido','ha pertenecido','hemos pertenecido','habéis pertenecido','han pertenecido'],
+  },
+  ofrecer: { type:'irregular', translation:'anbieten',
+    presente:    ['ofrezco','ofreces','ofrece','ofrecemos','ofrecéis','ofrecen'],
+    preterito:   ['ofrecí','ofreciste','ofreció','ofrecimos','ofrecisteis','ofrecieron'],
+    imperfecto:  ['ofrecía','ofrecías','ofrecía','ofrecíamos','ofrecíais','ofrecían'],
+    futuro:      ['ofreceré','ofrecerás','ofrecerá','ofreceremos','ofreceréis','ofrecerán'],
+    condicional: ['ofrecería','ofrecerías','ofrecería','ofreceríamos','ofreceríais','ofrecerían'],
+    subjpresente:['ofrezca','ofrezcas','ofrezca','ofrezcamos','ofrezcáis','ofrezcan'],
+    subjimperfecto:['ofreciera','ofrecieras','ofreciera','ofreciéramos','ofrecierais','ofrecieran'],
+    imperativo:  ['—','ofrece','ofrezca','ofrezcamos','ofreced','ofrezcan'],
+    perfecto:    ['he ofrecido','has ofrecido','ha ofrecido','hemos ofrecido','habéis ofrecido','han ofrecido'],
+  },
+  crecer: { type:'irregular', translation:'wachsen',
+    presente:    ['crezco','creces','crece','crecemos','crecéis','crecen'],
+    preterito:   ['crecí','creciste','creció','crecimos','crecisteis','crecieron'],
+    imperfecto:  ['crecía','crecías','crecía','crecíamos','crecíais','crecían'],
+    futuro:      ['creceré','crecerás','crecerá','creceremos','creceréis','crecerán'],
+    condicional: ['crecería','crecerías','crecería','creceríamos','creceríais','crecerían'],
+    subjpresente:['crezca','crezcas','crezca','crezcamos','crezcáis','crezcan'],
+    subjimperfecto:['creciera','crecieras','creciera','creciéramos','crecierais','crecieran'],
+    imperativo:  ['—','crece','crezca','crezcamos','creced','crezcan'],
+    perfecto:    ['he crecido','has crecido','ha crecido','hemos crecido','habéis crecido','han crecido'],
+  },
+  aparecer: { type:'irregular', translation:'erscheinen/auftauchen',
+    presente:    ['aparezco','apareces','aparece','aparecemos','aparecéis','aparecen'],
+    preterito:   ['aparecí','apareciste','apareció','aparecimos','aparecisteis','aparecieron'],
+    imperfecto:  ['aparecía','aparecías','aparecía','aparecíamos','aparecíais','aparecían'],
+    futuro:      ['apareceré','aparecerás','aparecerá','apareceremos','apareceréis','aparecerán'],
+    condicional: ['aparecería','aparecerías','aparecería','apareceríamos','apareceríais','aparecerían'],
+    subjpresente:['aparezca','aparezcas','aparezca','aparezcamos','aparezcáis','aparezcan'],
+    subjimperfecto:['apareciera','aparecieras','apareciera','apareciéramos','aparecierais','aparecieran'],
+    imperativo:  ['—','aparece','aparezca','aparezcamos','apareced','aparezcan'],
+    perfecto:    ['he aparecido','has aparecido','ha aparecido','hemos aparecido','habéis aparecido','han aparecido'],
+  },
+  merecer: { type:'irregular', translation:'verdienen',
+    presente:    ['merezco','mereces','merece','merecemos','merecéis','merecen'],
+    preterito:   ['merecí','mereciste','mereció','merecimos','merecisteis','merecieron'],
+    imperfecto:  ['merecía','merecías','merecía','merecíamos','merecíais','merecían'],
+    futuro:      ['mereceré','merecerás','merecerá','mereceremos','mereceréis','merecerán'],
+    condicional: ['merecería','merecerías','merecería','mereceríamos','mereceríais','merecerían'],
+    subjpresente:['merezca','merezcas','merezca','merezcamos','merezcáis','merezcan'],
+    subjimperfecto:['mereciera','merecieras','mereciera','mereciéramos','merecierais','merecieran'],
+    imperativo:  ['—','merece','merezca','merezcamos','mereced','merezcan'],
+    perfecto:    ['he merecido','has merecido','ha merecido','hemos merecido','habéis merecido','han merecido'],
+  },
+  pedir: { type:'irregular', translation:'bitten/bestellen',
+    presente:    ['pido','pides','pide','pedimos','pedís','piden'],
+    preterito:   ['pedí','pediste','pidió','pedimos','pedisteis','pidieron'],
+    imperfecto:  ['pedía','pedías','pedía','pedíamos','pedíais','pedían'],
+    futuro:      ['pediré','pedirás','pedirá','pediremos','pediréis','pedirán'],
+    condicional: ['pediría','pedirías','pediría','pediríamos','pediríais','pedirían'],
+    subjpresente:['pida','pidas','pida','pidamos','pidáis','pidan'],
+    subjimperfecto:['pidiera','pidieras','pidiera','pidiéramos','pidierais','pidieran'],
+    imperativo:  ['—','pide','pida','pidamos','pedid','pidan'],
+    perfecto:    ['he pedido','has pedido','ha pedido','hemos pedido','habéis pedido','han pedido'],
+  },
+  servir: { type:'irregular', translation:'dienen/servieren',
+    presente:    ['sirvo','sirves','sirve','servimos','servís','sirven'],
+    preterito:   ['serví','serviste','sirvió','servimos','servisteis','sirvieron'],
+    imperfecto:  ['servía','servías','servía','servíamos','servíais','servían'],
+    futuro:      ['serviré','servirás','servirá','serviremos','serviréis','servirán'],
+    condicional: ['serviría','servirías','serviría','serviríamos','serviríais','servirían'],
+    subjpresente:['sirva','sirvas','sirva','sirvamos','sirváis','sirvan'],
+    subjimperfecto:['sirviera','sirvieras','sirviera','sirviéramos','sirvierais','sirvieran'],
+    imperativo:  ['—','sirve','sirva','sirvamos','servid','sirvan'],
+    perfecto:    ['he servido','has servido','ha servido','hemos servido','habéis servido','han servido'],
+  },
+  seguir: { type:'irregular', translation:'folgen/weiterhin',
+    presente:    ['sigo','sigues','sigue','seguimos','seguís','siguen'],
+    preterito:   ['seguí','seguiste','siguió','seguimos','seguisteis','siguieron'],
+    imperfecto:  ['seguía','seguías','seguía','seguíamos','seguíais','seguían'],
+    futuro:      ['seguiré','seguirás','seguirá','seguiremos','seguiréis','seguirán'],
+    condicional: ['seguiría','seguirías','seguiría','seguiríamos','seguiríais','seguirían'],
+    subjpresente:['siga','sigas','siga','sigamos','sigáis','sigan'],
+    subjimperfecto:['siguiera','siguieras','siguiera','siguiéramos','siguierais','siguieran'],
+    imperativo:  ['—','sigue','siga','sigamos','seguid','sigan'],
+    perfecto:    ['he seguido','has seguido','ha seguido','hemos seguido','habéis seguido','han seguido'],
+  },
+  elegir: { type:'irregular', translation:'wählen',
+    presente:    ['elijo','eliges','elige','elegimos','elegís','eligen'],
+    preterito:   ['elegí','elegiste','eligió','elegimos','elegisteis','eligieron'],
+    imperfecto:  ['elegía','elegías','elegía','elegíamos','elegíais','elegían'],
+    futuro:      ['elegiré','elegirás','elegirá','elegiremos','elegiréis','elegirán'],
+    condicional: ['elegiría','elegirías','elegiría','elegiríamos','elegiríais','elegirían'],
+    subjpresente:['elija','elijas','elija','elijamos','elijáis','elijan'],
+    subjimperfecto:['eligiera','eligieras','eligiera','eligiéramos','eligierais','eligieran'],
+    imperativo:  ['—','elige','elija','elijamos','elegid','elijan'],
+    perfecto:    ['he elegido','has elegido','ha elegido','hemos elegido','habéis elegido','han elegido'],
+  },
+  mentir: { type:'irregular', translation:'lügen',
+    presente:    ['miento','mientes','miente','mentimos','mentís','mienten'],
+    preterito:   ['mentí','mentiste','mintió','mentimos','mentisteis','mintieron'],
+    imperfecto:  ['mentía','mentías','mentía','mentíamos','mentíais','mentían'],
+    futuro:      ['mentiré','mentirás','mentirá','mentiremos','mentiréis','mentirán'],
+    condicional: ['mentiría','mentirías','mentiría','mentiríamos','mentiríais','mentirían'],
+    subjpresente:['mienta','mientas','mienta','mintamos','mintáis','mientan'],
+    subjimperfecto:['mintiera','mintieras','mintiera','mintiéramos','mintierais','mintieran'],
+    imperativo:  ['—','miente','mienta','mintamos','mentid','mientan'],
+    perfecto:    ['he mentido','has mentido','ha mentido','hemos mentido','habéis mentido','han mentido'],
+  },
+  sentir: { type:'irregular', translation:'fühlen',
+    presente:    ['siento','sientes','siente','sentimos','sentís','sienten'],
+    preterito:   ['sentí','sentiste','sintió','sentimos','sentisteis','sintieron'],
+    imperfecto:  ['sentía','sentías','sentía','sentíamos','sentíais','sentían'],
+    futuro:      ['sentiré','sentirás','sentirá','sentiremos','sentiréis','sentirán'],
+    condicional: ['sentiría','sentirías','sentiría','sentiríamos','sentiríais','sentirían'],
+    subjpresente:['sienta','sientas','sienta','sintamos','sintáis','sientan'],
+    subjimperfecto:['sintiera','sintieras','sintiera','sintiéramos','sintierais','sintieran'],
+    imperativo:  ['—','siente','sienta','sintamos','sentid','sientan'],
+    perfecto:    ['he sentido','has sentido','ha sentido','hemos sentido','habéis sentido','han sentido'],
+  },
+  preferir: { type:'irregular', translation:'vorziehen',
+    presente:    ['prefiero','prefieres','prefiere','preferimos','preferís','prefieren'],
+    preterito:   ['preferí','preferiste','prefirió','preferimos','preferisteis','prefirieron'],
+    imperfecto:  ['prefería','preferías','prefería','prefería','preferíais','preferían'],
+    futuro:      ['preferiré','preferirás','preferirá','preferiremos','preferiréis','preferirán'],
+    condicional: ['preferiría','preferirías','preferiría','preferiríamos','preferiríais','preferirían'],
+    subjpresente:['prefiera','prefieras','prefiera','prefiramos','prefiráis','prefieran'],
+    subjimperfecto:['prefiriera','prefirieras','prefiriera','prefiriéramos','prefirierais','prefirieran'],
+    imperativo:  ['—','prefiere','prefiera','prefiramos','preferid','prefieran'],
+    perfecto:    ['he preferido','has preferido','ha preferido','hemos preferido','habéis preferido','han preferido'],
+  },
+  dormir: { type:'irregular', translation:'schlafen',
+    presente:    ['duermo','duermes','duerme','dormimos','dormís','duermen'],
+    preterito:   ['dormí','dormiste','durmió','dormimos','dormisteis','durmieron'],
+    imperfecto:  ['dormía','dormías','dormía','dormíamos','dormíais','dormían'],
+    futuro:      ['dormiré','dormirás','dormirá','dormiremos','dormiréis','dormirán'],
+    condicional: ['dormiría','dormirías','dormiría','dormiríamos','dormiríais','dormirían'],
+    subjpresente:['duerma','duermas','duerma','durmamos','durmáis','duerman'],
+    subjimperfecto:['durmiera','durmieras','durmiera','durmiéramos','durmierais','durmieran'],
+    imperativo:  ['—','duerme','duerma','durmamos','dormid','duerman'],
+    perfecto:    ['he dormido','has dormido','ha dormido','hemos dormido','habéis dormido','han dormido'],
+  },
+  morir: { type:'irregular', translation:'sterben',
+    presente:    ['muero','mueres','muere','morimos','morís','mueren'],
+    preterito:   ['morí','moriste','murió','morimos','moristeis','murieron'],
+    imperfecto:  ['moría','morías','moría','moríamos','moríais','morían'],
+    futuro:      ['moriré','morirás','morirá','moriremos','moriréis','morirán'],
+    condicional: ['moriría','morirías','moriría','moriríamos','moriríais','morirían'],
+    subjpresente:['muera','mueras','muera','muramos','muráis','mueran'],
+    subjimperfecto:['muriera','murieras','muriera','muriéramos','murierais','murieran'],
+    imperativo:  ['—','muere','muera','muramos','morid','mueran'],
+    perfecto:    ['he muerto','has muerto','ha muerto','hemos muerto','habéis muerto','han muerto'],
+  },
+  reír: { type:'irregular', translation:'lachen',
+    presente:    ['río','ríes','ríe','reímos','reís','ríen'],
+    preterito:   ['reí','reíste','rió','reímos','reísteis','rieron'],
+    imperfecto:  ['reía','reías','reía','reíamos','reíais','reían'],
+    futuro:      ['reiré','reirás','reirá','reiremos','reiréis','reirán'],
+    condicional: ['reiría','reirías','reiría','reiríamos','reiríais','reirían'],
+    subjpresente:['ría','rías','ría','riamos','riáis','rían'],
+    subjimperfecto:['riera','rieras','riera','riéramos','rierais','rieran'],
+    imperativo:  ['—','ríe','ría','riamos','reíd','rían'],
+    perfecto:    ['he reído','has reído','ha reído','hemos reído','habéis reído','han reído'],
+  },
+  construir: { type:'irregular', translation:'bauen/konstruieren',
+    presente:    ['construyo','construyes','construye','construimos','construís','construyen'],
+    preterito:   ['construí','construiste','construyó','construimos','construisteis','construyeron'],
+    imperfecto:  ['construía','construías','construía','construíamos','construíais','construían'],
+    futuro:      ['construiré','construirás','construirá','construiremos','construiréis','construirán'],
+    condicional: ['construiría','construirías','construiría','construiríamos','construiríais','construirían'],
+    subjpresente:['construya','construyas','construya','construyamos','construyáis','construyan'],
+    subjimperfecto:['construyera','construyeras','construyera','construyéramos','construyerais','construyeran'],
+    imperativo:  ['—','construye','construya','construyamos','construid','construyan'],
+    perfecto:    ['he construido','has construido','ha construido','hemos construido','habéis construido','han construido'],
+  },
+  huir: { type:'irregular', translation:'fliehen',
+    presente:    ['huyo','huyes','huye','huimos','huís','huyen'],
+    preterito:   ['huí','huiste','huyó','huimos','huisteis','huyeron'],
+    imperfecto:  ['huía','huías','huía','huíamos','huíais','huían'],
+    futuro:      ['huiré','huirás','huirá','huiremos','huiréis','huirán'],
+    condicional: ['huiría','huirías','huiría','huiríamos','huiríais','huirían'],
+    subjpresente:['huya','huyas','huya','huyamos','huyáis','huyan'],
+    subjimperfecto:['huyera','huyeras','huyera','huyéramos','huyerais','huyeran'],
+    imperativo:  ['—','huye','huya','huyamos','huid','huyan'],
+    perfecto:    ['he huido','has huido','ha huido','hemos huido','habéis huido','han huido'],
+  },
+  incluir: { type:'irregular', translation:'einschließen',
+    presente:    ['incluyo','incluyes','incluye','incluimos','incluís','incluyen'],
+    preterito:   ['incluí','incluiste','incluyó','incluimos','incluisteis','incluyeron'],
+    imperfecto:  ['incluía','incluías','incluía','incluíamos','incluíais','incluían'],
+    futuro:      ['incluiré','incluirás','incluirá','incluiremos','incluiréis','incluirán'],
+    condicional: ['incluiría','incluirías','incluiría','incluiríamos','incluiríais','incluirían'],
+    subjpresente:['incluya','incluyas','incluya','incluyamos','incluyáis','incluyan'],
+    subjimperfecto:['incluyera','incluyeras','incluyera','incluyéramos','incluyerais','incluyeran'],
+    imperativo:  ['—','incluye','incluya','incluyamos','incluid','incluyan'],
+    perfecto:    ['he incluido','has incluido','ha incluido','hemos incluido','habéis incluido','han incluido'],
+  },
+  poder: { type:'irregular', translation:'können', // already defined above
+    presente:    ['puedo','puedes','puede','podemos','podéis','pueden'],
+    preterito:   ['pude','pudiste','pudo','pudimos','pudisteis','pudieron'],
+    imperfecto:  ['podía','podías','podía','podíamos','podíais','podían'],
+    futuro:      ['podré','podrás','podrá','podremos','podréis','podrán'],
+    condicional: ['podría','podrías','podría','podríamos','podríais','podrían'],
+    subjpresente:['pueda','puedas','pueda','podamos','podáis','puedan'],
+    subjimperfecto:['pudiera','pudieras','pudiera','pudiéramos','pudierais','pudieran'],
+    imperativo:  ['—','puede','pueda','podamos','poded','puedan'],
+    perfecto:    ['he podido','has podido','ha podido','hemos podido','habéis podido','han podido'],
+  },
+  suponer: { type:'irregular', translation:'annehmen/voraussetzen',
+    presente:    ['supongo','supones','supone','suponemos','suponéis','suponen'],
+    preterito:   ['supuse','supusiste','supuso','supusimos','supusisteis','supusieron'],
+    imperfecto:  ['suponía','suponías','suponía','suponíamos','suponíais','suponían'],
+    futuro:      ['supondré','supondrás','supondrá','supondremos','supondréis','supondrán'],
+    condicional: ['supondría','supondrías','supondría','supondríamos','supondríais','supondrían'],
+    subjpresente:['suponga','supongas','suponga','supongamos','supongáis','supongan'],
+    subjimperfecto:['supusiera','supusieras','supusiera','supusiéramos','supusierais','supusieran'],
+    imperativo:  ['—','supón','suponga','supongamos','suponed','supongan'],
+    perfecto:    ['he supuesto','has supuesto','ha supuesto','hemos supuesto','habéis supuesto','han supuesto'],
+  },
+  oponer: { type:'irregular', translation:'entgegensetzen',
+    presente:    ['opongo','opones','opone','oponemos','oponéis','oponen'],
+    preterito:   ['opuse','opusiste','opuso','opusimos','opusisteis','opusieron'],
+    imperfecto:  ['oponía','oponías','oponía','oponíamos','oponíais','oponían'],
+    futuro:      ['opondré','opondrás','opondrá','opondremos','opondréis','opondrán'],
+    condicional: ['opondría','opondrías','opondría','opondríamos','opondríais','opondrían'],
+    subjpresente:['oponga','opongas','oponga','opongamos','opongáis','opongan'],
+    subjimperfecto:['opusiera','opusieras','opusiera','opusiéramos','opusierais','opusieran'],
+    imperativo:  ['—','opón','oponga','opongamos','oponed','opongan'],
+    perfecto:    ['he opuesto','has opuesto','ha opuesto','hemos opuesto','habéis opuesto','han opuesto'],
+  },
+  contener: { type:'irregular', translation:'enthalten',
+    presente:    ['contengo','contienes','contiene','contenemos','contenéis','contienen'],
+    preterito:   ['contuve','contuviste','contuvo','contuvimos','contuvisteis','contuvieron'],
+    imperfecto:  ['contenía','contenías','contenía','conteníamos','conteníais','contenían'],
+    futuro:      ['contendré','contendrás','contendrá','contendremos','contendréis','contendrán'],
+    condicional: ['contendría','contendrías','contendría','contendríamos','contendríais','contendrían'],
+    subjpresente:['contenga','contengas','contenga','contengamos','contengáis','contengan'],
+    subjimperfecto:['contuviera','contuvieras','contuviera','contuviéramos','contuvierais','contuvieran'],
+    imperativo:  ['—','contén','contenga','contengamos','contened','contengan'],
+    perfecto:    ['he contenido','has contenido','ha contenido','hemos contenido','habéis contenido','han contenido'],
+  },
+  mantener: { type:'irregular', translation:'aufrechterhalten/behalten',
+    presente:    ['mantengo','mantienes','mantiene','mantenemos','mantenéis','mantienen'],
+    preterito:   ['mantuve','mantuviste','mantuvo','mantuvimos','mantuvisteis','mantuvieron'],
+    imperfecto:  ['mantenía','mantenías','mantenía','manteníamos','manteníais','mantenían'],
+    futuro:      ['mantendré','mantendrás','mantendrá','mantendremos','mantendréis','mantendrán'],
+    condicional: ['mantendría','mantendrías','mantendría','mantendríamos','mantendríais','mantendrían'],
+    subjpresente:['mantenga','mantengas','mantenga','mantengamos','mantengáis','mantengan'],
+    subjimperfecto:['mantuviera','mantuvieras','mantuviera','mantuviéramos','mantuvierais','mantuvieran'],
+    imperativo:  ['—','mantén','mantenga','mantengamos','mantened','mantengan'],
+    perfecto:    ['he mantenido','has mantenido','ha mantenido','hemos mantenido','habéis mantenido','han mantenido'],
+  },
+  detener: { type:'irregular', translation:'anhalten/aufhalten',
+    presente:    ['detengo','detienes','detiene','detenemos','detenéis','detienen'],
+    preterito:   ['detuve','detuviste','detuvo','detuvimos','detuvisteis','detuvieron'],
+    imperfecto:  ['detenía','detenías','detenía','deteníamos','deteníais','detenían'],
+    futuro:      ['detendré','detendrás','detendrá','detendremos','detendréis','detendrán'],
+    condicional: ['detendría','detendrías','detendría','detendríamos','detendríais','detendrían'],
+    subjpresente:['detenga','detengas','detenga','detengamos','detengáis','detengan'],
+    subjimperfecto:['detuviera','detuvieras','detuviera','detuviéramos','detuvierais','detuvieran'],
+    imperativo:  ['—','detén','detenga','detengamos','detened','detengan'],
+    perfecto:    ['he detenido','has detenido','ha detenido','hemos detenido','habéis detenido','han detenido'],
+  },
+  retener: { type:'irregular', translation:'zurückhalten',
+    presente:    ['retengo','retienes','retiene','retenemos','retenéis','retienen'],
+    preterito:   ['retuve','retuviste','retuvo','retuvimos','retuvisteis','retuvieron'],
+    imperfecto:  ['retenía','retenías','retenía','reteníamos','reteníais','retenían'],
+    futuro:      ['retendré','retendrás','retendrá','retendremos','retendréis','retendrán'],
+    condicional: ['retendría','retendrías','retendría','retendríamos','retendríais','retendrían'],
+    subjpresente:['retenga','retengas','retenga','retengamos','retengáis','retengan'],
+    subjimperfecto:['retuviera','retuvieras','retuviera','retuviéramos','retuvierais','retuvieran'],
+    imperativo:  ['—','retén','retenga','retengamos','retened','retengan'],
+    perfecto:    ['he retenido','has retenido','ha retenido','hemos retenido','habéis retenido','han retenido'],
+  },
+  prever: { type:'irregular', translation:'vorhersehen', // duplicate removed above, keeping here
+    presente:    ['preveo','prevés','prevé','prevemos','prevéis','prevén'],
+    preterito:   ['preví','previste','previó','previmos','previsteis','previeron'],
+    imperfecto:  ['preveía','preveías','preveía','preveíamos','preveíais','preveían'],
+    futuro:      ['preveré','preverás','preverá','preveremos','preveréis','preverán'],
+    condicional: ['prevería','preverías','prevería','preveríamos','preveríais','preverían'],
+    subjpresente:['prevea','preveas','prevea','preveamos','preveáis','prevean'],
+    subjimperfecto:['previera','previeras','previera','previéramos','previerais','previeran'],
+    imperativo:  ['—','prevé','prevea','preveamos','preveed','prevean'],
+    perfecto:    ['he previsto','has previsto','ha previsto','hemos previsto','habéis previsto','han previsto'],
+  },
+  contraer: { type:'irregular', translation:'zusammenziehen/bekommen (Krankheit)',
+    presente:    ['contraigo','contraes','contrae','contraemos','contraéis','contraen'],
+    preterito:   ['contraje','contrajiste','contrajo','contrajimos','contrajisteis','contrajeron'],
+    imperfecto:  ['contraía','contraías','contraía','contraíamos','contraíais','contraían'],
+    futuro:      ['contraeré','contraerás','contraerá','contraeremos','contraeréis','contraerán'],
+    condicional: ['contraería','contraerías','contraería','contraeríamos','contraeríais','contraerían'],
+    subjpresente:['contraiga','contraigas','contraiga','contraigamos','contraigáis','contraigan'],
+    subjimperfecto:['contrajera','contrajeras','contrajera','contrajéramos','contrajerais','contrajeran'],
+    imperativo:  ['—','contrae','contraiga','contraigamos','contraed','contraigan'],
+    perfecto:    ['he contraído','has contraído','ha contraído','hemos contraído','habéis contraído','han contraído'],
+  },
+  nacer: { type:'irregular', translation:'geboren werden',
+    presente:    ['nazco','naces','nace','nacemos','nacéis','nacen'],
+    preterito:   ['nací','naciste','nació','nacimos','nacisteis','nacieron'],
+    imperfecto:  ['nacía','nacías','nacía','nacíamos','nacíais','nacían'],
+    futuro:      ['naceré','nacerás','nacerá','naceremos','naceréis','nacerán'],
+    condicional: ['nacería','nacerías','nacería','naceríamos','naceríais','nacerían'],
+    subjpresente:['nazca','nazcas','nazca','nazcamos','nazcáis','nazcan'],
+    subjimperfecto:['naciera','nacieras','naciera','naciéramos','nacierais','nacieran'],
+    imperativo:  ['—','nace','nazca','nazcamos','naced','nazcan'],
+    perfecto:    ['he nacido','has nacido','ha nacido','hemos nacido','habéis nacido','han nacido'],
+  },
+  volver: { type:'irregular', translation:'zurückkehren',
+    presente:    ['vuelvo','vuelves','vuelve','volvemos','volvéis','vuelven'],
+    preterito:   ['volví','volviste','volvió','volvimos','volvisteis','volvieron'],
+    imperfecto:  ['volvía','volvías','volvía','volvíamos','volvíais','volvían'],
+    futuro:      ['volveré','volverás','volverá','volveremos','volveréis','volverán'],
+    condicional: ['volvería','volverías','volvería','volveríamos','volveríais','volverían'],
+    subjpresente:['vuelva','vuelvas','vuelva','volvamos','volváis','vuelvan'],
+    subjimperfecto:['volviera','volvieras','volviera','volviéramos','volvierais','volvieran'],
+    imperativo:  ['—','vuelve','vuelva','volvamos','volved','vuelvan'],
+    perfecto:    ['he vuelto','has vuelto','ha vuelto','hemos vuelto','habéis vuelto','han vuelto'],
+  },
+  resolver: { type:'irregular', translation:'lösen/beschließen',
+    presente:    ['resuelvo','resuelves','resuelve','resolvemos','resolvéis','resuelven'],
+    preterito:   ['resolví','resolviste','resolvió','resolvimos','resolvisteis','resolvieron'],
+    imperfecto:  ['resolvía','resolvías','resolvía','resolvíamos','resolvíais','resolvían'],
+    futuro:      ['resolveré','resolverás','resolverá','resolveremos','resolveréis','resolverán'],
+    condicional: ['resolvería','resolverías','resolvería','resolveríamos','resolveríais','resolverían'],
+    subjpresente:['resuelva','resuelvas','resuelva','resolvamos','resolváis','resuelvan'],
+    subjimperfecto:['resolviera','resolvieras','resolviera','resolviéramos','resolvierais','resolvieran'],
+    imperativo:  ['—','resuelve','resuelva','resolvamos','resolved','resuelvan'],
+    perfecto:    ['he resuelto','has resuelto','ha resuelto','hemos resuelto','habéis resuelto','han resuelto'],
+  },
+  disolver: { type:'irregular', translation:'auflösen',
+    presente:    ['disuelvo','disuelves','disuelve','disolvemos','disolvéis','disuelven'],
+    preterito:   ['disolví','disolviste','disolvió','disolvimos','disolvisteis','disolvieron'],
+    imperfecto:  ['disolvía','disolvías','disolvía','disolvíamos','disolvíais','disolvían'],
+    futuro:      ['disolveré','disolverás','disolverá','disolveremos','disolveréis','disolverán'],
+    condicional: ['disolvería','disolverías','disolvería','disolveríamos','disolveríais','disolverían'],
+    subjpresente:['disuelva','disuelvas','disuelva','disolvamos','disolváis','disuelvan'],
+    subjimperfecto:['disolviera','disolvieras','disolviera','disolviéramos','disolvierais','disolvieran'],
+    imperativo:  ['—','disuelve','disuelva','disolvamos','dissolved','disuelvan'],
+    perfecto:    ['he disuelto','has disuelto','ha disuelto','hemos disuelto','habéis disuelto','han disuelto'],
+  },
+  envolver: { type:'irregular', translation:'einwickeln/umgeben',
+    presente:    ['envuelvo','envuelves','envuelve','envolvemos','envolvéis','envuelven'],
+    preterito:   ['envolví','envolviste','envolvió','envolvimos','envolvisteis','envolvieron'],
+    imperfecto:  ['envolvía','envolvías','envolvía','envolvíamos','envolvíais','envolvían'],
+    futuro:      ['envolveré','envolverás','envolverá','envolveremos','envolveréis','envolverán'],
+    condicional: ['envolvería','envolverías','envolvería','envolveríamos','envolveríais','envolverían'],
+    subjpresente:['envuelva','envuelvas','envuelva','envolvamos','envolváis','envuelvan'],
+    subjimperfecto:['envolviera','envolvieras','envolviera','envolviéramos','envolvierais','envolvieran'],
+    imperativo:  ['—','envuelve','envuelva','envolvamos','envolved','envuelvan'],
+    perfecto:    ['he envuelto','has envuelto','ha envuelto','hemos envuelto','habéis envuelto','han envuelto'],
+  },
+  jugar: { type:'irregular', translation:'spielen',
+    presente:    ['juego','juegas','juega','jugamos','jugáis','juegan'],
+    preterito:   ['jugué','jugaste','jugó','jugamos','jugasteis','jugaron'],
+    imperfecto:  ['jugaba','jugabas','jugaba','jugábamos','jugabais','jugaban'],
+    futuro:      ['jugaré','jugarás','jugará','jugaremos','jugaréis','jugarán'],
+    condicional: ['jugaría','jugarías','jugaría','jugaríamos','jugaríais','jugarían'],
+    subjpresente:['juegue','juegues','juegue','juguemos','juguéis','jueguen'],
+    subjimperfecto:['jugara','jugaras','jugara','jugáramos','jugarais','jugaran'],
+    imperativo:  ['—','juega','juegue','juguemos','jugad','jueguen'],
+    perfecto:    ['he jugado','has jugado','ha jugado','hemos jugado','habéis jugado','han jugado'],
+  },
+  colgar: { type:'irregular', translation:'aufhängen',
+    presente:    ['cuelgo','cuelgas','cuelga','colgamos','colgáis','cuelgan'],
+    preterito:   ['colgué','colgaste','colgó','colgamos','colgasteis','colgaron'],
+    imperfecto:  ['colgaba','colgabas','colgaba','colgábamos','colgabais','colgaban'],
+    futuro:      ['colgaré','colgarás','colgará','colgaremos','colgaréis','colgarán'],
+    condicional: ['colgaría','colgarías','colgaría','colgaríamos','colgaríais','colgarían'],
+    subjpresente:['cuelgue','cuelgues','cuelgue','colguemos','colguéis','cuelguen'],
+    subjimperfecto:['colgara','colgaras','colgara','colgáramos','colgarais','colgaran'],
+    imperativo:  ['—','cuelga','cuelgue','colguemos','colgad','cuelguen'],
+    perfecto:    ['he colgado','has colgado','ha colgado','hemos colgado','habéis colgado','han colgado'],
+  },
+  sonar: { type:'irregular', translation:'klingen/läuten',
+    presente:    ['sueno','suenas','suena','sonamos','sonáis','suenan'],
+    preterito:   ['soné','sonaste','sonó','sonamos','sonasteis','sonaron'],
+    imperfecto:  ['sonaba','sonabas','sonaba','sonábamos','sonabais','sonaban'],
+    futuro:      ['sonaré','sonarás','sonará','sonaremos','sonaréis','sonarán'],
+    condicional: ['sonaría','sonarías','sonaría','sonaríamos','sonaríais','sonarían'],
+    subjpresente:['suene','suenes','suene','sonemos','sonéis','suenen'],
+    subjimperfecto:['sonara','sonaras','sonara','sonáramos','sonarais','sonaran'],
+    imperativo:  ['—','suena','suene','sonemos','sonad','suenen'],
+    perfecto:    ['he sonado','has sonado','ha sonado','hemos sonado','habéis sonado','han sonado'],
+  },
+  contar: { type:'irregular', translation:'zählen/erzählen',
+    presente:    ['cuento','cuentas','cuenta','contamos','contáis','cuentan'],
+    preterito:   ['conté','contaste','contó','contamos','contasteis','contaron'],
+    imperfecto:  ['contaba','contabas','contaba','contábamos','contabais','contaban'],
+    futuro:      ['contaré','contarás','contará','contaremos','contaréis','contarán'],
+    condicional: ['contaría','contarías','contaría','contaríamos','contaríais','contarían'],
+    subjpresente:['cuente','cuentes','cuente','contemos','contéis','cuenten'],
+    subjimperfecto:['contara','contaras','contara','contáramos','contarais','contaran'],
+    imperativo:  ['—','cuenta','cuente','contemos','contad','cuenten'],
+    perfecto:    ['he contado','has contado','ha contado','hemos contado','habéis contado','han contado'],
+  },
+  costar: { type:'irregular', translation:'kosten',
+    presente:    ['cuesto','cuestas','cuesta','costamos','costáis','cuestan'],
+    preterito:   ['costé','costaste','costó','costamos','costasteis','costaron'],
+    imperfecto:  ['costaba','costabas','costaba','costábamos','costabais','costaban'],
+    futuro:      ['costaré','costarás','costará','costaremos','costaréis','costarán'],
+    condicional: ['costaría','costarías','costaría','costaríamos','costaríais','costarían'],
+    subjpresente:['cueste','cuestes','cueste','costemos','costéis','cuesten'],
+    subjimperfecto:['costara','costaras','costara','costáramos','costarais','costaran'],
+    imperativo:  ['—','cuesta','cueste','costemos','costad','cuesten'],
+    perfecto:    ['he costado','has costado','ha costado','hemos costado','habéis costado','han costado'],
+  },
+  mostrar: { type:'irregular', translation:'zeigen',
+    presente:    ['muestro','muestras','muestra','mostramos','mostráis','muestran'],
+    preterito:   ['mostré','mostraste','mostró','mostramos','mostrasteis','mostraron'],
+    imperfecto:  ['mostraba','mostrabas','mostraba','mostrábamos','mostrabais','mostraban'],
+    futuro:      ['mostraré','mostrarás','mostrará','mostraremos','mostraréis','mostrarán'],
+    condicional: ['mostraría','mostrarías','mostraría','mostraríamos','mostraríais','mostrarían'],
+    subjpresente:['muestre','muestres','muestre','mostremos','mostréis','muestren'],
+    subjimperfecto:['mostrara','mostraras','mostrara','mostráramos','mostrarais','mostraran'],
+    imperativo:  ['—','muestra','muestre','mostremos','mostrad','muestren'],
+    perfecto:    ['he mostrado','has mostrado','ha mostrado','hemos mostrado','habéis mostrado','han mostrado'],
+  },
+  recordar: { type:'irregular', translation:'sich erinnern',
+    presente:    ['recuerdo','recuerdas','recuerda','recordamos','recordáis','recuerdan'],
+    preterito:   ['recordé','recordaste','recordó','recordamos','recordasteis','recordaron'],
+    imperfecto:  ['recordaba','recordabas','recordaba','recordábamos','recordabais','recordaban'],
+    futuro:      ['recordaré','recordarás','recordará','recordaremos','recordaréis','recordarán'],
+    condicional: ['recordaría','recordarías','recordaría','recordaríamos','recordaríais','recordarían'],
+    subjpresente:['recuerde','recuerdes','recuerde','recordemos','recordéis','recuerden'],
+    subjimperfecto:['recordara','recordaras','recordara','recordáramos','recordarais','recordaran'],
+    imperativo:  ['—','recuerda','recuerde','recordemos','recordad','recuerden'],
+    perfecto:    ['he recordado','has recordado','ha recordado','hemos recordado','habéis recordado','han recordado'],
+  },
+  volar: { type:'irregular', translation:'fliegen',
+    presente:    ['vuelo','vuelas','vuela','volamos','voláis','vuelan'],
+    preterito:   ['volé','volaste','voló','volamos','volasteis','volaron'],
+    imperfecto:  ['volaba','volabas','volaba','volábamos','volabais','volaban'],
+    futuro:      ['volaré','volarás','volará','volaremos','volaréis','volarán'],
+    condicional: ['volaría','volarías','volaría','volaríamos','volaríais','volarían'],
+    subjpresente:['vuele','vueles','vuele','volemos','voléis','vuelen'],
+    subjimperfecto:['volara','volaras','volara','voláramos','volarais','volaran'],
+    imperativo:  ['—','vuela','vuele','volemos','volad','vuelen'],
+    perfecto:    ['he volado','has volado','ha volado','hemos volado','habéis volado','han volado'],
+  },
+  probar: { type:'irregular', translation:'ausprobieren/beweisen',
+    presente:    ['pruebo','pruebas','prueba','probamos','probáis','prueban'],
+    preterito:   ['probé','probaste','probó','probamos','probasteis','probaron'],
+    imperfecto:  ['probaba','probabas','probaba','probábamos','probabais','probaban'],
+    futuro:      ['probaré','probarás','probará','probaremos','probaréis','probarán'],
+    condicional: ['probaría','probarías','probaría','probaríamos','probaríais','probarían'],
+    subjpresente:['pruebe','pruebes','pruebe','probemos','probéis','prueben'],
+    subjimperfecto:['probara','probaras','probara','probáramos','probarais','probaran'],
+    imperativo:  ['—','prueba','pruebe','probemos','probad','prueben'],
+    perfecto:    ['he probado','has probado','ha probado','hemos probado','habéis probado','han probado'],
+  },
+  acostarse: { type:'irregular', translation:'sich hinlegen/zu Bett gehen',
+    presente:    ['me acuesto','te acuestas','se acuesta','nos acostamos','os acostáis','se acuestan'],
+    preterito:   ['me acosté','te acostaste','se acostó','nos acostamos','os acostasteis','se acostaron'],
+    imperfecto:  ['me acostaba','te acostabas','se acostaba','nos acostábamos','os acostabais','se acostaban'],
+    futuro:      ['me acostaré','te acostarás','se acostará','nos acostaremos','os acostaréis','se acostarán'],
+    condicional: ['me acostaría','te acostarías','se acostaría','nos acostaríamos','os acostaríais','se acostarían'],
+    subjpresente:['me acueste','te acuestes','se acueste','nos acostemos','os acostéis','se acuesten'],
+    subjimperfecto:['me acostara','te acostaras','se acostara','nos acostáramos','os acostarais','se acostaran'],
+    imperativo:  ['—','acuéstate','acuéstese','acostémonos','acostaos','acuéstense'],
+    perfecto:    ['me he acostado','te has acostado','se ha acostado','nos hemos acostado','os habéis acostado','se han acostado'],
+  },
+  levantarse: { type:'regular', translation:'aufstehen (reflexiv)',
+    presente:    ['me levanto','te levantas','se levanta','nos levantamos','os levantáis','se levantan'],
+    preterito:   ['me levanté','te levantaste','se levantó','nos levantamos','os levantasteis','se levantaron'],
+    imperfecto:  ['me levantaba','te levantabas','se levantaba','nos levantábamos','os levantabais','se levantaban'],
+    futuro:      ['me levantaré','te levantarás','se levantará','nos levantaremos','os levantaréis','se levantarán'],
+    condicional: ['me levantaría','te levantarías','se levantaría','nos levantaríamos','os levantaríais','se levantarían'],
+    subjpresente:['me levante','te levantes','se levante','nos levantemos','os levantéis','se levanten'],
+    subjimperfecto:['me levantara','te levantaras','se levantara','nos levantáramos','os levantarais','se levantaran'],
+    imperativo:  ['—','levántate','levántese','levantémonos','levantaos','levántense'],
+    perfecto:    ['me he levantado','te has levantado','se ha levantado','nos hemos levantado','os habéis levantado','se han levantado'],
+  },
+  quedarse: { type:'regular', translation:'bleiben (reflexiv)',
+    presente:    ['me quedo','te quedas','se queda','nos quedamos','os quedáis','se quedan'],
+    preterito:   ['me quedé','te quedaste','se quedó','nos quedamos','os quedasteis','se quedaron'],
+    imperfecto:  ['me quedaba','te quedabas','se quedaba','nos quedábamos','os quedabais','se quedaban'],
+    futuro:      ['me quedaré','te quedarás','se quedará','nos quedaremos','os quedaréis','se quedarán'],
+    condicional: ['me quedaría','te quedarías','se quedaría','nos quedaríamos','os quedaríais','se quedarían'],
+    subjpresente:['me quede','te quedes','se quede','nos quedemos','os quedéis','se queden'],
+    subjimperfecto:['me quedara','te quedaras','se quedara','nos quedáramos','os quedarais','se quedaran'],
+    imperativo:  ['—','quédate','quédese','quedémonos','quedaos','quédense'],
+    perfecto:    ['me he quedado','te has quedado','se ha quedado','nos hemos quedado','os habéis quedado','se han quedado'],
+  },
+  sentarse: { type:'irregular', translation:'sich setzen',
+    presente:    ['me siento','te sientas','se sienta','nos sentamos','os sentáis','se sientan'],
+    preterito:   ['me senté','te sentaste','se sentó','nos sentamos','os sentasteis','se sentaron'],
+    imperfecto:  ['me sentaba','te sentabas','se sentaba','nos sentábamos','os sentabais','se sentaban'],
+    futuro:      ['me sentaré','te sentarás','se sentará','nos sentaremos','os sentaréis','se sentarán'],
+    condicional: ['me sentaría','te sentarías','se sentaría','nos sentaríamos','os sentaríais','se sentarían'],
+    subjpresente:['me siente','te sientes','se siente','nos sentemos','os sentéis','se sienten'],
+    subjimperfecto:['me sentara','te sentaras','se sentara','nos sentáramos','os sentarais','se sentaran'],
+    imperativo:  ['—','siéntate','siéntese','sentémonos','sentaos','siéntense'],
+    perfecto:    ['me he sentado','te has sentado','se ha sentado','nos hemos sentado','os habéis sentado','se han sentado'],
+  },
+  vestirse: { type:'irregular', translation:'sich anziehen',
+    presente:    ['me visto','te vistes','se viste','nos vestimos','os vestís','se visten'],
+    preterito:   ['me vestí','te vestiste','se vistió','nos vestimos','os vestisteis','se vistieron'],
+    imperfecto:  ['me vestía','te vestías','se vestía','nos vestíamos','os vestíais','se vestían'],
+    futuro:      ['me vestiré','te vestirás','se vestirá','nos vestiremos','os vestiréis','se vestirán'],
+    condicional: ['me vestiría','te vestirías','se vestiría','nos vestiríamos','os vestiríais','se vestirían'],
+    subjpresente:['me vista','te vistas','se vista','nos vistamos','os vistáis','se vistan'],
+    subjimperfecto:['me vistiera','te vistieras','se vistiera','nos vistiéramos','os vistierais','se vistieran'],
+    imperativo:  ['—','vístete','vístase','vistámonos','vestíos','vístanse'],
+    perfecto:    ['me he vestido','te has vestido','se ha vestido','nos hemos vestido','os habéis vestido','se han vestido'],
+  },
+  equivocarse: { type:'regular', translation:'sich irren',
+    presente:    ['me equivoco','te equivocas','se equivoca','nos equivocamos','os equivocáis','se equivocan'],
+    preterito:   ['me equivoqué','te equivocaste','se equivocó','nos equivocamos','os equivocasteis','se equivocaron'],
+    imperfecto:  ['me equivocaba','te equivocabas','se equivocaba','nos equivocábamos','os equivocabais','se equivocaban'],
+    futuro:      ['me equivocaré','te equivocarás','se equivocará','nos equivocaremos','os equivocaréis','se equivocarán'],
+    condicional: ['me equivocaría','te equivocarías','se equivocaría','nos equivocaríamos','os equivocaríais','se equivocarían'],
+    subjpresente:['me equivoque','te equivoques','se equivoque','nos equivoquemos','os equivoquéis','se equivoquen'],
+    subjimperfecto:['me equivocara','te equivocaras','se equivocara','nos equivocáramos','os equivocarais','se equivocaran'],
+    imperativo:  ['—','equivócate','equivóquese','equivoquémonos','equivocaos','equivóquense'],
+    perfecto:    ['me he equivocado','te has equivocado','se ha equivocado','nos hemos equivocado','os habéis equivocado','se han equivocado'],
+  },
+};
+
+
+// ========== TENSE CONFIG ==========
+const TENSES = [
+  { key:'presente',      label:'Presente' },
+  { key:'preterito',     label:'Pretérito Indef.' },
+  { key:'imperfecto',    label:'Imperfecto' },
+  { key:'futuro',        label:'Futuro Simple' },
+  { key:'condicional',   label:'Condicional' },
+  { key:'subjpresente',  label:'Subj. Presente' },
+  { key:'subjimperfecto',label:'Subj. Imperfecto' },
+  { key:'imperativo',    label:'Imperativo' },
+  { key:'perfecto',      label:'Pret. Perfecto' },
+];
+
+const PRONOUNS = ['yo','tú','él/ella','nosotros','vosotros','ellos/ellas'];
+
+// ========== REGULAR CONJUGATION ENGINE ==========
+function conjugateRegular(verb, group, tense) {
+  const stem = group === 'ar' ? verb.slice(0,-2) :
+               group === 'er' ? verb.slice(0,-2) :
+               verb.slice(0,-2);
+  const isRef = verb.endsWith('se');
+  const base = isRef ? verb.slice(0,-2) : verb;
+  const gr = isRef ? (base.endsWith('ar') ? 'ar' : base.endsWith('er') ? 'er' : 'ir') : group;
+  const st = base.slice(0,-2);
+
+  const endings = {
+    ar: {
+      presente:     ['o','as','a','amos','áis','an'],
+      preterito:    ['é','aste','ó','amos','asteis','aron'],
+      imperfecto:   ['aba','abas','aba','ábamos','abais','aban'],
+      futuro:       ['aré','arás','ará','aremos','aréis','arán'],
+      condicional:  ['aría','arías','aría','aríamos','aríais','arían'],
+      subjpresente: ['e','es','e','emos','éis','en'],
+      subjimperfecto:['ara','aras','ara','áramos','arais','aran'],
+      imperativo:   ['—','a','e','emos','ad','en'],
+      perfecto:     null,
+    },
+    er: {
+      presente:     ['o','es','e','emos','éis','en'],
+      preterito:    ['í','iste','ió','imos','isteis','ieron'],
+      imperfecto:   ['ía','ías','ía','íamos','íais','ían'],
+      futuro:       ['eré','erás','erá','eremos','eréis','erán'],
+      condicional:  ['ería','erías','ería','eríamos','eríais','erían'],
+      subjpresente: ['a','as','a','amos','áis','an'],
+      subjimperfecto:['iera','ieras','iera','iéramos','ierais','ieran'],
+      imperativo:   ['—','e','a','amos','ed','an'],
+      perfecto:     null,
+    },
+    ir: {
+      presente:     ['o','es','e','imos','ís','en'],
+      preterito:    ['í','iste','ió','imos','isteis','ieron'],
+      imperfecto:   ['ía','ías','ía','íamos','íais','ían'],
+      futuro:       ['iré','irás','irá','iremos','iréis','irán'],
+      condicional:  ['iría','irías','iría','iríamos','iríais','irían'],
+      subjpresente: ['a','as','a','amos','áis','an'],
+      subjimperfecto:['iera','ieras','iera','iéramos','ierais','ieran'],
+      imperativo:   ['—','e','a','amos','id','an'],
+      perfecto:     null,
+    }
+  };
+
+  const endsMap = endings[gr];
+  if (!endsMap) return null;
+  const ends = endsMap[tense];
+  if (!ends) return null;
+
+  if (tense === 'perfecto') {
+    // Build from haber + participle
+    const haber = ['he','has','ha','hemos','habéis','han'];
+    let part = gr === 'ar' ? st + 'ado' : st + 'ido';
+    return haber.map(h => h + ' ' + part);
+  }
+
+  return ends.map((e,i) => {
+    if (e === '—') return '—';
+    return st + e;
+  });
+}
+
+function getConjugation(verb, data, tense) {
+  if (data[tense]) return data[tense];
+  // Try to generate for regular verbs
+  if (data.ar_group) {
+    const gen = conjugateRegular(verb, data.ar_group, tense);
+    if (gen) return gen;
+  }
+  return null;
+}
+
+// ========== STATE ==========
+let state = {
+  stats: { total:0, correct:0, wrong:0, streak:0 },
+  sessionCount: 0,
+  history: [],
+  current: null,
+  answered: false,
+  activeTenses: new Set(['presente','preterito','imperfecto','futuro','condicional','subjpresente','subjimperfecto','perfecto']),
+  verbType: 'all',
+  tableOpen: false,
+  tableActiveTense: null,
+};
+
+// ========== INIT ==========
+function init() {
+  buildTenseChecks();
+  updateVerbCount();
+  bindEvents();
+  nextQuestion();
+}
+
+function buildTenseChecks() {
+  const cont = document.getElementById('tenseChecks');
+  cont.innerHTML = TENSES.map(t => `
+    <label class="tense-check ${state.activeTenses.has(t.key) ? 'active' : ''}" data-tense="${t.key}">
+      <input type="checkbox" value="${t.key}" ${state.activeTenses.has(t.key) ? 'checked' : ''}>
+      ${t.label}
+    </label>
+  `).join('');
+  cont.querySelectorAll('input').forEach(cb => {
+    cb.addEventListener('change', () => {
+      if (cb.checked) state.activeTenses.add(cb.value);
+      else state.activeTenses.delete(cb.value);
+      cb.closest('label').classList.toggle('active', cb.checked);
+      updateVerbCount();
+    });
+  });
+}
+
+function updateVerbCount() {
+  const verbs = getFilteredVerbs();
+  const tenseCount = state.activeTenses.size;
+  document.getElementById('verbCount').innerHTML =
+    `<span>${verbs.length}</span> Verben · <span>${tenseCount}</span> Zeitformen aktiv`;
+}
+
+function getFilteredVerbs() {
+  return Object.keys(VERBS).filter(v => {
+    if (state.verbType === 'regular' && VERBS[v].type !== 'regular') return false;
+    if (state.verbType === 'irregular' && VERBS[v].type !== 'irregular') return false;
+    return true;
+  });
+}
+
+function getActiveTenses() {
+  return [...state.activeTenses].filter(t => t !== 'imperativo'); // avoid —
+}
+
+function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function nextQuestion() {
+  const verbs = getFilteredVerbs();
+  if (!verbs.length || !state.activeTenses.size) {
+    showEmpty();
+    return;
+  }
+
+  const tenses = [...state.activeTenses];
+  let verb, tense, data, forms, pronounIdx;
+  let tries = 0;
+  do {
+    verb = pickRandom(verbs);
+    tense = pickRandom(tenses);
+    data = VERBS[verb];
+    forms = getConjugation(verb, data, tense);
+    // pick non-'—' pronoun
+    pronounIdx = Math.floor(Math.random() * 6);
+    tries++;
+  } while ((!forms || forms[pronounIdx] === '—') && tries < 50);
+
+  if (!forms) { nextQuestion(); return; }
+
+  state.current = { verb, tense, data, forms, pronounIdx };
+  state.answered = false;
+
+  // Render
+  const inp = document.getElementById('answerInput');
+  inp.value = '';
+  inp.className = '';
+  inp.disabled = false;
+  inp.focus();
+
+  const isIrreg = data.type === 'irregular';
+  const isRef = verb.endsWith('se');
+  const tenseObj = TENSES.find(t => t.key === tense);
+
+  // Apply tense color class to card
+  const card = document.getElementById('qCard');
+  card.className = card.className.replace(/tense-\S+/g, '').trim();
+  card.classList.add('tense-' + tense);
+
+  document.getElementById('qMeta').innerHTML = `
+    <span class="badge ${isIrreg ? 'irregular' : ''}">${isIrreg ? 'irregular' : 'regular'}</span>
+    <span class="badge tense-${tense}">${tenseObj ? tenseObj.label : tense}</span>
+    ${isRef ? '<span class="badge reflexive">reflexiv</span>' : ''}
+  `;
+  document.getElementById('qVerb').textContent = verb;
+  document.getElementById('qTrans').textContent = data.translation || '';
+  document.getElementById('qPronoun').textContent = PRONOUNS[pronounIdx];
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className = 'feedback-row';
+  document.getElementById('checkBtn').textContent = 'Prüfen';
+
+  // close table
+  closeTable();
+
+  updateProgress();
+}
+
+function normalize(s) {
+  return s.trim().toLowerCase()
+    .replace(/á/g,'a').replace(/é/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u')
+    .replace(/ü/g,'u').replace(/ñ/g,'n');
+}
+
+function checkAnswer() {
+  if (state.answered) { nextQuestion(); return; }
+  const inp = document.getElementById('answerInput');
+  const val = inp.value.trim();
+  if (!val) return;
+
+  const { forms, pronounIdx, verb, tense } = state.current;
+  const correct = forms[pronounIdx];
+  const isOk = normalize(val) === normalize(correct);
+
+  state.answered = true;
+  state.sessionCount++;
+  state.stats.total++;
+
+  const fb = document.getElementById('feedback');
+
+  if (isOk) {
+    state.stats.correct++;
+    state.stats.streak++;
+    inp.className = 'is-correct';
+    fb.className = 'feedback-row correct';
+    fb.textContent = '✓ Richtig!';
+  } else {
+    state.stats.wrong++;
+    state.stats.streak = 0;
+    inp.className = 'is-wrong';
+    fb.className = 'feedback-row wrong';
+    fb.innerHTML = `✗ Falsch &mdash; korrekt: <span class="correct-form">${correct}</span>`;
+  }
+
+  inp.disabled = true;
+  document.getElementById('checkBtn').textContent = 'Weiter →';
+
+  addHistory(verb, PRONOUNS[pronounIdx], tense, val, correct, isOk);
+  updateStats();
+  updateProgress();
+}
+
+function addHistory(verb, pron, tense, given, correct, ok) {
+  const tenseObj = TENSES.find(t => t.key === tense);
+  state.history.unshift({ verb, pron, tense: tenseObj?.label || tense, given, correct, ok });
+  if (state.history.length > 30) state.history.pop();
+  renderHistory();
+}
+
+function renderHistory() {
+  const sec = document.getElementById('historySection');
+  const list = document.getElementById('historyList');
+  if (!state.history.length) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  list.innerHTML = state.history.map(h => `
+    <div class="history-item">
+      <div class="hi-dot ${h.ok ? 'ok' : 'fail'}"></div>
+      <span class="hi-verb">${h.verb}</span>
+      <span class="hi-form">${h.pron} · ${h.tense}</span>
+      <span class="hi-answer ${h.ok ? 'ok' : 'fail'}">${h.ok ? h.correct : h.given + ' → ' + h.correct}</span>
+    </div>
+  `).join('');
+}
+
+function updateStats() {
+  document.getElementById('sTotal').textContent = state.stats.total;
+  document.getElementById('sCorrect').textContent = state.stats.correct;
+  document.getElementById('sWrong').textContent = state.stats.wrong;
+  document.getElementById('sStreak').textContent = state.stats.streak;
+  const pct = state.stats.total > 0 ? Math.round(state.stats.correct/state.stats.total*100) : null;
+  document.getElementById('sPct').textContent = pct !== null ? `${pct}% korrekt` : '—';
+}
+
+function updateProgress() {
+  const total = state.stats.total;
+  const pct = Math.min(100, total);
+  document.getElementById('progLabel').textContent = `Sitzung · ${total} Fragen`;
+  document.getElementById('progPct').textContent = state.stats.total > 0 ? Math.round(state.stats.correct/state.stats.total*100)+'%' : '—';
+  document.getElementById('progFill').style.width = Math.min(100, total/2) + '%';
+}
+
+// ========== TABLE ==========
+function openTable() {
+  if (!state.current) return;
+  state.tableOpen = true;
+  state.tableActiveTense = state.current.tense;
+  document.getElementById('conjTable').classList.add('open');
+  renderTableTabs();
+  renderTableGrid();
+  document.getElementById('conjTitle').textContent =
+    `${state.current.verb} — ${state.current.data.translation || ''}`;
+}
+
+function closeTable() {
+  state.tableOpen = false;
+  document.getElementById('conjTable').classList.remove('open');
+}
+
+function renderTableTabs() {
+  const { verb, data } = state.current;
+  const tabs = document.getElementById('tenseTabs');
+  tabs.innerHTML = TENSES.map(t => {
+    const forms = getConjugation(verb, data, t.key);
+    if (!forms) return '';
+    return `<button class="tense-tab ${t.key === state.tableActiveTense ? 'active' : ''}" data-tense="${t.key}">${t.label}</button>`;
+  }).join('');
+  tabs.querySelectorAll('.tense-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.tableActiveTense = btn.dataset.tense;
+      tabs.querySelectorAll('.tense-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTableGrid();
+    });
+  });
+}
+
+function renderTableGrid() {
+  const { verb, data, tense: curTense, pronounIdx } = state.current;
+  const forms = getConjugation(verb, data, state.tableActiveTense);
+  if (!forms) return;
+  const grid = document.getElementById('conjGrid');
+  grid.innerHTML = PRONOUNS.map((p,i) => {
+    const isCurrent = state.tableActiveTense === curTense && i === pronounIdx;
+    return `
+      <div class="conj-row ${isCurrent ? 'hl' : ''}">
+        <span class="conj-pron">${p}</span>
+        <span class="conj-form ${isCurrent ? 'hl' : ''}">${forms[i]}</span>
+      </div>`;
+  }).join('');
+}
+
+function showEmpty() {
+  document.getElementById('qVerb').textContent = '—';
+  document.getElementById('qTrans').textContent = 'Bitte wähle mindestens eine Zeitform und einen Verb-Typ.';
+  document.getElementById('qPronoun').textContent = '';
+}
+
+// ========== BIND EVENTS ==========
+function bindEvents() {
+  document.getElementById('answerInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkAnswer();
+  });
+  document.getElementById('checkBtn').addEventListener('click', checkAnswer);
+  document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+  document.getElementById('skipBtn').addEventListener('click', nextQuestion);
+  document.getElementById('tableBtn').addEventListener('click', () => {
+    state.tableOpen ? closeTable() : openTable();
+  });
+  document.getElementById('tableClose').addEventListener('click', closeTable);
+  document.getElementById('verbTypeFilter').addEventListener('change', e => {
+    state.verbType = e.target.value;
+    updateVerbCount();
+    nextQuestion();
+  });
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+</script>
+</body>
+</html>
