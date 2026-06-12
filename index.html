@@ -39,6 +39,35 @@
   --radius: 14px;
   --shadow: 0 2px 14px rgba(80,60,40,0.08);
 }
+
+/* DARK MODE */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #221f1c;
+    --surface: #2b2723;
+    --surface2: #36312b;
+    --surface3: #3f3932;
+    --accent: #7eb5a6;
+    --accent2: #93c9ba;
+    --text: #ece6df;
+    --text-dim: #8d857a;
+    --text-mid: #beb4a7;
+    --correct: #7dbd97;
+    --correct-bg: rgba(125,189,151,0.14);
+    --wrong: #d49090;
+    --wrong-bg: rgba(212,144,144,0.14);
+    --border: #3e382f;
+    --border2: #4c4438;
+    --shadow: 0 2px 14px rgba(0,0,0,0.35);
+  }
+  body {
+    background-image:
+      radial-gradient(ellipse at 5% 0%, rgba(138,184,216,0.09) 0%, transparent 40%),
+      radial-gradient(ellipse at 95% 5%, rgba(168,160,204,0.08) 0%, transparent 35%),
+      radial-gradient(ellipse at 90% 95%, rgba(232,160,168,0.08) 0%, transparent 40%),
+      radial-gradient(ellipse at 10% 90%, rgba(126,181,166,0.08) 0%, transparent 35%);
+  }
+}
 * { margin:0; padding:0; box-sizing:border-box; }
 
 body {
@@ -151,6 +180,24 @@ select:focus { outline: none; border-color: var(--accent); }
 .stat-pct { font-size: 0.85rem; color: var(--text-dim); margin-top: 0.3rem; text-align: right; }
 .streak { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-mid); margin-top: 0.5rem; }
 .streak-val { color: #d4804a; font-weight: 700; }
+.streak.hot .streak-val { animation: flame 1s ease infinite; display: inline-block; }
+@keyframes flame {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.25); }
+}
+.stats-reset {
+  margin-top: 0.75rem;
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text-dim);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.7rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.stats-reset:hover { color: var(--wrong); border-color: var(--wrong); }
 
 /* MAIN */
 .main {
@@ -250,8 +297,30 @@ input[type="text"] {
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 input[type="text"]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(126,181,166,0.15); }
-input[type="text"].is-correct { border-color: var(--correct); background: var(--correct-bg); color: #3a7a58; }
-input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wrong-bg); }
+input[type="text"].is-correct { border-color: var(--correct); background: var(--correct-bg); color: var(--correct); }
+input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wrong-bg); animation: shake 0.4s ease; }
+
+@keyframes shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(3px); }
+  30%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+  50%      { transform: translateX(-3px); }
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+.q-card.anim-in { animation: cardIn 0.35s ease; }
+@keyframes pop {
+  0%   { transform: scale(0.85); opacity: 0; }
+  60%  { transform: scale(1.06); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.feedback-row.correct { animation: pop 0.3s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .q-card.anim-in, .feedback-row.correct, input[type="text"].is-wrong { animation: none; }
+}
 
 .btn-primary {
   background: var(--accent);
@@ -366,6 +435,21 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
 }
 .verb-count span { color: var(--accent2); font-weight: 700; }
 
+/* MINI STATS (mobile only) */
+.mini-stats {
+  display: none;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  font-size: 0.76rem;
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+  margin-left: 0.4rem;
+  box-shadow: var(--shadow);
+  font-weight: 600;
+}
+
 /* VERB HISTORY */
 .history { margin-top: 1.5rem; }
 .history-title { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.75rem; font-weight: 700; }
@@ -392,7 +476,7 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
 .empty-state h3 { font-family: 'Fraunces', serif; color: var(--text-mid); margin-bottom: 0.5rem; }
 
 @media (max-width: 700px) {
-  .layout { grid-template-columns: 1fr; }
+  .layout { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
 
   /* MOBILE SIDEBAR - compact horizontal header */
   .sidebar {
@@ -459,6 +543,7 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
 
   /* Verb count smaller */
   .verb-count { font-size: 0.7rem; padding: 0.3rem 0.75rem; margin-bottom: 1rem; }
+  .mini-stats { display: inline-block; font-size: 0.7rem; padding: 0.3rem 0.75rem; margin-bottom: 1rem; }
 
   /* Progress */
   .progress-wrap { margin-bottom: 1.25rem; }
@@ -489,7 +574,6 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
 @media (max-width: 380px) {
   .action-row { flex-wrap: wrap; }
   .btn-secondary { flex: 1 1 calc(50% - 0.25rem); }
-}
 }
 </style>
 </head>
@@ -530,13 +614,14 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
       <div class="stat-row"><span class="stat-name">Richtig</span><span class="stat-val" id="sCorrect" style="color:var(--correct)">0</span></div>
       <div class="stat-row"><span class="stat-name">Falsch</span><span class="stat-val" id="sWrong" style="color:var(--wrong)">0</span></div>
       <div class="stat-pct" id="sPct">—</div>
-      <div class="streak">🔥 Streak: <span class="streak-val" id="sStreak">0</span></div>
+      <div class="streak" id="streakRow">🔥 Streak: <span class="streak-val" id="sStreak">0</span></div>
+      <button class="stats-reset" id="statsReset">Statistik zurücksetzen</button>
     </div>
   </aside>
 
   <!-- MAIN -->
   <main class="main">
-    <div class="verb-count" id="verbCount">Lade Verben …</div>
+    <div class="verb-count" id="verbCount">Lade Verben …</div><div class="mini-stats" id="miniStats">✓ 0 · ✗ 0 · 🔥 0</div>
 
     <div class="progress-wrap">
       <div class="progress-label"><span id="progLabel">Sitzung</span><span id="progPct">0%</span></div>
@@ -561,7 +646,6 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
     <div class="action-row">
       <button class="btn-secondary" id="tableBtn">📋 Alle Formen</button>
       <button class="btn-secondary" id="skipBtn">⏭ Überspringen</button>
-      <button class="btn-secondary" id="nextBtn">→ Weiter</button>
     </div>
 
     <!-- CONJUGATION TABLE -->
@@ -692,11 +776,19 @@ const VERBS = {
   completar:  { type:'regular', translation:'vervollständigen', ar_group:'ar' },
   comprobar:  { type:'regular', translation:'überprüfen',    ar_group:'ar' },
   comunicar:  { type:'regular', translation:'kommunizieren', ar_group:'ar' },
-  confiar:    { type:'regular', translation:'vertrauen',     ar_group:'ar' },
+  confiar:    { type:'regular', translation:'vertrauen',     ar_group:'ar',
+    presente:    ['confío','confías','confía','confiamos','confiáis','confían'],
+    subjpresente:['confíe','confíes','confíe','confiemos','confiéis','confíen'],
+    imperativo:  ['—','confía','confíe','confiemos','confiad','confíen'],
+  },
   conformar:  { type:'regular', translation:'sich abfinden', ar_group:'ar' },
   conservar:  { type:'regular', translation:'bewahren',      ar_group:'ar' },
   considerar: { type:'regular', translation:'berücksichtigen', ar_group:'ar' },
-  continuar:  { type:'regular', translation:'fortsetzen',    ar_group:'ar' },
+  continuar:  { type:'regular', translation:'fortsetzen',    ar_group:'ar',
+    presente:    ['continúo','continúas','continúa','continuamos','continuáis','continúan'],
+    subjpresente:['continúe','continúes','continúe','continuemos','continuéis','continúen'],
+    imperativo:  ['—','continúa','continúe','continuemos','continuad','continúen'],
+  },
   controlar:  { type:'regular', translation:'kontrollieren', ar_group:'ar' },
   conversar:  { type:'regular', translation:'sich unterhalten', ar_group:'ar' },
   copiar:     { type:'regular', translation:'kopieren',      ar_group:'ar' },
@@ -746,7 +838,11 @@ const VERBS = {
   enredar:    { type:'regular', translation:'verwirren/verwickeln', ar_group:'ar' },
   enseñar:    { type:'regular', translation:'lehren/zeigen', ar_group:'ar' },
   entrar:     { type:'regular', translation:'eintreten',     ar_group:'ar' },
-  enviar:     { type:'regular', translation:'schicken',      ar_group:'ar' },
+  enviar:     { type:'regular', translation:'schicken',      ar_group:'ar',
+    presente:    ['envío','envías','envía','enviamos','enviáis','envían'],
+    subjpresente:['envíe','envíes','envíe','enviemos','enviéis','envíen'],
+    imperativo:  ['—','envía','envíe','enviemos','enviad','envíen'],
+  },
   escalar:    { type:'regular', translation:'klettern',      ar_group:'ar' },
   escapar:    { type:'regular', translation:'entkommen',     ar_group:'ar' },
   establecer: { type:'irregular', translation:'etablieren/gründen',
@@ -760,14 +856,22 @@ const VERBS = {
     imperativo:  ['—','establece','establezca','establezcamos','estableced','establezcan'],
     perfecto:    ['he establecido','has establecido','ha establecido','hemos establecido','habéis establecido','han establecido'],
   },
-  evaluar:    { type:'regular', translation:'bewerten',      ar_group:'ar' },
+  evaluar:    { type:'regular', translation:'bewerten',      ar_group:'ar',
+    presente:    ['evalúo','evalúas','evalúa','evaluamos','evaluáis','evalúan'],
+    subjpresente:['evalúe','evalúes','evalúe','evaluemos','evaluéis','evalúen'],
+    imperativo:  ['—','evalúa','evalúe','evaluemos','evaluad','evalúen'],
+  },
   explorar:   { type:'regular', translation:'erkunden',      ar_group:'ar' },
   exportar:   { type:'regular', translation:'exportieren',   ar_group:'ar' },
   expresar:   { type:'regular', translation:'ausdrücken',    ar_group:'ar' },
   financiar:  { type:'regular', translation:'finanzieren',   ar_group:'ar' },
   firmar:     { type:'regular', translation:'unterschreiben',ar_group:'ar' },
   formar:     { type:'regular', translation:'formen/bilden', ar_group:'ar' },
-  fotografiar:{ type:'regular', translation:'fotografieren', ar_group:'ar' },
+  fotografiar:{ type:'regular', translation:'fotografieren', ar_group:'ar',
+    presente:    ['fotografío','fotografías','fotografía','fotografiamos','fotografiáis','fotografían'],
+    subjpresente:['fotografíe','fotografíes','fotografíe','fotografiemos','fotografiéis','fotografíen'],
+    imperativo:  ['—','fotografía','fotografíe','fotografiemos','fotografiad','fotografíen'],
+  },
   funcionar:  { type:'regular', translation:'funktionieren', ar_group:'ar' },
   generar:    { type:'regular', translation:'erzeugen',      ar_group:'ar' },
   gestionar:  { type:'regular', translation:'verwalten',     ar_group:'ar' },
@@ -878,7 +982,10 @@ const VERBS = {
   comer:      { type:'regular', translation:'essen',         ar_group:'er' },
   beber:      { type:'regular', translation:'trinken',       ar_group:'er' },
   correr:     { type:'regular', translation:'laufen',        ar_group:'er' },
-  leer:       { type:'regular', translation:'lesen',         ar_group:'er' },
+  leer:       { type:'regular', translation:'lesen',         ar_group:'er',
+    preterito:     ['leí','leíste','leyó','leímos','leísteis','leyeron'],
+    subjimperfecto:['leyera','leyeras','leyera','leyéramos','leyerais','leyeran'],
+  },
   aprender:   { type:'regular', translation:'lernen',        ar_group:'er' },
   comprender: { type:'regular', translation:'verstehen',     ar_group:'er' },
   responder:  { type:'regular', translation:'antworten',     ar_group:'er' },
@@ -1872,9 +1979,6 @@ const PRONOUNS = ['yo','tú','él/ella','nosotros','vosotros','ellos/ellas'];
 
 // ========== REGULAR CONJUGATION ENGINE ==========
 function conjugateRegular(verb, group, tense) {
-  const stem = group === 'ar' ? verb.slice(0,-2) :
-               group === 'er' ? verb.slice(0,-2) :
-               verb.slice(0,-2);
   const isRef = verb.endsWith('se');
   const base = isRef ? verb.slice(0,-2) : verb;
   const gr = isRef ? (base.endsWith('ar') ? 'ar' : base.endsWith('er') ? 'er' : 'ir') : group;
@@ -1890,7 +1994,6 @@ function conjugateRegular(verb, group, tense) {
       subjpresente: ['e','es','e','emos','éis','en'],
       subjimperfecto:['ara','aras','ara','áramos','arais','aran'],
       imperativo:   ['—','a','e','emos','ad','en'],
-      perfecto:     null,
     },
     er: {
       presente:     ['o','es','e','emos','éis','en'],
@@ -1901,7 +2004,6 @@ function conjugateRegular(verb, group, tense) {
       subjpresente: ['a','as','a','amos','áis','an'],
       subjimperfecto:['iera','ieras','iera','iéramos','ierais','ieran'],
       imperativo:   ['—','e','a','amos','ed','an'],
-      perfecto:     null,
     },
     ir: {
       presente:     ['o','es','e','imos','ís','en'],
@@ -1912,25 +2014,33 @@ function conjugateRegular(verb, group, tense) {
       subjpresente: ['a','as','a','amos','áis','an'],
       subjimperfecto:['iera','ieras','iera','iéramos','ierais','ieran'],
       imperativo:   ['—','e','a','amos','id','an'],
-      perfecto:     null,
     }
   };
+
+  if (tense === 'perfecto') {
+    // Build from haber + participle
+    const haber = ['he','has','ha','hemos','habéis','han'];
+    let part = gr === 'ar' ? st + 'ado' : st + 'ido';
+    // Vokalstamm: leído, creído, caído …
+    if (gr !== 'ar' && /[aeo]$/.test(st)) part = st + 'ído';
+    return haber.map(h => h + ' ' + part);
+  }
 
   const endsMap = endings[gr];
   if (!endsMap) return null;
   const ends = endsMap[tense];
   if (!ends) return null;
 
-  if (tense === 'perfecto') {
-    // Build from haber + participle
-    const haber = ['he','has','ha','hemos','habéis','han'];
-    let part = gr === 'ar' ? st + 'ado' : st + 'ido';
-    return haber.map(h => h + ' ' + part);
-  }
-
-  return ends.map((e,i) => {
+  return ends.map(e => {
     if (e === '—') return '—';
-    return st + e;
+    let s = st;
+    // Orthografie -car/-gar/-zar vor e/é: busqué, pagué, alcancé
+    if (gr === 'ar' && /^[eé]/.test(e)) {
+      if (s.endsWith('c'))      s = s.slice(0,-1) + 'qu';
+      else if (s.endsWith('g')) s = s.slice(0,-1) + 'gu';
+      else if (s.endsWith('z')) s = s.slice(0,-1) + 'c';
+    }
+    return s + e;
   });
 }
 
@@ -1948,6 +2058,7 @@ function getConjugation(verb, data, tense) {
 let state = {
   stats: { total:0, correct:0, wrong:0, streak:0 },
   sessionCount: 0,
+  sessionCorrect: 0,
   history: [],
   current: null,
   answered: false,
@@ -1957,11 +2068,42 @@ let state = {
   tableActiveTense: null,
 };
 
+// ========== PERSISTENZ ==========
+const STORE_KEY = 'espanolTrainerC1';
+
+function saveState() {
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify({
+      stats: state.stats,
+      activeTenses: [...state.activeTenses],
+      verbType: state.verbType,
+    }));
+  } catch (e) { /* z.B. Private Mode */ }
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    if (s.stats) state.stats = { total:0, correct:0, wrong:0, streak:0, ...s.stats };
+    if (Array.isArray(s.activeTenses)) {
+      const valid = s.activeTenses.filter(t => TENSES.some(x => x.key === t));
+      if (valid.length) state.activeTenses = new Set(valid);
+    }
+    if (['all','regular','irregular'].includes(s.verbType)) state.verbType = s.verbType;
+  } catch (e) { /* korrupte Daten ignorieren */ }
+}
+
 // ========== INIT ==========
 function init() {
+  loadState();
+  document.getElementById('verbTypeFilter').value = state.verbType;
   buildTenseChecks();
   updateVerbCount();
+  updateStats();
   bindEvents();
+  syncThemeColor();
   nextQuestion();
 }
 
@@ -1979,6 +2121,7 @@ function buildTenseChecks() {
       else state.activeTenses.delete(cb.value);
       cb.closest('label').classList.toggle('active', cb.checked);
       updateVerbCount();
+      saveState();
     });
   });
 }
@@ -1998,33 +2141,32 @@ function getFilteredVerbs() {
   });
 }
 
-function getActiveTenses() {
-  return [...state.activeTenses].filter(t => t !== 'imperativo'); // avoid —
-}
-
 function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
 function nextQuestion() {
   const verbs = getFilteredVerbs();
-  if (!verbs.length || !state.activeTenses.size) {
+  const tenses = [...state.activeTenses];
+  if (!verbs.length || !tenses.length) {
     showEmpty();
     return;
   }
 
-  const tenses = [...state.activeTenses];
-  let verb, tense, data, forms, pronounIdx;
+  let verb, tense, data, forms;
   let tries = 0;
   do {
     verb = pickRandom(verbs);
     tense = pickRandom(tenses);
     data = VERBS[verb];
     forms = getConjugation(verb, data, tense);
-    // pick non-'—' pronoun
-    pronounIdx = Math.floor(Math.random() * 6);
     tries++;
-  } while ((!forms || forms[pronounIdx] === '—') && tries < 50);
+  } while (!forms && tries < 100);
 
-  if (!forms) { nextQuestion(); return; }
+  if (!forms) { showEmpty(); return; }
+
+  // nur Pronomen mit existierender Form (Imperativo hat kein 'yo')
+  const validIdx = PRONOUNS.map((_, i) => i).filter(i => forms[i] && forms[i] !== '—');
+  if (!validIdx.length) { showEmpty(); return; }
+  const pronounIdx = pickRandom(validIdx);
 
   state.current = { verb, tense, data, forms, pronounIdx };
   state.answered = false;
@@ -2040,10 +2182,11 @@ function nextQuestion() {
   const isRef = verb.endsWith('se');
   const tenseObj = TENSES.find(t => t.key === tense);
 
-  // Apply tense color class to card
+  // Apply tense color class to card + entrance animation
   const card = document.getElementById('qCard');
-  card.className = card.className.replace(/tense-\S+/g, '').trim();
-  card.classList.add('tense-' + tense);
+  card.className = card.className.replace(/tense-\S+/g, '').replace(/anim-in/g, '').trim();
+  void card.offsetWidth;
+  card.classList.add('tense-' + tense, 'anim-in');
 
   document.getElementById('qMeta').innerHTML = `
     <span class="badge ${isIrreg ? 'irregular' : ''}">${isIrreg ? 'irregular' : 'regular'}</span>
@@ -2077,6 +2220,7 @@ function checkAnswer() {
 
   const { forms, pronounIdx, verb, tense } = state.current;
   const correct = forms[pronounIdx];
+  const isExact = val.toLowerCase() === correct.toLowerCase();
   const isOk = normalize(val) === normalize(correct);
 
   state.answered = true;
@@ -2088,9 +2232,14 @@ function checkAnswer() {
   if (isOk) {
     state.stats.correct++;
     state.stats.streak++;
+    state.sessionCorrect++;
     inp.className = 'is-correct';
     fb.className = 'feedback-row correct';
-    fb.textContent = '✓ Richtig!';
+    if (isExact) {
+      fb.textContent = '✓ Richtig!';
+    } else {
+      fb.innerHTML = `✓ Richtig — achte auf den Akzent: <span class="correct-form">${correct}</span>`;
+    }
   } else {
     state.stats.wrong++;
     state.stats.streak = 0;
@@ -2105,6 +2254,7 @@ function checkAnswer() {
   addHistory(verb, PRONOUNS[pronounIdx], tense, val, correct, isOk);
   updateStats();
   updateProgress();
+  saveState();
 }
 
 function addHistory(verb, pron, tense, given, correct, ok) {
@@ -2136,14 +2286,26 @@ function updateStats() {
   document.getElementById('sStreak').textContent = state.stats.streak;
   const pct = state.stats.total > 0 ? Math.round(state.stats.correct/state.stats.total*100) : null;
   document.getElementById('sPct').textContent = pct !== null ? `${pct}% korrekt` : '—';
+  document.getElementById('streakRow').classList.toggle('hot', state.stats.streak >= 5);
+  document.getElementById('miniStats').textContent =
+    `✓ ${state.stats.correct} · ✗ ${state.stats.wrong} · 🔥 ${state.stats.streak}`;
+}
+
+function resetStats() {
+  if (!confirm('Statistik wirklich zurücksetzen?')) return;
+  state.stats = { total:0, correct:0, wrong:0, streak:0 };
+  state.history = [];
+  renderHistory();
+  updateStats();
+  updateProgress();
+  saveState();
 }
 
 function updateProgress() {
-  const total = state.stats.total;
-  const pct = Math.min(100, total);
-  document.getElementById('progLabel').textContent = `Sitzung · ${total} Fragen`;
-  document.getElementById('progPct').textContent = state.stats.total > 0 ? Math.round(state.stats.correct/state.stats.total*100)+'%' : '—';
-  document.getElementById('progFill').style.width = Math.min(100, total/2) + '%';
+  const n = state.sessionCount;
+  document.getElementById('progLabel').textContent = `Sitzung · ${n} Fragen`;
+  document.getElementById('progPct').textContent = n > 0 ? Math.round(state.sessionCorrect/n*100)+'%' : '—';
+  document.getElementById('progFill').style.width = Math.min(100, n*2) + '%';
 }
 
 // ========== TABLE ==========
@@ -2208,8 +2370,8 @@ function bindEvents() {
     if (e.key === 'Enter') checkAnswer();
   });
   document.getElementById('checkBtn').addEventListener('click', checkAnswer);
-  document.getElementById('nextBtn').addEventListener('click', nextQuestion);
   document.getElementById('skipBtn').addEventListener('click', nextQuestion);
+  document.getElementById('statsReset').addEventListener('click', resetStats);
   document.getElementById('tableBtn').addEventListener('click', () => {
     state.tableOpen ? closeTable() : openTable();
   });
@@ -2225,9 +2387,17 @@ function bindEvents() {
   document.getElementById('verbTypeFilter').addEventListener('change', e => {
     state.verbType = e.target.value;
     updateVerbCount();
+    saveState();
     nextQuestion();
   });
 }
+
+// theme-color (iOS Statusleiste) an Hell-/Dunkelmodus anpassen
+const darkMq = window.matchMedia('(prefers-color-scheme: dark)');
+function syncThemeColor() {
+  document.querySelector('meta[name="theme-color"]').content = darkMq.matches ? '#221f1c' : '#f4f1ee';
+}
+darkMq.addEventListener('change', syncThemeColor);
 
 document.addEventListener('DOMContentLoaded', init);
 
