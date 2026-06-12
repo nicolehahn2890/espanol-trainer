@@ -629,8 +629,18 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
     color: var(--text);
   }
 
-  /* Hide stats on mobile (save space) */
-  .stats-panel { display: none; }
+  /* Statistik auf Mobile: einklappbar statt versteckt */
+  .stats-panel { margin-top: 0; padding-top: 0.75rem; }
+  .stats-panel > h2 {
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 0;
+    padding: 0.4rem 0;
+  }
+  .stats-panel > h2::after { content: '▾'; font-size: 0.8rem; }
+  .stats-panel.collapsed > h2::after { content: '▸'; }
+  .stats-panel.collapsed > *:not(h2) { display: none; }
+  .stats-panel:not(.collapsed) > h2 { margin-bottom: 0.75rem; }
 
   /* MAIN */
   .main { padding: 1rem 1rem 3rem; max-width: 100%; }
@@ -2764,12 +2774,25 @@ function bindEvents() {
     state.tableOpen ? closeTable() : openTable();
   });
   document.getElementById('tableClose').addEventListener('click', closeTable);
-  // Mobile: collapsible filter
+  // Mobile: Filter und Statistik einklappbar
   const filterSection = document.querySelector('.filter-section');
   const filterH2 = filterSection?.querySelector('h2');
-  if (filterH2 && window.innerWidth <= 700) {
-    filterSection.classList.add('collapsed');
-    filterH2.addEventListener('click', () => filterSection.classList.toggle('collapsed'));
+  const statsPanel = document.querySelector('.stats-panel');
+  const statsH2 = statsPanel?.querySelector(':scope > h2');
+  if (window.innerWidth <= 700) {
+    if (filterH2) {
+      filterSection.classList.add('collapsed');
+      filterH2.addEventListener('click', () => filterSection.classList.toggle('collapsed'));
+    }
+    if (statsH2) {
+      statsPanel.classList.add('collapsed');
+      statsH2.addEventListener('click', () => statsPanel.classList.toggle('collapsed'));
+    }
+    // Tipp auf die Mini-Statistik öffnet die volle Statistik
+    document.getElementById('miniStats').addEventListener('click', () => {
+      statsPanel.classList.remove('collapsed');
+      statsPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
   }
 
   document.getElementById('verbTypeFilter').addEventListener('change', e => {
