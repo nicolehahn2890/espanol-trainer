@@ -175,6 +175,79 @@ select:focus { outline: none; border-color: var(--accent); }
 /* STATS in sidebar */
 .stats-panel { border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: auto; }
 .stats-panel h2 { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.75rem; }
+
+/* LEVEL & XP */
+.level-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem; }
+.level-badge {
+  background: linear-gradient(135deg, #f5c54a, #e8a236);
+  color: #5c4310;
+  font-weight: 800;
+  font-size: 0.72rem;
+  padding: 0.22rem 0.55rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(232,162,54,0.35);
+}
+.xp-bar { flex: 1; height: 6px; background: var(--border); border-radius: 6px; overflow: hidden; }
+.xp-fill { height: 100%; background: linear-gradient(90deg, #f5c54a, #e8a236); border-radius: 6px; transition: width 0.5s ease; }
+.xp-text { font-size: 0.62rem; color: var(--text-dim); white-space: nowrap; font-weight: 600; }
+
+/* TREFFERQUOTE-RING */
+.stats-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+.ring-wrap { position: relative; width: 72px; height: 72px; flex-shrink: 0; }
+.ring { width: 72px; height: 72px; transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: var(--border); stroke-width: 6; }
+.ring-fg {
+  fill: none; stroke: var(--accent); stroke-width: 6; stroke-linecap: round;
+  stroke-dasharray: 194.78; stroke-dashoffset: 194.78;
+  transition: stroke-dashoffset 0.6s ease;
+}
+.ring-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  line-height: 1.1;
+}
+.ring-center span { font-family: 'Fraunces', serif; font-size: 1.05rem; color: var(--accent2); font-weight: 600; }
+.ring-center small { font-size: 0.52rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; }
+.stats-nums { flex: 1; }
+
+/* STATISTIK NACH ZEITFORM */
+.tense-stats { margin-top: 0.9rem; }
+.tense-stats h2 { margin-top: 0; margin-bottom: 0.5rem; }
+.ts-row { display: flex; align-items: center; gap: 0.45rem; padding: 0.16rem 0; }
+.ts-label { font-size: 0.66rem; color: var(--text-mid); width: 5.6rem; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ts-bar { flex: 1; height: 5px; background: var(--border); border-radius: 5px; overflow: hidden; }
+.ts-fill { display: block; height: 100%; border-radius: 5px; transition: width 0.4s ease; }
+.ts-pct { font-size: 0.62rem; color: var(--text-dim); width: 2.1rem; text-align: right; font-weight: 700; }
+
+/* TOAST & KONFETTI */
+.toast {
+  position: fixed;
+  top: 1rem; left: 50%;
+  transform: translate(-50%, -150%);
+  background: var(--surface);
+  color: var(--text);
+  border: 1.5px solid var(--border2);
+  border-radius: 30px;
+  padding: 0.6rem 1.3rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  box-shadow: 0 6px 24px rgba(80,60,40,0.18);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.25s, visibility 0.25s;
+  pointer-events: none;
+}
+.toast.show { transform: translate(-50%, 0); opacity: 1; visibility: visible; }
+.confetti {
+  position: fixed;
+  top: -14px;
+  width: 9px; height: 14px;
+  border-radius: 2px;
+  z-index: 999;
+  pointer-events: none;
+}
 .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 0.3rem 0; }
 .stat-name { font-size: 0.8rem; color: var(--text-mid); }
 .stat-val { font-family: 'Fraunces', serif; font-size: 1.1rem; color: var(--accent2); }
@@ -282,7 +355,7 @@ select:focus { outline: none; border-color: var(--accent); }
   align-items: center;
   gap: 0.5rem;
 }
-.q-pronoun::before { content: '›'; color: var(--rose); font-size: 1.5rem; line-height: 1; }
+.q-pronoun::before { content: '›'; color: var(--tense-color, var(--rose)); font-size: 1.5rem; line-height: 1; }
 
 .input-row { display: flex; gap: 0.75rem; }
 
@@ -341,6 +414,25 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
 .btn-primary:hover { background: var(--accent2); box-shadow: 0 4px 14px rgba(94,157,140,0.4); }
 .btn-primary:active { transform: scale(0.97); }
 
+/* AKZENT-TASTEN */
+.accent-row { display: flex; gap: 0.45rem; margin-top: 0.75rem; flex-wrap: wrap; }
+.accent-btn {
+  min-width: 2.3rem;
+  padding: 0.45rem 0.55rem;
+  background: var(--surface2);
+  border: 1.5px solid var(--border2);
+  border-radius: 10px;
+  color: var(--text-mid);
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+.accent-btn:hover { background: var(--accent-dim); border-color: var(--accent); color: var(--text); }
+.accent-btn:active { transform: scale(0.92); }
+.accent-btn.hint { margin-left: auto; font-size: 0.78rem; font-weight: 600; }
+
 .feedback-row {
   min-height: 2rem;
   margin-top: 0.9rem;
@@ -352,6 +444,7 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
 }
 .feedback-row.correct { color: var(--correct); }
 .feedback-row.wrong { color: var(--wrong); }
+.feedback-row.info { color: var(--text-mid); }
 .feedback-row .correct-form { color: var(--text); font-style: italic; font-weight: 400; }
 
 /* ACTION ROW */
@@ -559,6 +652,11 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
   .btn-primary { width: 100%; padding: 0.9rem; font-size: 1rem; }
   input[type="text"] { font-size: 1rem; padding: 0.8rem 1rem; }
 
+  /* Akzent-Tasten: größere Touch-Ziele */
+  .accent-row { gap: 0.4rem; }
+  .accent-btn { flex: 1; min-width: 2.5rem; padding: 0.6rem 0.3rem; font-size: 1.1rem; }
+  .accent-btn.hint { flex: 1.6; font-size: 0.8rem; }
+
   /* Action row - 3 buttons side by side */
   .action-row { gap: 0.5rem; }
   .btn-secondary { font-size: 0.75rem; padding: 0.55rem 0.5rem; }
@@ -639,6 +737,14 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
       </div>
 
       <div class="filter-group">
+        <label>Fragenauswahl</label>
+        <select id="modeFilter">
+          <option value="smart">🎯 Schwächen üben</option>
+          <option value="random">🎲 Zufällig</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
         <label>Zeitformen (mehrere möglich)</label>
         <div class="tense-checks" id="tenseChecks"></div>
       </div>
@@ -646,11 +752,28 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
 
     <div class="stats-panel">
       <h2>Statistik</h2>
-      <div class="stat-row"><span class="stat-name">Gesamt</span><span class="stat-val" id="sTotal">0</span></div>
-      <div class="stat-row"><span class="stat-name">Richtig</span><span class="stat-val" id="sCorrect" style="color:var(--correct)">0</span></div>
-      <div class="stat-row"><span class="stat-name">Falsch</span><span class="stat-val" id="sWrong" style="color:var(--wrong)">0</span></div>
-      <div class="stat-pct" id="sPct">—</div>
+      <div class="level-row">
+        <span class="level-badge" id="levelBadge">Lv 1</span>
+        <div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
+        <span class="xp-text" id="xpText">0/250 XP</span>
+      </div>
+      <div class="stats-top">
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 72 72">
+            <circle class="ring-bg" cx="36" cy="36" r="31"/>
+            <circle class="ring-fg" id="ringFg" cx="36" cy="36" r="31"/>
+          </svg>
+          <div class="ring-center"><span id="ringPct">—</span><small>korrekt</small></div>
+        </div>
+        <div class="stats-nums">
+          <div class="stat-row"><span class="stat-name">Gesamt</span><span class="stat-val" id="sTotal">0</span></div>
+          <div class="stat-row"><span class="stat-name">Richtig</span><span class="stat-val" id="sCorrect" style="color:var(--correct)">0</span></div>
+          <div class="stat-row"><span class="stat-name">Falsch</span><span class="stat-val" id="sWrong" style="color:var(--wrong)">0</span></div>
+        </div>
+      </div>
       <div class="streak" id="streakRow">🔥 Streak: <span class="streak-val" id="sStreak">0</span></div>
+      <div class="streak">📅 Übungstage in Folge: <span class="streak-val" id="sDays">0</span></div>
+      <div class="tense-stats" id="tenseStats"></div>
       <button class="stats-reset" id="statsReset">Statistik zurücksetzen</button>
     </div>
   </aside>
@@ -672,8 +795,17 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
       <div class="q-verb-translation" id="qTrans"></div>
       <div class="q-pronoun" id="qPronoun">yo</div>
       <div class="input-row">
-        <input type="text" id="answerInput" placeholder="Deine Antwort …" autocomplete="off" autocorrect="off" spellcheck="false" />
+        <input type="text" id="answerInput" placeholder="Deine Antwort …" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
         <button class="btn-primary" id="checkBtn">Prüfen</button>
+      </div>
+      <div class="accent-row">
+        <button class="accent-btn" data-ch="á">á</button>
+        <button class="accent-btn" data-ch="é">é</button>
+        <button class="accent-btn" data-ch="í">í</button>
+        <button class="accent-btn" data-ch="ó">ó</button>
+        <button class="accent-btn" data-ch="ú">ú</button>
+        <button class="accent-btn" data-ch="ñ">ñ</button>
+        <button class="accent-btn hint" id="hintBtn">💡 Tipp</button>
       </div>
       <div class="feedback-row" id="feedback"></div>
     </div>
@@ -702,6 +834,7 @@ input[type="text"].is-wrong { border-color: var(--wrong); background: var(--wron
   </main>
 </div>
 
+<div class="toast" id="toast" role="status"></div>
 
 <script>
 const VERBS = {
@@ -2095,14 +2228,29 @@ let state = {
   stats: { total:0, correct:0, wrong:0, streak:0 },
   sessionCount: 0,
   sessionCorrect: 0,
+  xp: 0,
+  itemStats: {},        // 'verb|tense' -> { r, w } für adaptive Auswahl
+  dayStreak: 0,
+  lastDay: null,
+  mode: 'smart',        // 'smart' (Schwächen üben) | 'random'
+  hintLevel: 0,
+  lastKey: null,
   history: [],
   current: null,
   answered: false,
-  activeTenses: new Set(['presente','preterito','imperfecto','futuro','condicional','subjpresente','subjimperfecto','perfecto']),
+  activeTenses: new Set(TENSES.map(t => t.key)),
   verbType: 'all',
   tableOpen: false,
   tableActiveTense: null,
 };
+
+const TENSE_COLORS = {
+  presente:'#7ab5a6', preterito:'#7aa8c8', imperfecto:'#9890bc',
+  futuro:'#c89068', condicional:'#c87888', subjpresente:'#a0a048',
+  subjimperfecto:'#5a9888', imperativo:'#d49080', perfecto:'#7898c8',
+};
+
+function levelFromXp(xp) { return Math.floor(xp / 250) + 1; }
 
 // ========== PERSISTENZ ==========
 const STORE_KEY = 'espanolTrainerC1';
@@ -2110,7 +2258,13 @@ const STORE_KEY = 'espanolTrainerC1';
 function saveState() {
   try {
     localStorage.setItem(STORE_KEY, JSON.stringify({
+      v: 2,
       stats: state.stats,
+      xp: state.xp,
+      itemStats: state.itemStats,
+      dayStreak: state.dayStreak,
+      lastDay: state.lastDay,
+      mode: state.mode,
       activeTenses: [...state.activeTenses],
       verbType: state.verbType,
     }));
@@ -2123,7 +2277,13 @@ function loadState() {
     if (!raw) return;
     const s = JSON.parse(raw);
     if (s.stats) state.stats = { total:0, correct:0, wrong:0, streak:0, ...s.stats };
-    if (Array.isArray(s.activeTenses)) {
+    if (typeof s.xp === 'number') state.xp = s.xp;
+    if (s.itemStats && typeof s.itemStats === 'object') state.itemStats = s.itemStats;
+    if (typeof s.dayStreak === 'number') state.dayStreak = s.dayStreak;
+    if (typeof s.lastDay === 'string') state.lastDay = s.lastDay;
+    if (['smart','random'].includes(s.mode)) state.mode = s.mode;
+    // Zeitformen-Auswahl nur ab v2 wiederherstellen — v1-Stände bekommen den neuen Standard (alle 9)
+    if (s.v >= 2 && Array.isArray(s.activeTenses)) {
       const valid = s.activeTenses.filter(t => TENSES.some(x => x.key === t));
       if (valid.length) state.activeTenses = new Set(valid);
     }
@@ -2135,6 +2295,7 @@ function loadState() {
 function init() {
   loadState();
   document.getElementById('verbTypeFilter').value = state.verbType;
+  document.getElementById('modeFilter').value = state.mode;
   buildTenseChecks();
   updateVerbCount();
   updateStats();
@@ -2179,6 +2340,42 @@ function getFilteredVerbs() {
 
 function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
+// Adaptive Auswahl: oft falsch beantwortete Verb/Zeitform-Paare kommen häufiger,
+// gemeisterte (3× richtig, nie falsch) seltener.
+function itemWeight(verb, tense) {
+  const s = state.itemStats[verb + '|' + tense];
+  if (!s) return 1;
+  if (s.w === 0 && s.r >= 3) return 0.3;
+  return Math.max(0.3, 1 + Math.min(s.w * 2, 6) - Math.min(s.r * 0.15, 0.7));
+}
+
+function pickWeighted(verbs, tenses) {
+  // 40 %: gezielt eine offene Schwäche abfragen (öfter falsch als richtig beantwortet)
+  if (Math.random() < 0.4) {
+    const weak = [];
+    for (const v of verbs) for (const t of tenses) {
+      const s = state.itemStats[v + '|' + t];
+      if (s && s.w > 0 && s.w >= s.r) weak.push({ verb: v, tense: t });
+    }
+    if (weak.length) return pickRandom(weak);
+  }
+  // sonst gewichteter Zufall: Gemeistertes seltener, Fehlerhaftes häufiger
+  let total = 0;
+  const weights = [];
+  for (const v of verbs) for (const t of tenses) {
+    const w = itemWeight(v, t);
+    weights.push(w);
+    total += w;
+  }
+  let r = Math.random() * total;
+  let i = 0;
+  for (const v of verbs) for (const t of tenses) {
+    r -= weights[i++];
+    if (r <= 0) return { verb: v, tense: t };
+  }
+  return { verb: verbs[verbs.length-1], tense: tenses[tenses.length-1] };
+}
+
 function nextQuestion() {
   const verbs = getFilteredVerbs();
   const tenses = [...state.activeTenses];
@@ -2190,14 +2387,22 @@ function nextQuestion() {
   let verb, tense, data, forms;
   let tries = 0;
   do {
-    verb = pickRandom(verbs);
-    tense = pickRandom(tenses);
+    if (state.mode === 'smart') {
+      ({ verb, tense } = pickWeighted(verbs, tenses));
+    } else {
+      verb = pickRandom(verbs);
+      tense = pickRandom(tenses);
+    }
     data = VERBS[verb];
     forms = getConjugation(verb, data, tense);
     tries++;
+    // dieselbe Frage nicht zweimal hintereinander
+    if (forms && verb + '|' + tense === state.lastKey && tries < 10) forms = null;
   } while (!forms && tries < 100);
 
   if (!forms) { showEmpty(); return; }
+  state.lastKey = verb + '|' + tense;
+  state.hintLevel = 0;
 
   // nur Pronomen mit existierender Form (Imperativo hat kein 'yo')
   const validIdx = PRONOUNS.map((_, i) => i).filter(i => forms[i] && forms[i] !== '—');
@@ -2223,6 +2428,7 @@ function nextQuestion() {
   card.className = card.className.replace(/tense-\S+/g, '').replace(/anim-in/g, '').trim();
   void card.offsetWidth;
   card.classList.add('tense-' + tense, 'anim-in');
+  card.style.setProperty('--tense-color', TENSE_COLORS[tense] || 'var(--accent)');
 
   document.getElementById('qMeta').innerHTML = `
     <span class="badge ${isIrreg ? 'irregular' : ''}">${isIrreg ? 'irregular' : 'regular'}</span>
@@ -2263,12 +2469,27 @@ function checkAnswer() {
   state.sessionCount++;
   state.stats.total++;
 
+  // pro Verb/Zeitform mitzählen (für adaptive Auswahl & Zeitform-Statistik)
+  const key = verb + '|' + tense;
+  const it = state.itemStats[key] || (state.itemStats[key] = { r:0, w:0 });
+
+  // Tages-Streak
+  const today = new Date().toISOString().slice(0,10);
+  if (state.lastDay !== today) {
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+    state.dayStreak = state.lastDay === yesterday ? state.dayStreak + 1 : 1;
+    state.lastDay = today;
+  }
+
+  const prevLevel = levelFromXp(state.xp);
   const fb = document.getElementById('feedback');
 
   if (isOk) {
     state.stats.correct++;
     state.stats.streak++;
     state.sessionCorrect++;
+    it.r++;
+    state.xp += 10 + Math.min(state.stats.streak, 10);
     inp.className = 'is-correct';
     fb.className = 'feedback-row correct';
     if (isExact) {
@@ -2279,6 +2500,8 @@ function checkAnswer() {
   } else {
     state.stats.wrong++;
     state.stats.streak = 0;
+    it.w++;
+    state.xp += 2;
     inp.className = 'is-wrong';
     fb.className = 'feedback-row wrong';
     fb.innerHTML = `✗ Falsch &mdash; korrekt: <span class="correct-form">${correct}</span>`;
@@ -2287,10 +2510,83 @@ function checkAnswer() {
   inp.disabled = true;
   document.getElementById('checkBtn').textContent = 'Weiter →';
 
+  // Feiern: Level-Up und Streak-Meilensteine
+  const newLevel = levelFromXp(state.xp);
+  if (newLevel > prevLevel) {
+    showToast(`⭐ Level ${newLevel} erreicht!`);
+    confettiBurst();
+  } else if (isOk && state.stats.streak >= 5 && state.stats.streak % 5 === 0) {
+    showToast(`🔥 ${state.stats.streak}er-Streak — ¡fenomenal!`);
+    confettiBurst();
+  }
+
   addHistory(verb, PRONOUNS[pronounIdx], tense, val, correct, isOk);
   updateStats();
   updateProgress();
   saveState();
+}
+
+// ========== SKIP & TIPP ==========
+function skipQuestion() {
+  if (!state.current) return;
+  if (state.answered) { nextQuestion(); return; }
+  const { forms, pronounIdx } = state.current;
+  state.answered = true;
+  const inp = document.getElementById('answerInput');
+  inp.disabled = true;
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback-row info';
+  fb.innerHTML = `⏭ Lösung: <span class="correct-form">${forms[pronounIdx]}</span>`;
+  document.getElementById('checkBtn').textContent = 'Weiter →';
+}
+
+function showHint() {
+  if (!state.current || state.answered) return;
+  const correct = state.current.forms[state.current.pronounIdx];
+  state.hintLevel = Math.min(state.hintLevel + 1, correct.length);
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback-row info';
+  fb.innerHTML = `💡 <span class="correct-form">${correct.slice(0, state.hintLevel)}${state.hintLevel < correct.length ? '&thinsp;…' : ''}</span>`;
+  document.getElementById('answerInput').focus();
+}
+
+function insertChar(ch) {
+  const inp = document.getElementById('answerInput');
+  if (inp.disabled) return;
+  const start = inp.selectionStart ?? inp.value.length;
+  const end = inp.selectionEnd ?? inp.value.length;
+  inp.value = inp.value.slice(0, start) + ch + inp.value.slice(end);
+  inp.focus();
+  inp.setSelectionRange(start + 1, start + 1);
+}
+
+// ========== FEIERN ==========
+let toastTimer = null;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+function confettiBurst() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const colors = ['#f5c54a','#d9534f','#7eb5a6','#8ab8d8','#a8a0cc','#e8a0a8'];
+  for (let i = 0; i < 36; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti';
+    el.style.background = colors[i % colors.length];
+    el.style.left = (40 + Math.random() * 20) + 'vw';
+    document.body.appendChild(el);
+    el.animate([
+      { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+      { transform: `translate(${(Math.random() - 0.5) * 70}vw, 108vh) rotate(${540 + Math.random() * 540}deg)`, opacity: 1 }
+    ], {
+      duration: 1700 + Math.random() * 1500,
+      easing: 'cubic-bezier(0.2, 0.55, 0.45, 1)'
+    }).onfinish = () => el.remove();
+  }
 }
 
 function addHistory(verb, pron, tense, given, correct, ok) {
@@ -2315,21 +2611,63 @@ function renderHistory() {
   `).join('');
 }
 
+const RING_CIRC = 2 * Math.PI * 31; // r=31
+
 function updateStats() {
   document.getElementById('sTotal').textContent = state.stats.total;
   document.getElementById('sCorrect').textContent = state.stats.correct;
   document.getElementById('sWrong').textContent = state.stats.wrong;
   document.getElementById('sStreak').textContent = state.stats.streak;
-  const pct = state.stats.total > 0 ? Math.round(state.stats.correct/state.stats.total*100) : null;
-  document.getElementById('sPct').textContent = pct !== null ? `${pct}% korrekt` : '—';
+  document.getElementById('sDays').textContent = state.dayStreak;
   document.getElementById('streakRow').classList.toggle('hot', state.stats.streak >= 5);
+
+  // Trefferquote-Ring
+  const pct = state.stats.total > 0 ? Math.round(state.stats.correct/state.stats.total*100) : null;
+  document.getElementById('ringPct').textContent = pct !== null ? pct + '%' : '—';
+  document.getElementById('ringFg').style.strokeDashoffset =
+    pct !== null ? RING_CIRC * (1 - pct/100) : RING_CIRC;
+
+  // Level & XP
+  const level = levelFromXp(state.xp);
+  const into = state.xp % 250;
+  document.getElementById('levelBadge').textContent = 'Lv ' + level;
+  document.getElementById('xpFill').style.width = (into / 250 * 100) + '%';
+  document.getElementById('xpText').textContent = `${into}/250 XP`;
+
   document.getElementById('miniStats').textContent =
-    `✓ ${state.stats.correct} · ✗ ${state.stats.wrong} · 🔥 ${state.stats.streak}`;
+    `Lv ${level} · ✓ ${state.stats.correct} · ✗ ${state.stats.wrong} · 🔥 ${state.stats.streak}`;
+
+  renderTenseStats();
+}
+
+function renderTenseStats() {
+  const agg = {};
+  for (const [k, s] of Object.entries(state.itemStats)) {
+    const t = k.split('|')[1];
+    (agg[t] = agg[t] || { r:0, w:0 });
+    agg[t].r += s.r;
+    agg[t].w += s.w;
+  }
+  const rows = TENSES.filter(t => agg[t.key]).map(t => {
+    const a = agg[t.key], n = a.r + a.w;
+    const pct = Math.round(a.r / n * 100);
+    return `<div class="ts-row" title="${a.r} richtig / ${a.w} falsch">
+      <span class="ts-label">${t.label}</span>
+      <span class="ts-bar"><span class="ts-fill" style="width:${pct}%;background:${TENSE_COLORS[t.key]}"></span></span>
+      <span class="ts-pct">${pct}%</span>
+    </div>`;
+  }).join('');
+  document.getElementById('tenseStats').innerHTML =
+    rows ? '<h2>Nach Zeitform</h2>' + rows : '';
 }
 
 function resetStats() {
   if (!confirm('Statistik wirklich zurücksetzen?')) return;
   state.stats = { total:0, correct:0, wrong:0, streak:0 };
+  state.itemStats = {};
+  state.xp = 0;
+  state.dayStreak = 0;
+  state.lastDay = null;
   state.history = [];
   renderHistory();
   updateStats();
@@ -2405,9 +2743,23 @@ function bindEvents() {
   document.getElementById('answerInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') checkAnswer();
   });
+  // Enter geht auch weiter, wenn das Eingabefeld deaktiviert ist
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && state.answered) nextQuestion();
+  });
   document.getElementById('checkBtn').addEventListener('click', checkAnswer);
-  document.getElementById('skipBtn').addEventListener('click', nextQuestion);
+  document.getElementById('skipBtn').addEventListener('click', skipQuestion);
+  document.getElementById('hintBtn').addEventListener('click', showHint);
   document.getElementById('statsReset').addEventListener('click', resetStats);
+  // Akzent-Tasten: mousedown verhindern, damit das Eingabefeld den Fokus behält
+  document.querySelectorAll('.accent-btn[data-ch]').forEach(btn => {
+    btn.addEventListener('mousedown', e => e.preventDefault());
+    btn.addEventListener('click', () => insertChar(btn.dataset.ch));
+  });
+  document.getElementById('modeFilter').addEventListener('change', e => {
+    state.mode = e.target.value;
+    saveState();
+  });
   document.getElementById('tableBtn').addEventListener('click', () => {
     state.tableOpen ? closeTable() : openTable();
   });

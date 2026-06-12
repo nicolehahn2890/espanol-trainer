@@ -12,7 +12,8 @@ Single-File-Web-App zum Üben spanischer Konjugationen (C1): alles lebt in `inde
 - `index.html` — die komplette App:
   - `VERBS`: ~294 Verben. Regelmäßige haben nur `ar_group` ('ar'/'er'/'ir'), unregelmäßige explizite Formen-Arrays (immer 6 Einträge: yo, tú, él/ella, nosotros, vosotros, ellos/ellas). Explizite Arrays haben Vorrang vor dem Generator — so werden auch Einzelformen regelmäßiger Verben überschrieben (z.B. `leer`, `enviar`).
   - `conjugateRegular()`: Generator für regelmäßige Verben, inkl. Orthografie-Regeln (-car/-gar/-zar vor e/é → qu/gu/c) und Perfecto (haber + Partizip, Vokalstamm → -ído).
-  - Statistik/Filter werden in `localStorage` persistiert (`espanolTrainerC1`).
+  - Statistik/Filter/XP/Lernfortschritt werden in `localStorage` persistiert (`espanolTrainerC1`, Format `v:2`; ältere Stände werden migriert — Zeitformen-Auswahl wird dabei auf den Standard „alle 9" zurückgesetzt).
+  - Adaptiver Modus (`state.mode = 'smart'`, Standard): `itemStats` zählt richtig/falsch pro Verb×Zeitform; 40 % der Fragen kommen gezielt aus offenen Schwächen, der Rest gewichtet (Gemeistertes seltener). Dazu XP/Level (250 XP pro Level), Tages-Streak, Konfetti/Toast bei Meilensteinen.
   - Dark Mode via `prefers-color-scheme`, Logo ist Inline-SVG (kein Base64 mehr).
 - `apple-touch-icon.png` — App-Icon (180×180): Dino in spanischen Farben (gold mit roten Zacken). Quelle ist eine SVG-Zeichnung; bei Änderungen das Sidebar-SVG in `index.html` (`.rex-icon`) synchron halten. iOS cached das Icon — zum Aktualisieren App vom Home-Bildschirm löschen und neu hinzufügen.
 
