@@ -18,7 +18,7 @@ Single-File-Web-App zum Üben spanischer Konjugationen (C1): alles lebt in `inde
   - **Design: Pixel-Art („Español Akademie")** — Pastell-Regenbogen-Palette mit tiefem Trauben-„Ink" (`--ink` zeichnet Text UND alle Outlines), eckige Ecken (radius 0), 3px-Outlines, harte Offset-Schatten (kein Blur, `--shadow*`), gestufte Motion (`steps()`), Pixel-Fonts **Pixelify Sans** (Fließtext/Headings) + **Press Start 2P** (kleine Akzente: Badges, Zahlen, Kicker, Labels). Hintergrund: Konfetti-Kachel `bg-tile.png` über Pastell-Verlauf plus Candy-Regenbogen-Band (`body::before`). Zeitform-Akzentfarben in CSS (`.badge.tense-*`, `.tense-check[data-tense]`) **und** JS (`TENSE_COLORS`) müssen synchron bleiben.
 - `bg-tile.png` — nahtlose 160×160 Pixel-Konfetti-Kachel für den Seitenhintergrund (per `url('bg-tile.png')` in `body`). Aus dem Design-System-Handoff.
 - `logo-rainbow-tile.png` (384×384) — **Pixel-Regenbogen** (6 Pastell-Bänder + weiße Wolken, Trauben-Rahmen + Sparkles auf Pink-Lavendel-Verlauf). Wird für **Sidebar-Logo UND Home-Icon** genutzt. `logo-rainbow.png` (320×320, transparent) ist die rahmenlose Quell-Variante. Beide kamen als fertige Assets vom Nutzer (Claude Design).
-- `apple-touch-icon.png` — App-Icon = Kopie von `logo-rainbow-tile.png`. iOS cached das Icon — zum Aktualisieren App vom Home-Bildschirm löschen und neu hinzufügen.
+- `apple-touch-icon.png` — App-Icon = `logo-rainbow-tile.png` **ohne den Trauben-Rahmen** (16px ringsum weggeschnitten, 350×350); nur heller Lavendel-Verlauf + Regenbogen + Sparkles. iOS cached das Icon — zum Aktualisieren App vom Home-Bildschirm löschen und neu hinzufügen.
 
 ## Sprachliche Korrektheit
 
