@@ -188,10 +188,10 @@ h1, h2, h3, h4 { font-family: var(--font-body); color: var(--ink); font-weight: 
   width: 72px; height: 72px;
   margin: 0 auto 0.7rem;
   display: flex; align-items: center; justify-content: center;
-  background: var(--card);
+  background: var(--grad-brand);
   border: var(--border-pixel);
   box-shadow: var(--shadow-sm);
-  padding: 6px;
+  padding: 7px;
 }
 .rex-icon svg { width: 100%; height: 100%; }
 
@@ -765,42 +765,7 @@ input[type="text"].is-wrong { background: var(--err-bg); animation: shake 0.4s s
   <aside class="sidebar">
     <div class="logo">
       <div class="rex-icon">
-        <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Rex">
-          <defs>
-            <linearGradient id="rexBody" gradientUnits="userSpaceOnUse" x1="50" y1="30" x2="120" y2="150">
-              <stop offset="0" stop-color="#ffd95e"/><stop offset="1" stop-color="#f0a83a"/>
-            </linearGradient>
-            <linearGradient id="rexSpike" gradientUnits="userSpaceOnUse" x1="80" y1="20" x2="160" y2="110">
-              <stop offset="0" stop-color="#d9534f"/><stop offset="1" stop-color="#b9352f"/>
-            </linearGradient>
-          </defs>
-          <rect x="38" y="148" width="104" height="14" rx="7" fill="#c8553d" opacity="0.9"/>
-          <rect x="44" y="151.5" width="92" height="7" rx="3.5" fill="#f5c54a"/>
-          <ellipse cx="90" cy="149" rx="42" ry="6" fill="#3a2e1e" opacity="0.12"/>
-          <g fill="url(#rexSpike)">
-            <path d="M70 36 Q74 22 80 34 Q76 40 70 36 Z"/>
-            <path d="M88 32 Q94 18 99 32 Q94 38 88 32 Z"/>
-            <path d="M106 38 Q114 26 117 40 Q111 45 106 38 Z"/>
-            <path d="M112 101 Q121 83 128 100 Q120 106 112 101 Z"/>
-            <path d="M133 102 Q143 87 148 99 Q140 107 133 102 Z"/>
-          </g>
-          <path d="M104 112 C 126 120, 146 112, 160 92 C 146 102, 128 104, 102 94 Z" fill="url(#rexBody)"/>
-          <rect x="60" y="66" width="52" height="68" rx="22" fill="url(#rexBody)"/>
-          <rect x="40" y="30" width="74" height="56" rx="27" fill="url(#rexBody)"/>
-          <rect x="63" y="118" width="19" height="28" rx="9" fill="url(#rexBody)"/>
-          <rect x="92" y="118" width="19" height="28" rx="9" fill="url(#rexBody)"/>
-          <ellipse cx="71" cy="143" rx="13" ry="6.5" fill="#e09a32"/>
-          <ellipse cx="100" cy="143" rx="13" ry="6.5" fill="#e09a32"/>
-          <ellipse cx="84" cy="104" rx="19" ry="25" fill="#ffeeb0"/>
-          <path d="M60 92 Q48 96 50 104 Q56 106 62 100 Z" fill="#e8a236"/>
-          <circle cx="64" cy="54" r="8.5" fill="#fff"/>
-          <circle cx="62.5" cy="55" r="4.2" fill="#3a2e24"/>
-          <circle cx="61" cy="53.5" r="1.4" fill="#fff"/>
-          <circle cx="47" cy="48" r="1.8" fill="#a86c20"/>
-          <path d="M43 66 Q56 74 74 70" fill="none" stroke="#a86c20" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M52 70.5 L55.5 71.2 L53.5 75 Z" fill="#fff"/>
-          <circle cx="76" cy="68" r="5" fill="#d9534f" opacity="0.35"/>
-        </svg>
+        <svg viewBox="0 0 22 18" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Rex" shape-rendering="crispEdges"><rect x="3" y="1" width="6" height="1" fill="#41265f"/><rect x="2" y="2" width="2" height="1" fill="#41265f"/><rect x="4" y="2" width="4" height="1" fill="#f5c44a"/><rect x="8" y="2" width="6" height="1" fill="#41265f"/><rect x="2" y="3" width="1" height="1" fill="#41265f"/><rect x="3" y="3" width="6" height="1" fill="#f5c44a"/><rect x="9" y="3" width="1" height="1" fill="#41265f"/><rect x="10" y="3" width="1" height="1" fill="#e05246"/><rect x="11" y="3" width="1" height="1" fill="#41265f"/><rect x="12" y="3" width="1" height="1" fill="#e05246"/><rect x="13" y="3" width="2" height="1" fill="#41265f"/><rect x="2" y="4" width="1" height="1" fill="#41265f"/><rect x="3" y="4" width="6" height="1" fill="#f5c44a"/><rect x="9" y="4" width="5" height="1" fill="#e05246"/><rect x="14" y="4" width="3" height="1" fill="#41265f"/><rect x="2" y="5" width="1" height="1" fill="#41265f"/><rect x="3" y="5" width="1" height="1" fill="#f5c44a"/><rect x="4" y="5" width="2" height="1" fill="#ffffff"/><rect x="6" y="5" width="10" height="1" fill="#f5c44a"/><rect x="16" y="5" width="3" height="1" fill="#41265f"/><rect x="1" y="6" width="2" height="1" fill="#41265f"/><rect x="3" y="6" width="1" height="1" fill="#f5c44a"/><rect x="4" y="6" width="1" height="1" fill="#ffffff"/><rect x="5" y="6" width="1" height="1" fill="#41265f"/><rect x="6" y="6" width="1" height="1" fill="#ff9dc8"/><rect x="7" y="6" width="11" height="1" fill="#f5c44a"/><rect x="18" y="6" width="2" height="1" fill="#41265f"/><rect x="1" y="7" width="1" height="1" fill="#41265f"/><rect x="2" y="7" width="17" height="1" fill="#f5c44a"/><rect x="19" y="7" width="2" height="1" fill="#41265f"/><rect x="1" y="8" width="19" height="1" fill="#f5c44a"/><rect x="20" y="8" width="1" height="1" fill="#41265f"/><rect x="1" y="9" width="20" height="1" fill="#f5c44a"/><rect x="1" y="10" width="3" height="1" fill="#41265f"/><rect x="4" y="10" width="17" height="1" fill="#f5c44a"/><rect x="2" y="11" width="1" height="1" fill="#41265f"/><rect x="3" y="11" width="17" height="1" fill="#f5c44a"/><rect x="20" y="11" width="1" height="1" fill="#41265f"/><rect x="2" y="12" width="1" height="1" fill="#41265f"/><rect x="3" y="12" width="16" height="1" fill="#f5c44a"/><rect x="19" y="12" width="2" height="1" fill="#41265f"/><rect x="2" y="13" width="1" height="1" fill="#41265f"/><rect x="3" y="13" width="15" height="1" fill="#f5c44a"/><rect x="18" y="13" width="2" height="1" fill="#41265f"/><rect x="2" y="14" width="1" height="1" fill="#41265f"/><rect x="3" y="14" width="4" height="1" fill="#f5c44a"/><rect x="7" y="14" width="2" height="1" fill="#41265f"/><rect x="9" y="14" width="5" height="1" fill="#f5c44a"/><rect x="14" y="14" width="5" height="1" fill="#41265f"/><rect x="2" y="15" width="1" height="1" fill="#41265f"/><rect x="3" y="15" width="3" height="1" fill="#f5c44a"/><rect x="6" y="15" width="4" height="1" fill="#41265f"/><rect x="10" y="15" width="3" height="1" fill="#f5c44a"/><rect x="13" y="15" width="2" height="1" fill="#41265f"/><rect x="2" y="16" width="1" height="1" fill="#41265f"/><rect x="3" y="16" width="2" height="1" fill="#f5c44a"/><rect x="5" y="16" width="2" height="1" fill="#41265f"/><rect x="9" y="16" width="1" height="1" fill="#41265f"/><rect x="10" y="16" width="2" height="1" fill="#f5c44a"/><rect x="12" y="16" width="2" height="1" fill="#41265f"/></svg>
       </div>
       <h1>Español<br>Trainer</h1>
       <p>C1 · Konjugation</p>

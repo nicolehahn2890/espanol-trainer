@@ -17,7 +17,7 @@ Single-File-Web-App zum Üben spanischer Konjugationen (C1): alles lebt in `inde
   - Dark Mode via `prefers-color-scheme`, Logo ist Inline-SVG (kein Base64 mehr).
   - **Design: Pixel-Art („Español Akademie")** — Pastell-Regenbogen-Palette mit tiefem Trauben-„Ink" (`--ink` zeichnet Text UND alle Outlines), eckige Ecken (radius 0), 3px-Outlines, harte Offset-Schatten (kein Blur, `--shadow*`), gestufte Motion (`steps()`), Pixel-Fonts **Pixelify Sans** (Fließtext/Headings) + **Press Start 2P** (kleine Akzente: Badges, Zahlen, Kicker, Labels). Hintergrund: Konfetti-Kachel `bg-tile.png` über Pastell-Verlauf plus Candy-Regenbogen-Band (`body::before`). Zeitform-Akzentfarben in CSS (`.badge.tense-*`, `.tense-check[data-tense]`) **und** JS (`TENSE_COLORS`) müssen synchron bleiben.
 - `bg-tile.png` — nahtlose 160×160 Pixel-Konfetti-Kachel für den Seitenhintergrund (per `url('bg-tile.png')` in `body`). Aus dem Design-System-Handoff.
-- `apple-touch-icon.png` — App-Icon (180×180): Dino in spanischen Farben (gold mit roten Zacken). Quelle ist eine SVG-Zeichnung; bei Änderungen das Sidebar-SVG in `index.html` (`.rex-icon`) synchron halten. iOS cached das Icon — zum Aktualisieren App vom Home-Bildschirm löschen und neu hinzufügen.
+- `apple-touch-icon.png` — App-Icon (180×180): **Pixel-Art-Dino „Rex"** (gold mit rotem Rückenkamm, rosa Bäckchen) auf Pink-Lavendel-Verlauf (`--grad-brand`) mit Trauben-Rahmen + weißen Pixel-Sparkles. Quelle ist ein Inline-SVG aus eckigen `<rect>`-Pixeln (gleiche Sprite-Daten wie das Sidebar-SVG in `index.html` `.rex-icon`) — bei Änderungen beide synchron halten. iOS cached das Icon — zum Aktualisieren App vom Home-Bildschirm löschen und neu hinzufügen.
 
 ## Sprachliche Korrektheit
 
