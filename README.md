@@ -1,4 +1,4 @@
-# 🦖 Español Trainer C1
+# 🌈 Español Trainer C1
 
 Eine kleine Web-App zum Üben spanischer **Verbkonjugationen** auf C1-Niveau — als Single-File-App gebaut und optimiert für die Nutzung als Home-Bildschirm-App auf dem iPhone.
 
@@ -16,6 +16,7 @@ Eine kleine Web-App zum Üben spanischer **Verbkonjugationen** auf C1-Niveau —
 - **Vollständige Konjugationstabelle** zu jedem Verb über alle Zeitformen
 - **Fortschritt & Motivation**: XP-/Level-System, Trefferquoten-Ring, Statistik pro Zeitform, Tages-Streak sowie Konfetti & Glückwunsch-Toasts bei Meilensteinen
 - **Filter** nach Verbtyp (alle / nur regelmäßige / nur unregelmäßige) und nach Zeitform
+- **Kawaii-Pixel-Art-Design** („Español Akademie"): Pastell-Regenbogen-Palette, eckige Ecken, chunky Trauben-Outlines mit harten Offset-Schatten, Pixel-Fonts (Pixelify Sans + Press Start 2P) und Konfetti-Hintergrund
 - **Dark Mode** (folgt automatisch der Systemeinstellung)
 - **Persistenz**: Statistik, Level und Einstellungen werden lokal im Browser gespeichert (`localStorage`) und überstehen Neustarts
 
@@ -23,7 +24,7 @@ Eine kleine Web-App zum Üben spanischer **Verbkonjugationen** auf C1-Niveau —
 
 1. Den Link in **Safari** öffnen: https://nicolehahn2890.github.io/espanol-trainer/
 2. Auf das **Teilen**-Symbol tippen → **„Zum Home-Bildschirm"**
-3. Rex erscheint als App-Icon und öffnet sich im Vollbild
+3. Das Regenbogen-Icon erscheint als App und öffnet sich im Vollbild
 
 > Hinweis: iOS speichert das Icon zwischen. Nach einem Icon-Update die App vom Home-Bildschirm löschen und neu hinzufügen.
 

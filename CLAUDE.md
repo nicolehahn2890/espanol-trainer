@@ -17,7 +17,7 @@ Single-File-Web-App zum Üben spanischer Konjugationen (C1): alles lebt in `inde
   - Dark Mode via `prefers-color-scheme`. Logo (`.logo-icon` in der Sidebar) ist das Pixel-Regenbogen-Bild `logo-rainbow-tile.png` (gleiche Datei wie das Home-Icon → konsistent).
   - **Design: Pixel-Art („Español Akademie")** — Pastell-Regenbogen-Palette mit tiefem Trauben-„Ink" (`--ink` zeichnet Text UND alle Outlines), eckige Ecken (radius 0), 3px-Outlines, harte Offset-Schatten (kein Blur, `--shadow*`), gestufte Motion (`steps()`), Pixel-Fonts **Pixelify Sans** (Fließtext/Headings) + **Press Start 2P** (kleine Akzente: Badges, Zahlen, Kicker, Labels). Hintergrund: Konfetti-Kachel `bg-tile.png` über Pastell-Verlauf plus Candy-Regenbogen-Band (`body::before`). Zeitform-Akzentfarben in CSS (`.badge.tense-*`, `.tense-check[data-tense]`) **und** JS (`TENSE_COLORS`) müssen synchron bleiben.
 - `bg-tile.png` — nahtlose 160×160 Pixel-Konfetti-Kachel für den Seitenhintergrund (per `url('bg-tile.png')` in `body`). Aus dem Design-System-Handoff.
-- `logo-rainbow-tile.png` (384×384) — **Pixel-Regenbogen** (6 Pastell-Bänder + weiße Wolken, Trauben-Rahmen + Sparkles auf Pink-Lavendel-Verlauf). Wird für **Sidebar-Logo UND Home-Icon** genutzt. `logo-rainbow.png` (320×320, transparent) ist die rahmenlose Quell-Variante. Beide kamen als fertige Assets vom Nutzer (Claude Design).
+- `logo-rainbow-tile.png` (384×384) — **Pixel-Regenbogen** (6 Pastell-Bänder + weiße Wolken, Trauben-Rahmen + Sparkles auf Pink-Lavendel-Verlauf). Wird als **Sidebar-Logo** genutzt (`.logo-icon`); das Home-Icon `apple-touch-icon.png` ist die rahmenlose Beschnitt-Variante davon. `logo-rainbow.png` (320×320, transparent) ist die rahmenlose Quell-Variante ohne Verlauf. Beide kamen als fertige Assets vom Nutzer (Claude Design).
 - `apple-touch-icon.png` — App-Icon = `logo-rainbow-tile.png` **ohne den Trauben-Rahmen** (16px ringsum weggeschnitten, 350×350); nur heller Lavendel-Verlauf + Regenbogen + Sparkles. iOS cached das Icon — zum Aktualisieren App vom Home-Bildschirm löschen und neu hinzufügen.
 
 ## Sprachliche Korrektheit
@@ -26,4 +26,7 @@ Konjugationsformen müssen exakt stimmen (inkl. Akzente) — das ist eine Lern-A
 
 ## Testen
 
-Kein Build, keine Dependencies. Funktionstests mit Playwright (`/opt/node22/lib/node_modules/playwright`) gegen `file://…/index.html`: hell/dunkel/mobil (390×844), Antwort-Flow, Persistenz nach Reload. Blockierte Google-Fonts-Requests in der Sandbox sind erwartbar und kein Fehler.
+Kein Build, keine Dependencies, kein Linter. Funktionstests mit Playwright (`/opt/node22/lib/node_modules/playwright`) gegen `file://…/index.html`: hell/dunkel/mobil (390×844), Antwort-Flow, Persistenz nach Reload. Blockierte Google-Fonts-Requests in der Sandbox sind erwartbar und kein Fehler.
+
+- **Smoke-Test:** `node tests/smoke.mjs` — deckt Render, Antwort-Flow, Tabelle, Statistik, Persistenz und Dark Mode ab (Exit ≠ 0 bei Fehler).
+- **Web-Sessions:** `.claude/hooks/session-start.sh` (SessionStart-Hook, registriert in `.claude/settings.json`) stellt für Claude Code on the web die vorinstallierte Toolchain (Node 22 + Playwright + Chromium unter `/opt/pw-browsers`) sicher. Da die App abhängigkeitsfrei ist, wird nichts installiert — der Hook garantiert nur die Test-Umgebung.
